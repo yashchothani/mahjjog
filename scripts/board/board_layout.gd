@@ -97,22 +97,19 @@ static func create_mini_turtle():
 	return BoardLayout.new("Mini Turtle", pos)
 
 static func create_pyramid_small():
-	# 30 tiles - stepped pyramid
+	# 34 tiles - stepped jade pyramid
 	var pos: Array[Vector3i] = []
-	# Layer 0 (4x4 = 16 tiles)
+	# Layer 0 (6x4 = 24 tiles base)
 	for y in range(0, 8, 2):
-		for x in range(0, 8, 2):
+		for x in range(0, 12, 2):
 			pos.append(Vector3i(x, y, 0))
-	# Layer 1 (3x3 = 9 tiles)
-	for y in range(1, 7, 2):
-		for x in range(1, 7, 2):
-			pos.append(Vector3i(x, y, 1))
-	# Layer 2 (2x2 = 4 tiles)
+	# Layer 1 (4x2 = 8 tiles step)
 	for y in range(2, 6, 2):
-		for x in range(2, 6, 2):
-			pos.append(Vector3i(x, y, 2))
-	# Layer 3 (1 tile top peak) -> 16+9+4+1 = 30 tiles
-	pos.append(Vector3i(3, 3, 3))
+		for x in range(2, 10, 2):
+			pos.append(Vector3i(x, y, 1))
+	# Layer 2 (2 tiles peak)
+	pos.append(Vector3i(4, 3, 2))
+	pos.append(Vector3i(6, 3, 2))
 	return BoardLayout.new("Jade Pyramid", pos)
 
 static func create_diamond():
@@ -338,7 +335,7 @@ static func create_generated_layout(level_id: int):
 			z = 1
 		var pos_left = Vector3i(x, y, z)
 		var pos_right = Vector3i(16 - x, y, z)
-		if not pos.has(pos_left) and not pos.has(pos_right):
+		if pos_left != pos_right and not pos.has(pos_left) and not pos.has(pos_right):
 			pos.append(pos_left)
 			pos.append(pos_right)
 			added += 1

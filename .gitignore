@@ -6,3 +6,5 @@
 
 # Temporary / build files
 *.translation
+*.apk
+*.aab

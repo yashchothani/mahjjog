@@ -33,8 +33,39 @@ var progress = {
 	"tutorial_completed": false
 }
 
+func _init() -> void:
+	load_save_data()
+
 func _ready() -> void:
 	load_save_data()
+
+func reset_to_defaults() -> void:
+	settings = {
+		"music_volume": 0.8,
+		"sfx_volume": 1.0,
+		"music_muted": false,
+		"sfx_muted": false,
+		"haptics_enabled": true,
+		"reduced_motion": false,
+		"dim_blocked_tiles": true,
+		"highlight_free_tiles": false
+	}
+	progress = {
+		"current_level": 1,
+		"max_unlocked_level": 1,
+		"completed_levels": {},
+		"selected_theme": "jade",
+		"unlocked_themes": ["jade"],
+		"daily_streak": 0,
+		"last_daily_date": "",
+		"daily_completed_today": false,
+		"hints_remaining": 5,
+		"shuffles_remaining": 3,
+		"tutorial_completed": false
+	}
+	save_data()
+	progress_updated.emit()
+	settings_changed.emit()
 
 func save_data() -> bool:
 	var payload = {

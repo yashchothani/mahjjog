@@ -5,6 +5,14 @@ const MahjongTileData = preload("res://scripts/data/mahjong_tile_data.gd")
 const BoardLayout = preload("res://scripts/board/board_layout.gd")
 const BoardGenerator = preload("res://scripts/board/board_generator.gd")
 
+func _init() -> void:
+	# If launched standalone via godot --script
+	var main_loop = Engine.get_main_loop()
+	if main_loop and main_loop.get_script() == null:
+		run_tests()
+		if main_loop is SceneTree:
+			(main_loop as SceneTree).quit(0)
+
 static func run_tests() -> void:
 	print("--- BEGINNING MAHJONG SOLITAIRE CORE LOGIC TESTS ---")
 	test_tile_matching()
@@ -57,12 +65,14 @@ static func test_free_tile_detection() -> void:
 	print("  -> Passed free tile detection assertions!")
 
 static func test_solvable_level_generation() -> void:
-	print("[TEST] 3. Solvable Level Generation across layouts...")
-	for lvl in range(1, 11):
+	print("[TEST] 3. Solvable Level Generation across all 30 layouts...")
+	for lvl in range(1, 31):
 		var res = BoardGenerator.generate_level(lvl)
 		assert(res.success, "Generation must succeed for level %d (%s)" % [lvl, res.layout_name])
 		assert(res.tile_map.size() > 0, "Tile map must not be empty")
+		assert(res.tile_map.size() % 2 == 0, "Tile map must have an even number of tiles")
 		assert(res.solution_pairs.size() == res.tile_map.size() / 2, "Solution pairs count must equal half tile count")
-		print("  -> Level %d: %s generated (%d tiles, %d solution pairs)" % [lvl, res.layout_name, res.tile_map.size(), res.solution_pairs.size()])
+		assert(BoardGenerator.solver_can_solve(res.tile_map), "Level %d must be proven solvable by solver" % lvl)
+		print("  -> Level %02d: %-22s (%d tiles, %d solution pairs) - Proven Solvable" % [lvl, res.layout_name, res.tile_map.size(), res.solution_pairs.size()])
 		
-	print("  -> Passed solvable level generation assertions!")
+	print("  -> Passed all 30 solvable level generation assertions!")
