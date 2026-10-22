@@ -1,0 +1,365 @@
+[gd_scene format=3 uid="uid://bgameplay001"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/gameplay_controller.gd" id="1_gc"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/gameplay_bg.jpg" id="2_bg"]
+[ext_resource type="Script" path="res://scripts/board/board_view.gd" id="3_bv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_topbar"]
+bg_color = Color(0.05, 0.14, 0.1, 0.85)
+border_width_bottom = 2
+border_color = Color(0.83, 0.68, 0.28, 0.4)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botbar"]
+bg_color = Color(0.05, 0.14, 0.1, 0.85)
+border_width_top = 2
+border_color = Color(0.83, 0.68, 0.28, 0.4)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.06, 0.16, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.83, 0.68, 0.28, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 12
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.12, 0.28, 0.2, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+
+[node name="Gameplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gc")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BoardContainer" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.08
+anchor_right = 1.0
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BoardView" type="Control" parent="BoardContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_bv")
+
+[node name="TopBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_topbar")
+
+[node name="HBox" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="PauseBtn" type="Button" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "⏸ Menu"
+
+[node name="LevelTitle" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 20
+text = "Level 1: Mini Turtle"
+
+[node name="PairsLabel" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.78, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+text = "18 Pairs Left"
+
+[node name="MovesLabel" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.88, 0.88, 1)
+theme_override_font_sizes/font_size = 18
+text = "Moves: 0"
+
+[node name="TimerLabel" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 18
+text = "00:00"
+
+[node name="BottomBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_botbar")
+
+[node name="HBox" type="HBoxContainer" parent="BottomBar"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 30
+
+[node name="UndoBtn" type="Button" parent="BottomBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "↶ Undo"
+
+[node name="HintBtn" type="Button" parent="BottomBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "💡 Hint"
+
+[node name="ShuffleBtn" type="Button" parent="BottomBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🔀 Shuffle"
+
+[node name="RestartBtn" type="Button" parent="BottomBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🔄 Restart"
+
+[node name="Modals" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PauseModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -140.0
+offset_right = 160.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="Modals/PauseModal"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Modals/PauseModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.65, 1)
+theme_override_font_sizes/font_size = 24
+text = "Game Paused"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="Modals/PauseModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "▶ Resume"
+
+[node name="RestartLevelBtn" type="Button" parent="Modals/PauseModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🔄 Restart Level"
+
+[node name="MenuBtn" type="Button" parent="Modals/PauseModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🏠 Return to Menu"
+
+[node name="VictoryModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -170.0
+offset_right = 200.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="Modals/VictoryModal"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.65, 1)
+theme_override_font_sizes/font_size = 28
+text = "Tranquil Victory"
+horizontal_alignment = 1
+
+[node name="StarLabel" type="Label" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.1, 1)
+theme_override_font_sizes/font_size = 32
+text = "★★★"
+horizontal_alignment = 1
+
+[node name="StatsBox" type="HBoxContainer" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="TimeLabel" type="Label" parent="Modals/VictoryModal/VBox/StatsBox"]
+layout_mode = 2
+text = "Time:"
+
+[node name="TimeVal" type="Label" parent="Modals/VictoryModal/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.75, 1)
+text = "00:00"
+
+[node name="MovesLabel" type="Label" parent="Modals/VictoryModal/VBox/StatsBox"]
+layout_mode = 2
+text = "Moves:"
+
+[node name="MovesVal" type="Label" parent="Modals/VictoryModal/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.75, 1)
+text = "0"
+
+[node name="NextLevelBtn" type="Button" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "Next Level ➔"
+
+[node name="ReplayBtn" type="Button" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "Replay Level"
+
+[node name="VicMenuBtn" type="Button" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "Main Menu"
+
+[node name="NoMovesModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -120.0
+offset_right = 170.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="Modals/NoMovesModal"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Modals/NoMovesModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.65, 1)
+theme_override_font_sizes/font_size = 22
+text = "No Moves Remaining"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="Modals/NoMovesModal/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Would you like to shuffle remaining tiles or undo your previous move?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ShuffleModalBtn" type="Button" parent="Modals/NoMovesModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🔀 Shuffle Tiles"
+
+[node name="UndoModalBtn" type="Button" parent="Modals/NoMovesModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "↶ Undo Last Move"
+
+[connection signal="pressed" from="TopBar/HBox/PauseBtn" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="BottomBar/HBox/UndoBtn" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="BottomBar/HBox/HintBtn" to="." method="_on_hint_pressed"]
+[connection signal="pressed" from="BottomBar/HBox/ShuffleBtn" to="." method="_on_shuffle_pressed"]
+[connection signal="pressed" from="BottomBar/HBox/RestartBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Modals/PauseModal/VBox/ResumeBtn" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Modals/PauseModal/VBox/RestartLevelBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Modals/PauseModal/VBox/MenuBtn" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Modals/VictoryModal/VBox/NextLevelBtn" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="Modals/VictoryModal/VBox/ReplayBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Modals/VictoryModal/VBox/VicMenuBtn" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Modals/NoMovesModal/VBox/ShuffleModalBtn" to="." method="_on_shuffle_pressed"]
+[connection signal="pressed" from="Modals/NoMovesModal/VBox/UndoModalBtn" to="." method="_on_undo_pressed"]

@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://bsettings001"]
+
+[ext_resource type="Script" path="res://scripts/ui/settings_controller.gd" id="1_sc"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/gameplay_bg.jpg" id="2_bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.16, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.83, 0.68, 0.28, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 10
+content_margin_left = 36.0
+content_margin_top = 30.0
+content_margin_right = 36.0
+content_margin_bottom = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.12, 0.28, 0.2, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sc")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 26
+text = "Settings & Accessibility"
+horizontal_alignment = 1
+
+[node name="AudioBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioBox"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="SFXLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioBox"]
+layout_mode = 2
+text = "Sound Effects Volume"
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
+[node name="AccessBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="DimCheck" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessBox"]
+layout_mode = 2
+text = "Dim blocked tiles (visual assistance)"
+
+[node name="HapticCheck" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessBox"]
+layout_mode = 2
+text = "Enable haptic feedback on touch"
+
+[node name="MotionCheck" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessBox"]
+layout_mode = 2
+text = "Reduced motion (softer transitions)"
+
+[node name="BackBtn" type="Button" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "◀ Return to Main Menu"
+
+[connection signal="value_changed" from="CenterContainer/Panel/VBox/AudioBox/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="CenterContainer/Panel/VBox/AudioBox/SFXSlider" to="." method="_on_sfx_drag_ended"]
+[connection signal="value_changed" from="CenterContainer/Panel/VBox/AudioBox/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="CenterContainer/Panel/VBox/AccessBox/DimCheck" to="." method="_on_dim_check_toggled"]
+[connection signal="toggled" from="CenterContainer/Panel/VBox/AccessBox/HapticCheck" to="." method="_on_haptic_check_toggled"]
+[connection signal="toggled" from="CenterContainer/Panel/VBox/AccessBox/MotionCheck" to="." method="_on_motion_check_toggled"]
+[connection signal="pressed" from="CenterContainer/Panel/VBox/BackBtn" to="." method="_on_back_pressed"]

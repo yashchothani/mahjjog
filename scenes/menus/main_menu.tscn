@@ -1,0 +1,276 @@
+[gd_scene format=3 uid="uid://bmainmenu001"]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu_controller.gd" id="1_mm"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/menu_bg.jpg" id="2_bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_play"]
+bg_color = Color(0.14, 0.35, 0.24, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92, 0.82, 0.45, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+content_margin_left = 28.0
+content_margin_top = 14.0
+content_margin_right = 28.0
+content_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_secondary"]
+bg_color = Color(0.08, 0.20, 0.14, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.04, 0.12, 0.08, 0.75)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.3)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+content_margin_left = 40.0
+content_margin_top = 30.0
+content_margin_right = 40.0
+content_margin_bottom = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.06, 0.16, 0.12, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.83, 0.68, 0.28, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 14
+content_margin_left = 30.0
+content_margin_top = 26.0
+content_margin_right = 30.0
+content_margin_bottom = 26.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mm")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="OverlayVignette" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.04, 0.1, 0.07, 0.35)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 22
+
+[node name="LogoPanel" type="PanelContainer" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="LogoVBox" type="VBoxContainer" parent="CenterContainer/VBox/LogoPanel"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="CenterContainer/VBox/LogoPanel/LogoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 46
+text = "ZEN MAHJONG"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/VBox/LogoPanel/LogoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.74, 1)
+theme_override_font_sizes/font_size = 14
+text = "A TRANQUIL SOLITAIRE EXPERIENCE"
+horizontal_alignment = 1
+
+[node name="StreakLabel" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.75, 1)
+theme_override_font_sizes/font_size = 14
+text = "🌿 Tranquil Garden • Daily Streak: 0 Days"
+horizontal_alignment = 1
+
+[node name="MenuButtons" type="VBoxContainer" parent="CenterContainer/VBox"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="ContinueBtn" type="Button" parent="CenterContainer/VBox/MenuButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.95, 0.88, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_play")
+text = "▶  Play"
+
+[node name="LevelSelectBtn" type="Button" parent="CenterContainer/VBox/MenuButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "🏯  Level Selection"
+
+[node name="DailyBtn" type="Button" parent="CenterContainer/VBox/MenuButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "📅  Daily Challenge"
+
+[node name="TutorialBtn" type="Button" parent="CenterContainer/VBox/MenuButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "📖  How to Play"
+
+[node name="SettingsBtn" type="Button" parent="CenterContainer/VBox/MenuButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "⚙  Settings & Audio"
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -30.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 0.6)
+theme_override_font_sizes/font_size = 12
+text = "Zen Mahjong v1.0.0"
+horizontal_alignment = 2
+
+[node name="Modals" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TutorialModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -210.0
+offset_right = 260.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="Modals/TutorialModal"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Modals/TutorialModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 22
+text = "How to Play Zen Mahjong"
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="Modals/TutorialModal/VBox"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=#f0ece1][b]1. Free Tiles:[/b]
+A tile is free when no tile rests directly on top of it, AND its left or right side is open.
+
+[b]2. Matching Pairs:[/b]
+Tap two identical free tiles to remove them from the garden board.
+• [color=#75c080]Bamboo, Dots, Characters, Winds, & Dragons[/color] match identical tiles.
+• [color=#e8b070]Flowers[/color] (Plum, Orchid, Bamboo, Chrysanthemum) match ANY flower!
+• [color=#e8b070]Seasons[/color] (Spring, Summer, Autumn, Winter) match ANY season!
+
+[b]3. Assistance:[/b]
+• [b]Undo[/b]: Reverse your previous pair match.
+• [b]Hint[/b]: Highlights an available matching pair in emerald.
+• [b]Shuffle[/b]: Re-arranges remaining tiles into a solvable state.
+
+[b]4. Objective:[/b]
+Clear all tiles from the tranquil garden board to achieve victory![/color]"
+
+[node name="CloseBtn" type="Button" parent="Modals/TutorialModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "Close Tutorial"
+
+[connection signal="pressed" from="CenterContainer/VBox/MenuButtons/ContinueBtn" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/MenuButtons/LevelSelectBtn" to="." method="_on_level_select_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/MenuButtons/DailyBtn" to="." method="_on_daily_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/MenuButtons/TutorialBtn" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/MenuButtons/SettingsBtn" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Modals/TutorialModal/VBox/CloseBtn" to="." method="_on_tutorial_close_pressed"]
