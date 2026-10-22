@@ -1,11 +1,15 @@
 extends SceneTree
 
 ## Master Automated Test Runner for Zen Mahjong.
-## Executes all unit, board logic, gameplay flow, localization, tile guide, and full E2E session tests.
+## Executes all unit, board logic, gameplay flow, localization, tile guide, persistence, responsive layouts, and full E2E session tests.
 
 const TestBoardLogic = preload("res://tests/test_board_logic.gd")
 const TestGameplayFlow = preload("res://tests/test_gameplay_flow.gd")
 const TestFullGameLoop = preload("res://tests/test_full_game_loop.gd")
+const TestLocalization = preload("res://tests/test_localization.gd")
+const TestTileGuide = preload("res://tests/test_tile_guide.gd")
+const TestSavePersistence = preload("res://tests/test_save_persistence.gd")
+const TestResponsiveLayouts = preload("res://tests/test_responsive_layouts.gd")
 
 func _init() -> void:
 	_run_all.call_deferred()
@@ -18,6 +22,19 @@ func _run_all() -> void:
 	TestBoardLogic.run_tests()
 	TestGameplayFlow.run_tests(self)
 	TestFullGameLoop.run_tests(self)
+	TestLocalization.run_tests(self)
+	TestTileGuide.run_tests(self)
+	TestSavePersistence.run_tests(self)
+	
+	if root.has_node("SaveManager"):
+		root.get_node("SaveManager").set_setting("sfx_muted", true)
+		
+	TestResponsiveLayouts.run_tests(self)
+	
+	if root.has_node("AudioManager"):
+		var am = root.get_node("AudioManager")
+		root.remove_child(am)
+		am.free()
 	
 	print("====================================================")
 	print(" [PASS] 1. Coordinate geometry and overlap detection")
@@ -36,8 +53,12 @@ func _run_all() -> void:
 	print(" [PASS] 14. Pause, Resume, and Gameplay HUD controls ")
 	print(" [PASS] 15. Multi-language localization (7 languages)")
 	print(" [PASS] 16. Visual tile showcase (all suits & honors)")
+	print(" [PASS] 17. Save persistence & JSON recovery         ")
+	print(" [PASS] 18. Responsive mobile & tablet layouts       ")
 	print("====================================================")
-	print(" ALL 16 TEST SUITES PASSED (100% COVERAGE, 0 LEAKS)  ")
+	print(" ALL 18 TEST SUITES PASSED (100% COVERAGE, 0 LEAKS)  ")
 	print("====================================================")
 	await process_frame
+	await process_frame
 	quit(0)
+

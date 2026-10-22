@@ -25,7 +25,7 @@ static func run_tests(tree: SceneTree) -> void:
 	assert(menu_scene.get_node("Modals/TutorialModal").visible == false, "Tutorial should close")
 	print("  -> Main Menu UI elements and tutorial modal verified!")
 	tree.root.remove_child(menu_scene)
-	menu_scene.queue_free()
+	menu_scene.free()
 	
 	# 2. Level Select Screen
 	print("[STEP 2] Testing Level Selection Scene...")
@@ -37,7 +37,7 @@ static func run_tests(tree: SceneTree) -> void:
 	assert(grid.get_child_count() == 30, "Level grid must have exactly 30 level buttons (found %d)" % grid.get_child_count())
 	print("  -> Verified all 30 level buttons created!")
 	tree.root.remove_child(ls_scene)
-	ls_scene.queue_free()
+	ls_scene.free()
 	
 	# 3. Settings Screen
 	print("[STEP 3] Testing Settings & Accessibility Scene...")
@@ -58,7 +58,7 @@ static func run_tests(tree: SceneTree) -> void:
 	settings_scene._on_dim_check_toggled(false)
 	print("  -> Settings slider, language option, and checkbox events tested!")
 	tree.root.remove_child(settings_scene)
-	settings_scene.queue_free()
+	settings_scene.free()
 	
 	# 4. Gameplay Scene & Board Interaction
 	print("[STEP 4] Testing Gameplay Scene & Controls...")
@@ -86,5 +86,5 @@ static func run_tests(tree: SceneTree) -> void:
 	print("  -> Gameplay HUD, tile guide modal, and in-game modal actions verified!")
 	
 	tree.root.remove_child(gp_scene)
-	gp_scene.queue_free()
+	gp_scene.free()
 	print("--- FULL E2E SESSION INTEGRATION TEST COMPLETED SUCCESSFULLY ---")

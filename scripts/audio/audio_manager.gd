@@ -2,8 +2,11 @@ extends Node
 
 ## Handles game sound effects and ambient music with procedural audio synthesis.
 
+const MAX_SFX_PLAYERS = 8
 var sfx_player: AudioStreamPlayer
 var music_player: AudioStreamPlayer
+var _sfx_pool: Array[AudioStreamPlayer] = []
+var _sfx_pool_index: int = 0
 var streams: Dictionary = {}
 
 func _ready() -> void:
@@ -16,6 +19,13 @@ func _ready() -> void:
 	music_player.name = "MusicPlayer"
 	music_player.bus = "Master"
 	add_child(music_player)
+
+	for i in range(MAX_SFX_PLAYERS):
+		var p = AudioStreamPlayer.new()
+		p.name = "SFXPool_%d" % i
+		p.bus = "Master"
+		add_child(p)
+		_sfx_pool.append(p)
 	
 	_generate_procedural_sounds()
 	_update_audio_settings()
@@ -23,6 +33,29 @@ func _ready() -> void:
 	if has_node("/root/SaveManager"):
 		var sm = get_node("/root/SaveManager")
 		sm.settings_changed.connect(_update_audio_settings)
+
+func _exit_tree() -> void:
+	stop_all()
+	for p in _sfx_pool:
+		if is_instance_valid(p):
+			p.stream = null
+	if is_instance_valid(sfx_player):
+		sfx_player.stream = null
+	if is_instance_valid(music_player):
+		music_player.stream = null
+	streams.clear()
+
+func stop_all() -> void:
+	for p in _sfx_pool:
+		if is_instance_valid(p):
+			p.stop()
+			p.stream = null
+	if is_instance_valid(music_player):
+		music_player.stop()
+		music_player.stream = null
+	if is_instance_valid(sfx_player):
+		sfx_player.stop()
+		sfx_player.stream = null
 
 func _update_audio_settings() -> void:
 	if not has_node("/root/SaveManager"):
@@ -40,15 +73,13 @@ func play_sfx(sound_name: String) -> void:
 	var sm = get_node_or_null("/root/SaveManager")
 	if sm and sm.get_setting("sfx_muted", false):
 		return
-	if streams.has(sound_name):
-		var p = AudioStreamPlayer.new()
+	if streams.has(sound_name) and not _sfx_pool.is_empty():
+		var p = _sfx_pool[_sfx_pool_index]
+		_sfx_pool_index = (_sfx_pool_index + 1) % _sfx_pool.size()
 		p.stream = streams[sound_name]
 		var sfx_vol = sm.get_setting("sfx_volume", 1.0) if sm else 1.0
 		p.volume_db = linear_to_db(sfx_vol) if sfx_vol > 0.01 else -80.0
-		p.bus = "Master"
-		add_child(p)
 		p.play()
-		p.finished.connect(p.queue_free)
 
 func _generate_procedural_sounds() -> void:
 	streams["tile_click"] = _create_tone(1500.0, 0.04, 0.8, true)

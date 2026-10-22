@@ -27,7 +27,7 @@ var current_level_id: int = 1
 var is_interactive: bool = true
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(800, 500)
+	custom_minimum_size = Vector2.ZERO
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _notification(what: int) -> void:

@@ -1,16 +1,20 @@
 extends SceneTree
 
 func _init() -> void:
-	_run_tests.call_deferred()
+	_run_standalone.call_deferred()
 
-func _run_tests() -> void:
+func _run_standalone() -> void:
+	run_tests(self)
+	await process_frame
+	quit(0)
+
+static func run_tests(tree: SceneTree) -> void:
 	print("--- TESTING VISUAL TILE GUIDE MODAL ---")
 	var packed = load("res://scenes/dialogs/tutorial_modal.tscn")
 	assert(packed != null, "Failed to load tutorial_modal.tscn")
 	
 	var modal = packed.instantiate()
-	root.add_child(modal)
-	await process_frame
+	tree.root.add_child(modal)
 	
 	# Verify that nodes are ready
 	assert(modal.char_grid != null, "char_grid must be initialized")
@@ -49,6 +53,6 @@ func _run_tests() -> void:
 		assert(modal.current_tab_index == tab_idx, "Tab index should be %d" % tab_idx)
 	print("Tab switching: Verified 7/7 tabs!")
 	
-	modal.queue_free()
+	tree.root.remove_child(modal)
+	modal.free()
 	print("--- TILE GUIDE MODAL TEST PASSED! ---")
-	quit(0)

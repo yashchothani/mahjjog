@@ -101,16 +101,18 @@ func _ready() -> void:
 			lm.language_changed.connect(_on_language_changed)
 
 func _connect_tab_buttons() -> void:
-	if tab_rules_btn: tab_rules_btn.pressed.connect(func(): select_tab(0))
-	if tab_char_btn: tab_char_btn.pressed.connect(func(): select_tab(1))
-	if tab_bamboo_btn: tab_bamboo_btn.pressed.connect(func(): select_tab(2))
-	if tab_dots_btn: tab_dots_btn.pressed.connect(func(): select_tab(3))
-	if tab_winds_btn: tab_winds_btn.pressed.connect(func(): select_tab(4))
-	if tab_dragons_btn: tab_dragons_btn.pressed.connect(func(): select_tab(5))
-	if tab_special_btn: tab_special_btn.pressed.connect(func(): select_tab(6))
+	var tab_buttons = [tab_rules_btn, tab_char_btn, tab_bamboo_btn, tab_dots_btn, tab_winds_btn, tab_dragons_btn, tab_special_btn]
+	for i in range(tab_buttons.size()):
+		var btn = tab_buttons[i]
+		if btn:
+			for conn in btn.pressed.get_connections():
+				btn.pressed.disconnect(conn.callable)
+			btn.pressed.connect(func(): select_tab(i))
 	
-	if close_btn_top: close_btn_top.pressed.connect(_on_close_pressed)
-	if close_btn_bottom: close_btn_bottom.pressed.connect(_on_close_pressed)
+	if close_btn_top and not close_btn_top.pressed.is_connected(_on_close_pressed):
+		close_btn_top.pressed.connect(_on_close_pressed)
+	if close_btn_bottom and not close_btn_bottom.pressed.is_connected(_on_close_pressed):
+		close_btn_bottom.pressed.connect(_on_close_pressed)
 
 func select_tab(index: int) -> void:
 	current_tab_index = index

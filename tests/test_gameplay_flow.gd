@@ -85,5 +85,6 @@ static func run_tests(tree: SceneTree) -> void:
 	print("  -> Victory signal verified successfully!")
 	
 	board.clear_board()
-	board.queue_free()
+	tree.root.remove_child(board)
+	board.free()
 	print("--- GAMEPLAY FLOW TEST COMPLETED WITH 100% SUCCESS ---")

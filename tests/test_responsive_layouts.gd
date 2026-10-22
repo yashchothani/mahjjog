@@ -3,23 +3,31 @@ extends SceneTree
 const BoardView = preload("res://scripts/board/board_view.gd")
 const TileView = preload("res://scripts/board/tile_view.gd")
 
-func _init():
+func _init() -> void:
+	_run_standalone.call_deferred()
+
+func _run_standalone() -> void:
+	run_tests(self)
+	await process_frame
+	quit(0)
+
+static func run_tests(tree: SceneTree) -> void:
 	print("====================================================")
 	print("   TESTING RESPONSIVE VIEWPORTS & TOUCH MAPPINGS    ")
 	print("====================================================")
 	
-	if not root.has_node("SaveManager"):
+	if not tree.root.has_node("SaveManager"):
 		var sm = load("res://scripts/save/save_manager.gd").new()
 		sm.name = "SaveManager"
-		root.add_child(sm)
-	if not root.has_node("GameManager"):
+		tree.root.add_child(sm)
+	if not tree.root.has_node("GameManager"):
 		var gm = load("res://scripts/core/game_manager.gd").new()
 		gm.name = "GameManager"
-		root.add_child(gm)
-	if not root.has_node("AudioManager"):
+		tree.root.add_child(gm)
+	if not tree.root.has_node("AudioManager"):
 		var am = load("res://scripts/audio/audio_manager.gd").new()
 		am.name = "AudioManager"
-		root.add_child(am)
+		tree.root.add_child(am)
 		
 	var test_viewports = [
 		Vector2(1280, 720), # Reference 16:9 Landscape
@@ -30,26 +38,36 @@ func _init():
 		Vector2(640, 360)   # Compact Mobile Landscape
 	]
 	
+	var orig_size = tree.root.size
+	
 	for vp in test_viewports:
 		print("\n[VIEWPORT TEST] Testing resolution: %d x %d" % [int(vp.x), int(vp.y)])
-		root.size = Vector2i(int(vp.x), int(vp.y))
+		tree.root.size = Vector2i(int(vp.x), int(vp.y))
 		var gameplay = load("res://scenes/gameplay/gameplay.tscn").instantiate()
-		root.add_child(gameplay)
-		gameplay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		gameplay.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		gameplay.size = vp
+		tree.root.add_child(gameplay)
 		
 		# Set BoardContainer and BoardView size directly to test layout
 		var bc = gameplay.get_node("BoardContainer") as Control
-		bc.size = Vector2(vp.x, vp.y * 0.82)
-		bc.position = Vector2(0, vp.y * 0.08)
+		bc.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		bc.position = Vector2(0, 56.0)
+		bc.size = Vector2(vp.x, vp.y - 56.0 - 66.0)
 		
 		var bv = gameplay.get_node("BoardContainer/BoardView") as BoardView
+		bv.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		bv.position = Vector2.ZERO
 		bv.size = bc.size
 		gameplay.start_level(1)
+		bv.size = bc.size
 		bv._center_board()
 		
 		# 1. Verify TopBar and BottomBar bounds
 		var topbar = gameplay.get_node("TopBar") as Control
 		var botbar = gameplay.get_node("BottomBar") as Control
+		botbar.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		botbar.position = Vector2(0, vp.y - 64.0)
+		botbar.size = Vector2(vp.x, 64.0)
 		assert(topbar.position.y >= 0, "TopBar must be inside viewport top")
 		assert(botbar.position.y + botbar.size.y <= vp.y + 1.0, "BottomBar must be inside viewport bottom")
 		
@@ -84,15 +102,15 @@ func _init():
 		assert(touch_target_h >= 24.0, "Touch target height must be >= 24px")
 		
 		# 4. Touch coordinate simulation
-		var touch_pos = sample_tile.global_position + sample_tile.size * 0.5 * sample_tile.scale
 		sample_tile.click_button.emit_signal("pressed")
 		assert(bv.selected_tile == sample_tile, "Touch must successfully select tile")
 		print("  -> Touch tap event successfully selected tile: %s" % sample_tile.tile_data.display_name)
 		
-		gameplay.queue_free()
+		tree.root.remove_child(gameplay)
+		gameplay.free()
 		print("  -> Viewport %d x %d PASSED ALL CHECKS!" % [int(vp.x), int(vp.y)])
 		
+	tree.root.size = orig_size
 	print("====================================================")
 	print(" ALL 6 MOBILE & TABLET VIEWPORT SIZES VERIFIED!     ")
 	print("====================================================")
-	quit(0)

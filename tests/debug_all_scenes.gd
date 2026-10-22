@@ -17,6 +17,10 @@ func _init():
 		var gm = load("res://scripts/core/game_manager.gd").new()
 		gm.name = "GameManager"
 		root.add_child(gm)
+	if not root.has_node("LocalizationManager"):
+		var lm = load("res://scripts/core/localization_manager.gd").new()
+		lm.name = "LocalizationManager"
+		root.add_child(lm)
 	if not root.has_node("AudioManager"):
 		var am = load("res://scripts/audio/audio_manager.gd").new()
 		am.name = "AudioManager"
@@ -27,7 +31,8 @@ func _init():
 		"res://scenes/menus/main_menu.tscn",
 		"res://scenes/menus/level_select.tscn",
 		"res://scenes/settings/settings.tscn",
-		"res://scenes/gameplay/gameplay.tscn"
+		"res://scenes/gameplay/gameplay.tscn",
+		"res://scenes/dialogs/tutorial_modal.tscn"
 	]
 	
 	var total_nodes_audited = 0

@@ -1,14 +1,18 @@
 extends SceneTree
 
 func _init() -> void:
-	_run_tests.call_deferred()
+	_run_standalone.call_deferred()
 
-func _run_tests() -> void:
+func _run_standalone() -> void:
+	run_tests(self)
+	quit(0)
+
+static func run_tests(tree: SceneTree) -> void:
 	print("--- TESTING LOCALIZATION MANAGER ---")
 	
-	assert(root.has_node("LocalizationManager"), "LocalizationManager autoload must exist")
-	var lm = root.get_node("LocalizationManager")
-	var sm = root.get_node("SaveManager") if root.has_node("SaveManager") else null
+	assert(tree.root.has_node("LocalizationManager"), "LocalizationManager autoload must exist")
+	var lm = tree.root.get_node("LocalizationManager")
+	var sm = tree.root.get_node("SaveManager") if tree.root.has_node("SaveManager") else null
 	
 	var langs = lm.get_available_languages()
 	print("Found %d supported languages" % langs.size())
@@ -56,4 +60,3 @@ func _run_tests() -> void:
 	
 	lm.language_changed.disconnect(callable)
 	print("--- ALL LOCALIZATION TESTS PASSED! ---")
-	quit(0)
