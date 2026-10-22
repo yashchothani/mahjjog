@@ -108,6 +108,21 @@ value = 1.0
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
 
+[node name="LanguageBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LanguageLabel" type="Label" parent="CenterContainer/Panel/VBox/LanguageBox"]
+layout_mode = 2
+text = "Language"
+
+[node name="LanguageOption" type="OptionButton" parent="CenterContainer/Panel/VBox/LanguageBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+
 [node name="AccessBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 12
@@ -132,6 +147,7 @@ text = "◀ Return to Main Menu"
 [connection signal="value_changed" from="CenterContainer/Panel/VBox/AudioBox/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="drag_ended" from="CenterContainer/Panel/VBox/AudioBox/SFXSlider" to="." method="_on_sfx_drag_ended"]
 [connection signal="value_changed" from="CenterContainer/Panel/VBox/AudioBox/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="item_selected" from="CenterContainer/Panel/VBox/LanguageBox/LanguageOption" to="." method="_on_language_selected"]
 [connection signal="toggled" from="CenterContainer/Panel/VBox/AccessBox/DimCheck" to="." method="_on_dim_check_toggled"]
 [connection signal="toggled" from="CenterContainer/Panel/VBox/AccessBox/HapticCheck" to="." method="_on_haptic_check_toggled"]
 [connection signal="toggled" from="CenterContainer/Panel/VBox/AccessBox/MotionCheck" to="." method="_on_motion_check_toggled"]

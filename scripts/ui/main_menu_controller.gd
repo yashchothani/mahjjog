@@ -3,8 +3,14 @@ extends Control
 ## Controller for the Zen Mahjong Main Menu.
 
 @onready var continue_btn: Button = $CenterContainer/VBox/MenuButtons/ContinueBtn
+@onready var level_select_btn: Button = $CenterContainer/VBox/MenuButtons/LevelSelectBtn
 @onready var daily_btn: Button = $CenterContainer/VBox/MenuButtons/DailyBtn
+@onready var tutorial_btn: Button = $CenterContainer/VBox/MenuButtons/TutorialBtn
+@onready var settings_btn: Button = $CenterContainer/VBox/MenuButtons/SettingsBtn
 @onready var streak_label: Label = $CenterContainer/VBox/StreakLabel
+@onready var title_label: Label = $CenterContainer/VBox/LogoPanel/LogoVBox/Title
+@onready var subtitle_label: Label = $CenterContainer/VBox/LogoPanel/LogoVBox/Subtitle
+@onready var version_label: Label = $VersionLabel
 @onready var tutorial_modal: PanelContainer = $Modals/TutorialModal
 
 func _get_autoload(autoload_name: String) -> Node:
@@ -22,6 +28,22 @@ func _gm() -> Node:
 func _am() -> Node:
 	return _get_autoload("AudioManager")
 
+func _lm() -> Node:
+	var node = _get_autoload("LocalizationManager")
+	if node:
+		return node
+	var tree = Engine.get_main_loop() as SceneTree
+	if tree and tree.root:
+		if tree.root.has_node("FallbackLocalizationManager"):
+			return tree.root.get_node("FallbackLocalizationManager")
+		var sc = load("res://scripts/core/localization_manager.gd")
+		if sc:
+			var inst = sc.new()
+			inst.name = "FallbackLocalizationManager"
+			tree.root.add_child(inst)
+			return inst
+	return null
+
 func _get_tutorial_modal() -> PanelContainer:
 	if tutorial_modal != null:
 		return tutorial_modal
@@ -31,25 +53,62 @@ func _ready() -> void:
 	var modal = _get_tutorial_modal()
 	if modal:
 		modal.hide()
+		if modal.has_signal("closed"):
+			if not modal.closed.is_connected(_on_tutorial_close_pressed):
+				modal.closed.connect(_on_tutorial_close_pressed)
+				
 	_update_ui_state()
+	
+	var lm = _lm()
+	if lm and lm.has_signal("language_changed"):
+		if not lm.language_changed.is_connected(_on_language_changed_signal):
+			lm.language_changed.connect(_on_language_changed_signal)
 
 func _update_ui_state() -> void:
 	var sm = _sm()
-	var c_btn = continue_btn if continue_btn != null else get_node_or_null("CenterContainer/VBox/MenuButtons/ContinueBtn") as Button
-	var s_lbl = streak_label if streak_label != null else get_node_or_null("CenterContainer/VBox/StreakLabel") as Label
+	var lm = _lm()
 	
-	if sm:
-		var max_lvl = sm.progress.get("max_unlocked_level", 1)
+	var c_btn = continue_btn if continue_btn != null else get_node_or_null("CenterContainer/VBox/MenuButtons/ContinueBtn") as Button
+	var ls_btn = level_select_btn if level_select_btn != null else get_node_or_null("CenterContainer/VBox/MenuButtons/LevelSelectBtn") as Button
+	var d_btn = daily_btn if daily_btn != null else get_node_or_null("CenterContainer/VBox/MenuButtons/DailyBtn") as Button
+	var tut_btn = tutorial_btn if tutorial_btn != null else get_node_or_null("CenterContainer/VBox/MenuButtons/TutorialBtn") as Button
+	var set_btn = settings_btn if settings_btn != null else get_node_or_null("CenterContainer/VBox/MenuButtons/SettingsBtn") as Button
+	var s_lbl = streak_label if streak_label != null else get_node_or_null("CenterContainer/VBox/StreakLabel") as Label
+	var t_lbl = title_label if title_label != null else get_node_or_null("CenterContainer/VBox/LogoPanel/LogoVBox/Title") as Label
+	var sub_lbl = subtitle_label if subtitle_label != null else get_node_or_null("CenterContainer/VBox/LogoPanel/LogoVBox/Subtitle") as Label
+	var v_lbl = version_label if version_label != null else get_node_or_null("VersionLabel") as Label
+	
+	var max_lvl = sm.progress.get("max_unlocked_level", 1) if sm else 1
+	var streak = sm.progress.get("daily_streak", 0) if sm else 0
+	
+	if lm:
+		if t_lbl: t_lbl.text = lm.get_text("APP_TITLE", "ZEN MAHJONG")
+		if sub_lbl: sub_lbl.text = lm.get_text("APP_SUBTITLE", "A TRANQUIL SOLITAIRE EXPERIENCE")
+		if ls_btn: ls_btn.text = lm.get_text("BTN_LEVEL_SELECT", "🏯  Level Selection")
+		if d_btn: d_btn.text = lm.get_text("BTN_DAILY", "📅  Daily Challenge")
+		if tut_btn: tut_btn.text = lm.get_text("BTN_TUTORIAL", "📖  How to Play")
+		if set_btn: set_btn.text = lm.get_text("BTN_SETTINGS", "⚙  Settings & Audio")
+		if v_lbl: v_lbl.text = lm.get_text("VERSION", "Zen Mahjong v1.0.0")
+		
 		if c_btn:
-			c_btn.text = "▶  Continue (Level %d)" % max_lvl if max_lvl > 1 else "▶  Play"
-		var streak = sm.progress.get("daily_streak", 0)
+			if max_lvl > 1:
+				c_btn.text = lm.format_text("BTN_CONTINUE", [max_lvl])
+			else:
+				c_btn.text = lm.get_text("BTN_PLAY", "▶  Play")
+				
 		if s_lbl:
-			s_lbl.text = "🌿 Tranquil Garden • Daily Streak: %d Days" % streak
+			if streak > 0:
+				s_lbl.text = lm.format_text("DAILY_STREAK", [streak])
+			else:
+				s_lbl.text = lm.get_text("DAILY_STREAK_ZERO", "🌿 Tranquil Garden")
 	else:
 		if c_btn:
-			c_btn.text = "▶  Play"
+			c_btn.text = "▶  Continue (Level %d)" % max_lvl if max_lvl > 1 else "▶  Play"
 		if s_lbl:
-			s_lbl.text = "🌿 Tranquil Garden"
+			s_lbl.text = "🌿 Tranquil Garden • Daily Streak: %d Days" % streak if streak > 0 else "🌿 Tranquil Garden"
+
+func _on_language_changed_signal(_new_code: String) -> void:
+	_update_ui_state()
 
 func _on_continue_pressed() -> void:
 	var am = _am()

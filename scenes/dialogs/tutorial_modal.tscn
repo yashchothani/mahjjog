@@ -1,0 +1,427 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/tutorial_modal_controller.gd" id="1_tm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_bg"]
+bg_color = Color(0.05, 0.14, 0.1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.83, 0.68, 0.28, 0.85)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.75)
+shadow_size = 18
+shadow_offset = Vector2(0, 6)
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.08, 0.20, 0.14, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.12, 0.28, 0.2, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[node name="TutorialModal" type="PanelContainer"]
+custom_minimum_size = Vector2(860, 560)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -280.0
+offset_right = 430.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_bg")
+script = ExtResource("1_tm")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderHBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBox/HeaderHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "How to Play & Tile Guide"
+
+[node name="CloseBtnTop" type="Button" parent="VBox/HeaderHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.88, 0.78, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "✕"
+
+[node name="TabScroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+vertical_scroll_mode = 3
+
+[node name="TabHBox" type="HBoxContainer" parent="VBox/TabScroll"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TabRulesBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "📜 Rules"
+
+[node name="TabCharBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "一 Characters"
+
+[node name="TabBambooBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "竹 Bamboo"
+
+[node name="TabDotsBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "● Dots"
+
+[node name="TabWindsBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🀀 Winds"
+
+[node name="TabDragonsBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🀄 Dragons"
+
+[node name="TabSpecialBtn" type="Button" parent="VBox/TabScroll/TabHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🌸 Flowers & Seasons"
+
+[node name="HSeparator" type="HSeparator" parent="VBox"]
+layout_mode = 2
+
+[node name="ContentScroll" type="ScrollContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PanelsVBox" type="VBoxContainer" parent="VBox/ContentScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="PanelRules" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="CardFree" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardFree"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RulesFreeTitle" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardFree/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 16
+text = "1. Free Tiles (Selectable)"
+
+[node name="RulesFreeDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardFree/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "A tile is FREE and can be matched only when:
+• No tile rests directly on top of it, AND
+• At least its LEFT or RIGHT side is completely open.
+Blocked tiles trapped on both sides cannot be selected."
+
+[node name="CardMatch" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RulesMatchTitle" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 16
+text = "2. Matching Rules"
+
+[node name="RulesMatchDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "Tap two free matching tiles to clear them:
+• Characters, Bamboo, Dots, Winds, and Dragons must match an [b]EXACT IDENTICAL[/b] tile.
+• [color=#e8b070]Flowers[/color] match with [b]ANY Flower[/b]!
+• [color=#e8b070]Seasons[/color] match with [b]ANY Season[/b]!"
+
+[node name="CardTools" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardTools"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RulesToolsTitle" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardTools/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 16
+text = "3. Assistance Tools"
+
+[node name="RulesToolsDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardTools/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "• [b]Undo[/b]: Reverses your most recent tile match.
+• [b]Hint[/b]: Highlights an active free matching pair in emerald.
+• [b]Shuffle[/b]: Rearranges remaining tiles into a guaranteed solvable state."
+
+[node name="CardGoal" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardGoal"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RulesGoalTitle" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardGoal/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 16
+text = "4. Objective"
+
+[node name="RulesGoalDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardGoal/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "Clear all tiles from the garden board to achieve victory and earn up to 3 stars!"
+
+[node name="PanelCharacters" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="CharDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[b]Characters Suit (萬 / Wàn):[/b]
+Traditional Chinese numerals from 1 to 9 with the red character '萬'. Match identical characters."
+
+[node name="CharGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="PanelBamboo" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="BambooDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelBamboo"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[b]Bamboo Suit (竹 / Tiáo):[/b]
+Bamboo stalks from 1 to 9. [color=#e8b070][b]Notice:[/b] 1 Bamboo is uniquely depicted as the Sacred Sparrow / Bird (鳥)![/color] Match identical bamboo tiles."
+
+[node name="BambooGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelBamboo"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="PanelDots" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="DotsDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelDots"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[b]Dots Suit (筒 / Tǒng):[/b]
+Circular copper coins / discs from 1 to 9. Match identical dot tiles."
+
+[node name="DotsGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelDots"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="PanelWinds" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="WindsDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelWinds"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[b]Wind Honors (風牌 / Fēng):[/b]
+The 4 cardinal compass directions: East (東), South (南), West (西), North (北). Wind tiles only match their [b]EXACT SAME[/b] direction!"
+
+[node name="WindsGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelWinds"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="PanelDragons" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="DragonsDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelDragons"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[b]Dragon Honors (三元牌 / Sānyuán):[/b]
+Red Dragon (中), Green Dragon (發), White Dragon (白). Dragon tiles only match their [b]EXACT SAME[/b] dragon!"
+
+[node name="DragonsGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelDragons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="PanelSpecial" type="VBoxContainer" parent="VBox/ContentScroll/PanelsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="SpecialDesc" type="RichTextLabel" parent="VBox/ContentScroll/PanelsVBox/PanelSpecial"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[b]Flowers & Seasons (Special Wildcard Match):[/b]
+Unlike regular tiles, these tiles do [b]NOT[/b] need an identical twin!
+• [color=#e8b070]Any Flower matches ANY other Flower[/color] (Plum, Orchid, Bamboo, Chrysanthemum).
+• [color=#75c080]Any Season matches ANY other Season[/color] (Spring, Summer, Autumn, Winter)."
+
+[node name="FlowersLabel" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelSpecial"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "🌸 Flowers (Any Flower matches Any Flower)"
+
+[node name="FlowersGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelSpecial"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="SeasonsLabel" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelSpecial"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "🌿 Seasons (Any Season matches Any Season)"
+
+[node name="SeasonsGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelSpecial"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="FooterHBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseBtnBottom" type="Button" parent="VBox/FooterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 38)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "Close"

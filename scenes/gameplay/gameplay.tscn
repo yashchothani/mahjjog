@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/gameplay/gameplay_controller.gd" id="1_gc"]
 [ext_resource type="Texture2D" path="res://assets/backgrounds/gameplay_bg.jpg" id="2_bg"]
 [ext_resource type="Script" path="res://scripts/board/board_view.gd" id="3_bv"]
+[ext_resource type="PackedScene" path="res://scenes/dialogs/tutorial_modal.tscn" id="4_tm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_topbar"]
 bg_color = Color(0.05, 0.14, 0.1, 0.85)
@@ -229,6 +230,11 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "🔄 Restart Level"
 
+[node name="GuideBtn" type="Button" parent="Modals/PauseModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "📖 Tile Guide & Rules"
+
 [node name="MenuBtn" type="Button" parent="Modals/PauseModal/VBox"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
@@ -350,6 +356,10 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "↶ Undo Last Move"
 
+[node name="TutorialModal" parent="Modals" instance=ExtResource("4_tm")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="TopBar/HBox/PauseBtn" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="BottomBar/HBox/UndoBtn" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="BottomBar/HBox/HintBtn" to="." method="_on_hint_pressed"]
@@ -357,6 +367,7 @@ text = "↶ Undo Last Move"
 [connection signal="pressed" from="BottomBar/HBox/RestartBtn" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Modals/PauseModal/VBox/ResumeBtn" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Modals/PauseModal/VBox/RestartLevelBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Modals/PauseModal/VBox/GuideBtn" to="." method="_on_guide_pressed"]
 [connection signal="pressed" from="Modals/PauseModal/VBox/MenuBtn" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Modals/VictoryModal/VBox/NextLevelBtn" to="." method="_on_next_level_pressed"]
 [connection signal="pressed" from="Modals/VictoryModal/VBox/ReplayBtn" to="." method="_on_restart_pressed"]

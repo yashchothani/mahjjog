@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu_controller.gd" id="1_mm"]
 [ext_resource type="Texture2D" path="res://assets/backgrounds/menu_bg.jpg" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/dialogs/tutorial_modal.tscn" id="3_tm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_play"]
 bg_color = Color(0.14, 0.35, 0.24, 0.95)
@@ -215,62 +216,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TutorialModal" type="PanelContainer" parent="Modals"]
+[node name="TutorialModal" parent="Modals" instance=ExtResource("3_tm")]
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -210.0
-offset_right = 260.0
-offset_bottom = 210.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
-
-[node name="VBox" type="VBoxContainer" parent="Modals/TutorialModal"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Title" type="Label" parent="Modals/TutorialModal/VBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
-theme_override_font_sizes/font_size = 22
-text = "How to Play Zen Mahjong"
-horizontal_alignment = 1
-
-[node name="Text" type="RichTextLabel" parent="Modals/TutorialModal/VBox"]
-custom_minimum_size = Vector2(0, 240)
-layout_mode = 2
-bbcode_enabled = true
-text = "[color=#f0ece1][b]1. Free Tiles:[/b]
-A tile is free when no tile rests directly on top of it, AND its left or right side is open.
-
-[b]2. Matching Pairs:[/b]
-Tap two identical free tiles to remove them from the garden board.
-• [color=#75c080]Bamboo, Dots, Characters, Winds, & Dragons[/color] match identical tiles.
-• [color=#e8b070]Flowers[/color] (Plum, Orchid, Bamboo, Chrysanthemum) match ANY flower!
-• [color=#e8b070]Seasons[/color] (Spring, Summer, Autumn, Winter) match ANY season!
-
-[b]3. Assistance:[/b]
-• [b]Undo[/b]: Reverse your previous pair match.
-• [b]Hint[/b]: Highlights an available matching pair in emerald.
-• [b]Shuffle[/b]: Re-arranges remaining tiles into a solvable state.
-
-[b]4. Objective:[/b]
-Clear all tiles from the tranquil garden board to achieve victory![/color]"
-
-[node name="CloseBtn" type="Button" parent="Modals/TutorialModal/VBox"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
-text = "Close Tutorial"
 
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/ContinueBtn" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/LevelSelectBtn" to="." method="_on_level_select_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/DailyBtn" to="." method="_on_daily_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/TutorialBtn" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/SettingsBtn" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Modals/TutorialModal/VBox/CloseBtn" to="." method="_on_tutorial_close_pressed"]
+

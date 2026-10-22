@@ -2,11 +2,19 @@ extends Control
 
 ## Controller for the Settings & Accessibility screen.
 
+@onready var title_label: Label = $CenterContainer/Panel/VBox/Title
+@onready var music_label: Label = $CenterContainer/Panel/VBox/AudioBox/MusicLabel
 @onready var music_slider: HSlider = $CenterContainer/Panel/VBox/AudioBox/MusicSlider
+@onready var sfx_label: Label = $CenterContainer/Panel/VBox/AudioBox/SFXLabel
 @onready var sfx_slider: HSlider = $CenterContainer/Panel/VBox/AudioBox/SFXSlider
+@onready var language_label: Label = $CenterContainer/Panel/VBox/LanguageBox/LanguageLabel
+@onready var language_option: OptionButton = $CenterContainer/Panel/VBox/LanguageBox/LanguageOption
 @onready var dim_check: CheckBox = $CenterContainer/Panel/VBox/AccessBox/DimCheck
 @onready var haptic_check: CheckBox = $CenterContainer/Panel/VBox/AccessBox/HapticCheck
 @onready var motion_check: CheckBox = $CenterContainer/Panel/VBox/AccessBox/MotionCheck
+@onready var back_btn: Button = $CenterContainer/Panel/VBox/BackBtn
+
+var _languages_data: Array[Dictionary] = []
 
 func _get_autoload(autoload_name: String) -> Node:
 	var tree = Engine.get_main_loop() as SceneTree
@@ -23,6 +31,22 @@ func _gm() -> Node:
 func _am() -> Node:
 	return _get_autoload("AudioManager")
 
+func _lm() -> Node:
+	var node = _get_autoload("LocalizationManager")
+	if node:
+		return node
+	var tree = Engine.get_main_loop() as SceneTree
+	if tree and tree.root:
+		if tree.root.has_node("FallbackLocalizationManager"):
+			return tree.root.get_node("FallbackLocalizationManager")
+		var sc = load("res://scripts/core/localization_manager.gd")
+		if sc:
+			var inst = sc.new()
+			inst.name = "FallbackLocalizationManager"
+			tree.root.add_child(inst)
+			return inst
+	return null
+
 func _ready() -> void:
 	var sm = _sm()
 	var m_sl = music_slider if music_slider != null else get_node_or_null("CenterContainer/Panel/VBox/AudioBox/MusicSlider") as HSlider
@@ -37,6 +61,77 @@ func _ready() -> void:
 		if d_ck: d_ck.button_pressed = sm.get_setting("dim_blocked_tiles", true)
 		if h_ck: h_ck.button_pressed = sm.get_setting("haptics_enabled", true)
 		if mo_ck: mo_ck.button_pressed = sm.get_setting("reduced_motion", false)
+		
+	_setup_language_options()
+	_update_localized_texts()
+	
+	var lm = _lm()
+	if lm and lm.has_signal("language_changed"):
+		if not lm.language_changed.is_connected(_on_language_changed_signal):
+			lm.language_changed.connect(_on_language_changed_signal)
+
+func _setup_language_options() -> void:
+	var lang_opt = language_option if language_option != null else get_node_or_null("CenterContainer/Panel/VBox/LanguageBox/LanguageOption") as OptionButton
+	if not lang_opt:
+		return
+		
+	lang_opt.clear()
+	var lm = _lm()
+	if lm:
+		_languages_data = lm.get_available_languages()
+		var current_code = lm.get_current_language()
+		var selected_idx = 0
+		
+		for i in range(_languages_data.size()):
+			var item = _languages_data[i]
+			var display_str = "%s (%s)" % [item["native"], item["name"]]
+			lang_opt.add_item(display_str, i)
+			if item["code"] == current_code:
+				selected_idx = i
+		lang_opt.selected = selected_idx
+
+func _update_localized_texts() -> void:
+	var lm = _lm()
+	if not lm:
+		return
+		
+	var t_lbl = title_label if title_label != null else get_node_or_null("CenterContainer/Panel/VBox/Title") as Label
+	if t_lbl: t_lbl.text = lm.get_text("SETTINGS_TITLE")
+	
+	var m_lbl = music_label if music_label != null else get_node_or_null("CenterContainer/Panel/VBox/AudioBox/MusicLabel") as Label
+	if m_lbl: m_lbl.text = lm.get_text("MUSIC_VOLUME")
+	
+	var s_lbl = sfx_label if sfx_label != null else get_node_or_null("CenterContainer/Panel/VBox/AudioBox/SFXLabel") as Label
+	if s_lbl: s_lbl.text = lm.get_text("SFX_VOLUME")
+	
+	var l_lbl = language_label if language_label != null else get_node_or_null("CenterContainer/Panel/VBox/LanguageBox/LanguageLabel") as Label
+	if l_lbl: l_lbl.text = lm.get_text("LANGUAGE_LABEL")
+	
+	var d_ck = dim_check if dim_check != null else get_node_or_null("CenterContainer/Panel/VBox/AccessBox/DimCheck") as CheckBox
+	if d_ck: d_ck.text = lm.get_text("DIM_BLOCKED")
+	
+	var h_ck = haptic_check if haptic_check != null else get_node_or_null("CenterContainer/Panel/VBox/AccessBox/HapticCheck") as CheckBox
+	if h_ck: h_ck.text = lm.get_text("HAPTIC_FEEDBACK")
+	
+	var mo_ck = motion_check if motion_check != null else get_node_or_null("CenterContainer/Panel/VBox/AccessBox/MotionCheck") as CheckBox
+	if mo_ck: mo_ck.text = lm.get_text("REDUCED_MOTION")
+	
+	var b_btn = back_btn if back_btn != null else get_node_or_null("CenterContainer/Panel/VBox/BackBtn") as Button
+	if b_btn: b_btn.text = lm.get_text("BTN_BACK_MENU")
+
+func _on_language_changed_signal(_new_code: String) -> void:
+	_update_localized_texts()
+
+func _on_language_selected(index: int) -> void:
+	var am = _am()
+	if am:
+		am.play_sfx("button_click")
+		
+	if index >= 0 and index < _languages_data.size():
+		var target_code = _languages_data[index]["code"]
+		var lm = _lm()
+		if lm:
+			lm.set_language(target_code)
 
 func _on_music_slider_value_changed(value: float) -> void:
 	var sm = _sm()

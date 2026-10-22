@@ -3,6 +3,8 @@ extends Control
 ## Controller for the Level Selection screen (Levels 1 to 30).
 
 @onready var grid_container: GridContainer = $ScrollContainer/Center/VBox/GridContainer
+@onready var back_btn: Button = $TopBar/HBox/BackBtn
+@onready var title_label: Label = $TopBar/HBox/Title
 
 func _get_autoload(autoload_name: String) -> Node:
 	var tree = Engine.get_main_loop() as SceneTree
@@ -19,7 +21,41 @@ func _gm() -> Node:
 func _am() -> Node:
 	return _get_autoload("AudioManager")
 
+func _lm() -> Node:
+	var node = _get_autoload("LocalizationManager")
+	if node:
+		return node
+	var tree = Engine.get_main_loop() as SceneTree
+	if tree and tree.root:
+		if tree.root.has_node("FallbackLocalizationManager"):
+			return tree.root.get_node("FallbackLocalizationManager")
+		var sc = load("res://scripts/core/localization_manager.gd")
+		if sc:
+			var inst = sc.new()
+			inst.name = "FallbackLocalizationManager"
+			tree.root.add_child(inst)
+			return inst
+	return null
+
 func _ready() -> void:
+	_update_localized_headers()
+	_populate_levels()
+	
+	var lm = _lm()
+	if lm and lm.has_signal("language_changed"):
+		if not lm.language_changed.is_connected(_on_language_changed_signal):
+			lm.language_changed.connect(_on_language_changed_signal)
+
+func _update_localized_headers() -> void:
+	var lm = _lm()
+	var b_btn = back_btn if back_btn != null else get_node_or_null("TopBar/HBox/BackBtn") as Button
+	var t_lbl = title_label if title_label != null else get_node_or_null("TopBar/HBox/Title") as Label
+	if lm:
+		if b_btn: b_btn.text = lm.get_text("BTN_BACK_MENU", "◀ Return to Main Menu")
+		if t_lbl: t_lbl.text = lm.get_text("LEVEL_SELECT_TITLE", "Select Garden Level (1 - 30)")
+
+func _on_language_changed_signal(_new_code: String) -> void:
+	_update_localized_headers()
 	_populate_levels()
 
 func _populate_levels() -> void:
@@ -28,9 +64,11 @@ func _populate_levels() -> void:
 		return
 		
 	for child in grid.get_children():
+		grid.remove_child(child)
 		child.queue_free()
 		
 	var sm = _sm()
+	var lm = _lm()
 	var max_unlocked = sm.progress.get("max_unlocked_level", 1) if sm else 1
 	var completed_dict = sm.progress.get("completed_levels", {}) if sm else {}
 	
@@ -54,11 +92,12 @@ func _populate_levels() -> void:
 			var sec = int(best_time) % 60
 			time_str = "%02d:%02d" % [m, sec]
 			
+		var lvl_prefix = lm.format_text("LEVEL_LABEL", [lvl]) if lm else "Level %d" % lvl
 		if is_unlocked:
-			btn.text = "Level %d\n%s\n%s %s" % [lvl, layout.name, star_str, time_str]
+			btn.text = "%s\n%s\n%s %s" % [lvl_prefix, layout.name, star_str, time_str]
 			btn.pressed.connect(func(): _on_level_selected(lvl))
 		else:
-			btn.text = "Level %d\n🔒 Locked" % lvl
+			btn.text = "%s\n🔒 Locked" % lvl_prefix
 			btn.disabled = true
 			
 		_style_level_button(btn, is_unlocked, stars > 0)

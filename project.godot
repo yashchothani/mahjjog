@@ -20,6 +20,7 @@ config/icon="res://assets/icons/app_icon.jpg"
 [autoload]
 
 SaveManager="*res://scripts/save/save_manager.gd"
+LocalizationManager="*res://scripts/core/localization_manager.gd"
 AudioManager="*res://scripts/audio/audio_manager.gd"
 GameManager="*res://scripts/core/game_manager.gd"
 

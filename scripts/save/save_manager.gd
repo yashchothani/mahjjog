@@ -9,6 +9,7 @@ signal settings_changed
 signal progress_updated
 
 var settings = {
+	"language": "en",
 	"music_volume": 0.8,
 	"sfx_volume": 1.0,
 	"music_muted": false,
@@ -41,6 +42,7 @@ func _ready() -> void:
 
 func reset_to_defaults() -> void:
 	settings = {
+		"language": "en",
 		"music_volume": 0.8,
 		"sfx_volume": 1.0,
 		"music_muted": false,

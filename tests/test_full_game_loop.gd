@@ -48,10 +48,15 @@ static func run_tests(tree: SceneTree) -> void:
 	var music_sl = settings_scene.get_node("CenterContainer/Panel/VBox/AudioBox/MusicSlider")
 	var sfx_sl = settings_scene.get_node("CenterContainer/Panel/VBox/AudioBox/SFXSlider")
 	var dim_chk = settings_scene.get_node("CenterContainer/Panel/VBox/AccessBox/DimCheck")
+	var lang_opt = settings_scene.get_node("CenterContainer/Panel/VBox/LanguageBox/LanguageOption")
+	assert(lang_opt != null, "Settings must have LanguageOption")
+	assert(lang_opt.item_count == 7, "LanguageOption must have 7 languages (found %d)" % lang_opt.item_count)
+	settings_scene._on_language_selected(1) # Switch to zh
+	settings_scene._on_language_selected(0) # Switch back to en
 	settings_scene._on_music_slider_value_changed(0.5)
 	settings_scene._on_sfx_slider_value_changed(0.7)
 	settings_scene._on_dim_check_toggled(false)
-	print("  -> Settings slider and checkbox events tested!")
+	print("  -> Settings slider, language option, and checkbox events tested!")
 	tree.root.remove_child(settings_scene)
 	settings_scene.queue_free()
 	
@@ -64,9 +69,12 @@ static func run_tests(tree: SceneTree) -> void:
 	var bv = gp_scene.get_node("BoardContainer/BoardView")
 	assert(bv != null, "Gameplay must have BoardView")
 	
-	# Pause / Resume flow
+	# Pause / Resume / Tile Guide flow
 	gp_scene._on_pause_pressed()
 	assert(gp_scene.get_node("Modals/PauseModal").visible == true, "Pause modal should show")
+	gp_scene._on_guide_pressed()
+	assert(gp_scene.get_node("Modals/TutorialModal").visible == true, "In-game tutorial modal should show")
+	gp_scene.get_node("Modals/TutorialModal").hide()
 	gp_scene._on_resume_pressed()
 	assert(gp_scene.get_node("Modals/PauseModal").visible == false, "Pause modal should hide on resume")
 	
@@ -75,7 +83,7 @@ static func run_tests(tree: SceneTree) -> void:
 	gp_scene._on_shuffle_pressed()
 	gp_scene._on_undo_pressed()
 	gp_scene._on_restart_pressed()
-	print("  -> Gameplay HUD and in-game modal actions verified!")
+	print("  -> Gameplay HUD, tile guide modal, and in-game modal actions verified!")
 	
 	tree.root.remove_child(gp_scene)
 	gp_scene.queue_free()
