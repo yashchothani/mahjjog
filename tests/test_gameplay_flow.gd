@@ -1,8 +1,16 @@
-class_name TestGameplayFlow
-extends RefCounted
+extends SceneTree
 
 const MahjongTileData = preload("res://scripts/data/mahjong_tile_data.gd")
 const BoardView = preload("res://scripts/board/board_view.gd")
+const BoardGenerator = preload("res://scripts/board/board_generator.gd")
+
+func _init() -> void:
+	_run_standalone.call_deferred()
+
+func _run_standalone() -> void:
+	run_tests(self)
+	await process_frame
+	quit(0)
 
 static func run_tests(tree: SceneTree) -> void:
 	print("--- STARTING COMPREHENSIVE GAMEPLAY FLOW TEST ---")
@@ -48,11 +56,9 @@ static func run_tests(tree: SceneTree) -> void:
 	assert(board.active_tiles.has(t2.grid_pos), "Tile 2 position should be restored")
 	print("  -> Undo successfully restored previous board state!")
 	
-	print("[FLOW 5] Testing Shuffle Operation...")
-	var shuffle_success = board.shuffle_remaining_tiles()
-	assert(shuffle_success == true, "Shuffle should succeed")
-	assert(board.active_tiles.size() == initial_tile_count, "Tile count must remain intact after shuffle")
-	print("  -> Shuffle executed and preserved tile counts!")
+	print("[FLOW 5] Testing Solvable Generation Assurance...")
+	assert(BoardGenerator.solver_can_solve(board.initial_tile_map), "Board must be proven 100% solvable without shuffle")
+	print("  -> Solvable board verified with zero shuffle reliance!")
 	
 	print("[FLOW 6] Testing Level Restart Operation...")
 	var pair_to_match = board.find_hint_pair()
@@ -65,24 +71,22 @@ static func run_tests(tree: SceneTree) -> void:
 	assert(board.moves_count == 0, "Restart should reset moves count to 0")
 	print("  -> Level restart successfully restored exact initial board!")
 	
-	print("[FLOW 7] Testing Full Clearance / Victory...")
+	print("[FLOW 7] Testing Full Clearance / Victory (No Shuffle Needed)...")
 	var tracker = {"cleared": false}
 	board.board_cleared.connect(func(): tracker["cleared"] = true)
 	
 	var max_steps = initial_tile_count * 2
 	while board.active_tiles.size() > 0 and max_steps > 0:
 		var pair = board.find_hint_pair()
-		if pair.size() == 2:
-			board._on_tile_clicked(pair[0])
-			board._on_tile_clicked(pair[1])
-		else:
-			board.shuffle_remaining_tiles()
+		assert(pair.size() == 2, "Level must provide continuous matching pairs without shuffle")
+		board._on_tile_clicked(pair[0])
+		board._on_tile_clicked(pair[1])
 		max_steps -= 1
 		
 	print("  -> Final active tiles count: %d" % board.active_tiles.size())
-	assert(board.active_tiles.size() == 0, "Board should be completely cleared")
+	assert(board.active_tiles.size() == 0, "Board should be completely cleared without shuffle")
 	assert(tracker["cleared"] == true, "board_cleared signal must have fired")
-	print("  -> Victory signal verified successfully!")
+	print("  -> Victory signal verified successfully with 0 shuffles!")
 	
 	board.clear_board()
 	tree.root.remove_child(board)

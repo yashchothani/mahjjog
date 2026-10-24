@@ -28,11 +28,11 @@ static func generate_from_layout(layout, seed_value: int) -> GenerationResult:
 	var rng = RandomNumberGenerator.new()
 	rng.seed = seed_value
 	
-	# Prepare a balanced pool of matching pairs
+	# Prepare a balanced pool of matching pairs (distinct unique faces for all boards <= 36 pairs)
 	var pair_pool = _create_pair_pool(total_tiles / 2, rng)
 	
 	# Attempt reverse-generation with backtracking/retries
-	var max_attempts = 10
+	var max_attempts = 50
 	for attempt in range(max_attempts):
 		var attempt_rng = RandomNumberGenerator.new()
 		attempt_rng.seed = seed_value + attempt * 31
@@ -78,61 +78,82 @@ static func generate_from_layout(layout, seed_value: int) -> GenerationResult:
 			sim_positions.erase(pos2)
 			
 		if not failed and assigned_tiles.size() == total_tiles:
-			result.success = true
-			result.tile_map = assigned_tiles
-			result.solution_pairs = solution
-			return result
+			if solver_can_solve(assigned_tiles):
+				result.success = true
+				result.tile_map = assigned_tiles
+				result.solution_pairs = solution
+				return result
 			
 	# Fallback if reverse generation struggled with extreme layouts
 	return _generate_guaranteed_fallback(layout, pair_pool)
 
 static func _create_pair_pool(num_pairs: int, rng: RandomNumberGenerator) -> Array:
-	var full_deck = MahjongTileData.get_full_144_set()
-	var pairs: Array = []
+	# Build distinct primary pair types (34 suits & honors + 1 flower pair + 1 season pair = 36 unique types)
+	var distinct_pairs: Array = []
 	
-	# Collect traditional matching pairs
-	var by_key: Dictionary = {}
-	for tile in full_deck:
-		var key = "%s_%s" % [tile.suit, tile.value]
-		if not by_key.has(key):
-			by_key[key] = []
-		by_key[key].append(tile)
+	# 1. Characters 1-9
+	var char_kanji = ["一", "二", "三", "四", "五", "六", "七", "八", "九"]
+	for i in range(1, 10):
+		var t1 = MahjongTileData.new("characters", str(i), char_kanji[i - 1], "%s of Characters" % str(i), "萬")
+		var t2 = MahjongTileData.new("characters", str(i), char_kanji[i - 1], "%s of Characters" % str(i), "萬")
+		distinct_pairs.append([t1, t2])
 		
-	# Special suits
-	var flowers: Array = []
-	var seasons: Array = []
+	# 2. Bamboo 1-9
+	var bamboo_symbols = ["鳥", "2", "3", "4", "5", "6", "7", "8", "9"]
+	var bamboo_subs = ["鳥", "竹", "竹", "竹", "竹", "竹", "竹", "竹", "竹"]
+	for i in range(1, 10):
+		var t1 = MahjongTileData.new("bamboo", str(i), bamboo_symbols[i - 1], "%s of Bamboo" % str(i), bamboo_subs[i - 1])
+		var t2 = MahjongTileData.new("bamboo", str(i), bamboo_symbols[i - 1], "%s of Bamboo" % str(i), bamboo_subs[i - 1])
+		distinct_pairs.append([t1, t2])
+		
+	# 3. Dots 1-9
+	var dot_symbols = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨"]
+	for i in range(1, 10):
+		var t1 = MahjongTileData.new("dots", str(i), dot_symbols[i - 1], "%s of Dots" % str(i), "●")
+		var t2 = MahjongTileData.new("dots", str(i), dot_symbols[i - 1], "%s of Dots" % str(i), "●")
+		distinct_pairs.append([t1, t2])
+		
+	# 4. Winds (East, South, West, North)
+	var winds = [["east", "東", "EAST"], ["south", "南", "SOUTH"], ["west", "西", "WEST"], ["north", "北", "NORTH"]]
+	for w in winds:
+		var t1 = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), w[2])
+		var t2 = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), w[2])
+		distinct_pairs.append([t1, t2])
+		
+	# 5. Dragons (Red, Green, White)
+	var dragons = [["red", "中", "Red Dragon", "RED"], ["green", "發", "Green Dragon", "GREEN"], ["white", "白", "White Dragon", "WHITE"]]
+	for d in dragons:
+		var t1 = MahjongTileData.new("dragons", d[0], d[1], d[2], d[3])
+		var t2 = MahjongTileData.new("dragons", d[0], d[1], d[2], d[3])
+		distinct_pairs.append([t1, t2])
+		
+	# 6. Flowers & Seasons (1 pair each)
+	var f1 = MahjongTileData.new("flowers", "plum", "梅", "Plum Blossom", "FLOWER")
+	var f2 = MahjongTileData.new("flowers", "orchid", "蘭", "Orchid", "FLOWER")
+	distinct_pairs.append([f1, f2])
 	
-	for key in by_key.keys():
-		var list = by_key[key]
-		if key.begins_with("flowers"):
-			for item in list:
-				flowers.append(item)
-		elif key.begins_with("seasons"):
-			for item in list:
-				seasons.append(item)
-		else:
-			while list.size() >= 2:
-				var t1 = list.pop_back()
-				var t2 = list.pop_back()
-				pairs.append([t1, t2])
-				
-	while flowers.size() >= 2:
-		pairs.append([flowers.pop_back(), flowers.pop_back()])
-	while seasons.size() >= 2:
-		pairs.append([seasons.pop_back(), seasons.pop_back()])
-		
-	# Shuffle pairs
-	for i in range(pairs.size() - 1, 0, -1):
+	var s1 = MahjongTileData.new("seasons", "spring", "春", "Spring Season", "SEASON")
+	var s2 = MahjongTileData.new("seasons", "summer", "夏", "Summer Season", "SEASON")
+	distinct_pairs.append([s1, s2])
+	
+	# Shuffle distinct pairs randomly
+	for i in range(distinct_pairs.size() - 1, 0, -1):
 		var j = rng.randi_range(0, i)
-		var tmp = pairs[i]
-		pairs[i] = pairs[j]
-		pairs[j] = tmp
+		var tmp = distinct_pairs[i]
+		distinct_pairs[i] = distinct_pairs[j]
+		distinct_pairs[j] = tmp
 		
 	var selected_pairs: Array = []
-	for p in range(num_pairs):
-		var src_pair = pairs[p % pairs.size()]
-		selected_pairs.append([MahjongTileData.create_clone(src_pair[0]), MahjongTileData.create_clone(src_pair[1])])
-		
+	if num_pairs <= distinct_pairs.size():
+		for p in range(num_pairs):
+			var src = distinct_pairs[p]
+			selected_pairs.append([MahjongTileData.create_clone(src[0]), MahjongTileData.create_clone(src[1])])
+	else:
+		# If board has > 36 pairs (like Classic Turtle 71 pairs), take all 36 distinct pairs first, then repeat
+		for p in range(num_pairs):
+			var src = distinct_pairs[p % distinct_pairs.size()]
+			selected_pairs.append([MahjongTileData.create_clone(src[0]), MahjongTileData.create_clone(src[1])])
+			
 	return selected_pairs
 
 static func _generate_guaranteed_fallback(layout, pair_pool: Array) -> GenerationResult:

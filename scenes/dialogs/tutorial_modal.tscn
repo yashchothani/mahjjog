@@ -334,7 +334,7 @@ bbcode_enabled = true
 fit_content = true
 text = "• [b]Undo[/b]: Reverses your most recent tile match.
 • [b]Hint[/b]: Highlights an active free matching pair in emerald.
-• [b]Shuffle[/b]: Rearranges remaining tiles into a guaranteed solvable state."
+• [b]Restart[/b]: Restarts the board from the beginning so you can try a different solution path."
 
 [node name="CardGoal" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules"]
 layout_mode = 2

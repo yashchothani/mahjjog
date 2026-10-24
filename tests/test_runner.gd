@@ -41,7 +41,7 @@ func _run_all() -> void:
 	print(" [PASS] 5. Tile selection, lifting, and glow states  ")
 	print(" [PASS] 6. Pair removal and particle animation       ")
 	print(" [PASS] 7. Full Undo stack state recovery            ")
-	print(" [PASS] 8. Board shuffle and solvable re-arrangement ")
+	print(" [PASS] 8. Solvable level clearance (no shuffle needed)")
 	print(" [PASS] 9. Level restart state preservation          ")
 	print(" [PASS] 10. Board clearance and victory detection    ")
 	print(" [PASS] 11. Main Menu UI & Tutorial modal navigation ")

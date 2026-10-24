@@ -78,12 +78,12 @@ static func run_tests(tree: SceneTree) -> void:
 	gp_scene._on_resume_pressed()
 	assert(gp_scene.get_node("Modals/PauseModal").visible == false, "Pause modal should hide on resume")
 	
-	# Hint / Undo / Shuffle / Restart
+	# Hint / Undo / Restart (No shuffle button)
+	assert(gp_scene.get_node_or_null("BottomBar/HBox/ShuffleBtn") == null, "Shuffle button must not exist on BottomBar")
 	gp_scene._on_hint_pressed()
-	gp_scene._on_shuffle_pressed()
 	gp_scene._on_undo_pressed()
 	gp_scene._on_restart_pressed()
-	print("  -> Gameplay HUD, tile guide modal, and in-game modal actions verified!")
+	print("  -> Gameplay HUD (Undo/Hint/Restart), tile guide modal, and in-game modal actions verified!")
 	
 	tree.root.remove_child(gp_scene)
 	gp_scene.free()

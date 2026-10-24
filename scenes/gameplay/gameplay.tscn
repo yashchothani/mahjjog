@@ -162,7 +162,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_botbar")
 [node name="HBox" type="HBoxContainer" parent="BottomBar"]
 layout_mode = 2
 alignment = 1
-theme_override_constants/separation = 30
+theme_override_constants/separation = 48
 
 [node name="UndoBtn" type="Button" parent="BottomBar/HBox"]
 layout_mode = 2
@@ -175,12 +175,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "💡 Hint"
-
-[node name="ShuffleBtn" type="Button" parent="BottomBar/HBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
-text = "🔀 Shuffle"
 
 [node name="RestartBtn" type="Button" parent="BottomBar/HBox"]
 layout_mode = 2
@@ -358,19 +352,24 @@ horizontal_alignment = 1
 [node name="Desc" type="Label" parent="Modals/NoMovesModal/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Would you like to shuffle remaining tiles or undo your previous move?"
+text = "No open matching pairs remain on the board. Undo your recent moves or restart the level to find the winning path!"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="ShuffleModalBtn" type="Button" parent="Modals/NoMovesModal/VBox"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
-text = "🔀 Shuffle Tiles"
 
 [node name="UndoModalBtn" type="Button" parent="Modals/NoMovesModal/VBox"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "↶ Undo Last Move"
+
+[node name="RestartModalBtn" type="Button" parent="Modals/NoMovesModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🔄 Restart Level"
+
+[node name="MenuModalBtn" type="Button" parent="Modals/NoMovesModal/VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "🏠 Return to Menu"
 
 [node name="TutorialModal" parent="Modals" instance=ExtResource("4_tm")]
 visible = false
@@ -379,7 +378,6 @@ layout_mode = 1
 [connection signal="pressed" from="TopBar/HBox/PauseBtn" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="BottomBar/HBox/UndoBtn" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="BottomBar/HBox/HintBtn" to="." method="_on_hint_pressed"]
-[connection signal="pressed" from="BottomBar/HBox/ShuffleBtn" to="." method="_on_shuffle_pressed"]
 [connection signal="pressed" from="BottomBar/HBox/RestartBtn" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Modals/PauseModal/VBox/ResumeBtn" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Modals/PauseModal/VBox/RestartLevelBtn" to="." method="_on_restart_pressed"]
@@ -388,5 +386,6 @@ layout_mode = 1
 [connection signal="pressed" from="Modals/VictoryModal/VBox/NextLevelBtn" to="." method="_on_next_level_pressed"]
 [connection signal="pressed" from="Modals/VictoryModal/VBox/ReplayBtn" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Modals/VictoryModal/VBox/VicMenuBtn" to="." method="_on_menu_pressed"]
-[connection signal="pressed" from="Modals/NoMovesModal/VBox/ShuffleModalBtn" to="." method="_on_shuffle_pressed"]
 [connection signal="pressed" from="Modals/NoMovesModal/VBox/UndoModalBtn" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="Modals/NoMovesModal/VBox/RestartModalBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Modals/NoMovesModal/VBox/MenuModalBtn" to="." method="_on_menu_pressed"]

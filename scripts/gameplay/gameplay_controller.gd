@@ -12,7 +12,6 @@ extends Control
 # Bottom Bar
 @onready var undo_btn: Button = $BottomBar/HBox/UndoBtn
 @onready var hint_btn: Button = $BottomBar/HBox/HintBtn
-@onready var shuffle_btn: Button = $BottomBar/HBox/ShuffleBtn
 @onready var restart_btn: Button = $BottomBar/HBox/RestartBtn
 
 # Dialogs
@@ -164,9 +163,6 @@ func _update_localized_strings() -> void:
 	var h_btn = hint_btn if hint_btn != null else get_node_or_null("BottomBar/HBox/HintBtn") as Button
 	if h_btn: h_btn.text = lm.get_text("HUD_HINT", "💡 Hint")
 	
-	var s_btn = shuffle_btn if shuffle_btn != null else get_node_or_null("BottomBar/HBox/ShuffleBtn") as Button
-	if s_btn: s_btn.text = lm.get_text("HUD_SHUFFLE", "🔀 Shuffle")
-	
 	var r_btn = restart_btn if restart_btn != null else get_node_or_null("BottomBar/HBox/RestartBtn") as Button
 	if r_btn: r_btn.text = lm.get_text("HUD_RESTART", "🔄 Restart")
 	
@@ -195,10 +191,12 @@ func _update_localized_strings() -> void:
 	if nmt: nmt.text = lm.get_text("NO_MOVES_TITLE", "No Moves Remaining")
 	var nmd = get_node_or_null("Modals/NoMovesModal/VBox/Desc") as Label
 	if nmd: nmd.text = lm.get_text("NO_MOVES_DESC")
-	var smb = get_node_or_null("Modals/NoMovesModal/VBox/ShuffleModalBtn") as Button
-	if smb: smb.text = lm.get_text("BTN_SHUFFLE_BOARD", "🔀 Shuffle Board")
 	var umb = get_node_or_null("Modals/NoMovesModal/VBox/UndoModalBtn") as Button
-	if umb: umb.text = lm.get_text("BTN_UNDO_MOVE", "↶ Undo Move")
+	if umb: umb.text = lm.get_text("BTN_UNDO_MOVE", "↶ Undo Last Move")
+	var rst_mb = get_node_or_null("Modals/NoMovesModal/VBox/RestartModalBtn") as Button
+	if rst_mb: rst_mb.text = lm.get_text("BTN_RESTART_LEVEL", "🔄 Restart Level")
+	var mnu_mb = get_node_or_null("Modals/NoMovesModal/VBox/MenuModalBtn") as Button
+	if mnu_mb: mnu_mb.text = lm.get_text("BTN_RETURN_MENU", "🏠 Return to Menu")
 	
 	# Counters
 	var p_lbl = pairs_label if pairs_label != null else get_node_or_null("TopBar/HBox/PairsLabel") as Label
@@ -334,15 +332,8 @@ func _on_hint_pressed() -> void:
 			_show_modal(n_modal)
 
 func _on_shuffle_pressed() -> void:
-	var am = _am()
-	if am:
-		am.play_sfx("button_click")
-	var bv = _get_board_view()
-	if bv:
-		bv.shuffle_remaining_tiles()
-	var n_modal = _get_modal("Modals/NoMovesModal")
-	if n_modal:
-		_hide_modal(n_modal)
+	# Shuffle mode removed in favor of guaranteed solvable levels and undo/restart
+	_on_restart_pressed()
 
 func _on_restart_pressed() -> void:
 	var am = _am()

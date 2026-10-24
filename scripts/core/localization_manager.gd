@@ -68,7 +68,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "Next Level ▶",
 
 		"NO_MOVES_TITLE": "No Moves Remaining",
-		"NO_MOVES_DESC": "No open matching pairs remain on the board. Would you like to shuffle the remaining tiles or undo your last move?",
+		"NO_MOVES_DESC": "No open matching pairs remain on the board. Undo your recent moves or restart the level to find the winning path!",
 		"BTN_SHUFFLE_BOARD": "🔀 Shuffle Board",
 		"BTN_UNDO_MOVE": "↶ Undo Move",
 		"BTN_CLOSE": "Close",
@@ -97,7 +97,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "Example: [ Spring (春) ] = [ Summer (夏) ]  ✓ Any 2 Seasons Match!",
 
 		"RULES_TOOLS_TITLE": "3. Assistance Tools",
-		"RULES_TOOLS_DESC": "• [b]Undo[/b]: Reverses your most recent tile match.\n• [b]Hint[/b]: Highlights an active free matching pair in emerald.\n• [b]Shuffle[/b]: Rearranges remaining tiles into a guaranteed solvable state.",
+		"RULES_TOOLS_DESC": "• [b]Undo[/b]: Reverses your most recent tile match.\n• [b]Hint[/b]: Highlights an active free matching pair in emerald.\n• [b]Restart[/b]: Restarts the board from the beginning so you can try a different solution path.",
 
 		"RULES_GOAL_TITLE": "4. Objective",
 		"RULES_GOAL_DESC": "Clear all 144 tiles from the garden board to achieve victory and earn up to 3 stars!",
@@ -185,7 +185,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "下一关卡 ▶",
 
 		"NO_MOVES_TITLE": "暂无可消配对",
-		"NO_MOVES_DESC": "当前牌面上无可用解法。您可以洗牌重新排列剩余牌，或撤销上一步操作。",
+		"NO_MOVES_DESC": "当前牌面上无可用配对。您可以撤销最近的移动，或重新开始本关以尝试胜利路径！",
 		"BTN_SHUFFLE_BOARD": "🔀 重新洗牌",
 		"BTN_UNDO_MOVE": "↶ 撤回上步",
 		"BTN_CLOSE": "关闭",
@@ -214,7 +214,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "配对范例：[ 春季 (春) ] = [ 夏季 (夏) ]  ✓ 任意四季牌互为配对！",
 
 		"RULES_TOOLS_TITLE": "3. 禅意辅助道具",
-		"RULES_TOOLS_DESC": "• [b]撤销[/b]: 倒退一步，恢复刚刚消除的配对。\n• [b]提示[/b]: 以翠玉翡翠光效高亮一组可消除的有效牌。\n• [b]洗牌[/b]: 将剩余牌重新排列，确保必然存在可解路径。",
+		"RULES_TOOLS_DESC": "• [b]撤销[/b]: 倒退一步，恢复刚刚消除的配对。\n• [b]提示[/b]: 以翠玉翡翠光效高亮一组可消除的有效牌。\n• [b]重新开始[/b]: 从头重新开始本关，以便尝试不同的解题路径。",
 
 		"RULES_GOAL_TITLE": "4. 游戏目标",
 		"RULES_GOAL_DESC": "清除庭院棋盘上所有的 144 张麻将牌即可赢得胜利，并解锁三星荣耀！",
@@ -302,7 +302,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "次のレベルへ ▶",
 
 		"NO_MOVES_TITLE": "取れる手がありません",
-		"NO_MOVES_DESC": "現在ペアにできる自由な牌がありません。牌をシャッフルして再配置するか、手を戻しますか？",
+		"NO_MOVES_DESC": "現在ペアにできる自由な牌がありません。直前の手を戻すか、レベルをやり直してクリアを目指しましょう！",
 		"BTN_SHUFFLE_BOARD": "🔀 シャッフルする",
 		"BTN_UNDO_MOVE": "↶ 手を戻す",
 		"BTN_CLOSE": "閉じる",
@@ -331,7 +331,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "一致の例：[ 春 ] = [ 夏 ]  ✓ 異なる季節牌同士でもペア成立！",
 
 		"RULES_TOOLS_TITLE": "3. サポート機能",
-		"RULES_TOOLS_DESC": "• [b]元に戻す[/b]: 直前の消去を取り消して戻します。\n• [b]ヒント[/b]: 現在取れるペアをエメラルド色で光らせます。\n• [b]シャッフル[/b]: 残りの牌を必ずクリア可能な状態に並べ替えます。",
+		"RULES_TOOLS_DESC": "• [b]元に戻す[/b]: 直前の消去を取り消して戻します。\n• [b]ヒント[/b]: 現在取れるペアをエメラルド色で光らせます。\n• [b]やり直し[/b]: 最初から配置をやり直して別の解き方を試せます。",
 
 		"RULES_GOAL_TITLE": "4. 勝利の条件",
 		"RULES_GOAL_DESC": "盤面上のすべての牌 (144枚) を消去すれば見事クリアとなり、星が贈られます！",
@@ -419,7 +419,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "Siguiente Nivel ▶",
 
 		"NO_MOVES_TITLE": "Sin Movimientos Disponibles",
-		"NO_MOVES_DESC": "No quedan parejas libres en el tablero. ¿Deseas barajar las fichas restantes o deshacer tu último movimiento?",
+		"NO_MOVES_DESC": "No quedan parejas disponibles en el tablero. ¡Deshaz tus últimos movimientos o reinicia el nivel para encontrar el camino ganador!",
 		"BTN_SHUFFLE_BOARD": "🔀 Barajar Tablero",
 		"BTN_UNDO_MOVE": "↶ Deshacer Jugada",
 		"BTN_CLOSE": "Cerrar",
@@ -448,7 +448,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "Ejemplo: [ Primavera ] = [ Verano ]  ✓ ¡Cualquier 2 estaciones coinciden!",
 
 		"RULES_TOOLS_TITLE": "3. Herramientas de Asistencia",
-		"RULES_TOOLS_DESC": "• [b]Deshacer[/b]: Revierte tu último movimiento emparejado.\n• [b]Pista[/b]: Resalta en verde esmeralda una pareja disponible.\n• [b]Barajar[/b]: Reordena las fichas restantes garantizando solución.",
+		"RULES_TOOLS_DESC": "• [b]Deshacer[/b]: Revierte tu último movimiento emparejado.\n• [b]Pista[/b]: Resalta en verde esmeralda una pareja disponible.\n• [b]Reiniciar[/b]: Reinicia el tablero desde el principio para probar otra solución.",
 
 		"RULES_GOAL_TITLE": "4. Objetivo",
 		"RULES_GOAL_DESC": "¡Limpia las 144 fichas del jardín para conseguir la victoria y hasta 3 estrellas!",
@@ -536,7 +536,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "Niveau Suivant ▶",
 
 		"NO_MOVES_TITLE": "Aucun Coup Restant",
-		"NO_MOVES_DESC": "Plus aucune paire libre n'est disponible sur le plateau. Souhaitez-vous mélanger les tuiles ou annuler votre dernier coup ?",
+		"NO_MOVES_DESC": "Aucune paire libre n'est disponible sur le plateau. Annulez vos derniers coups ou recommencez le niveau pour trouver le chemin gagnant !",
 		"BTN_SHUFFLE_BOARD": "🔀 Mélanger le Plateau",
 		"BTN_UNDO_MOVE": "↶ Annuler le Coup",
 		"BTN_CLOSE": "Fermer",
@@ -565,7 +565,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "Exemple : [ Printemps ] = [ Été ]  ✓ N'importe quelles 2 saisons s'associent !",
 
 		"RULES_TOOLS_TITLE": "3. Outils d'Aide",
-		"RULES_TOOLS_DESC": "• [b]Annuler[/b] : Déjoue votre dernier coup.\n• [b]Indice[/b] : Fait briller une paire libre en vert émeraude.\n• [b]Mélanger[/b] : Réorganise les tuiles restantes en garantissant une issue gagnante.",
+		"RULES_TOOLS_DESC": "• [b]Annuler[/b] : Déjoue votre dernier coup.\n• [b]Indice[/b] : Fait briller une paire libre en vert émeraude.\n• [b]Recommencer[/b] : Recommence le niveau dès le début pour tenter une autre approche.",
 
 		"RULES_GOAL_TITLE": "4. Objectif",
 		"RULES_GOAL_DESC": "Éliminez les 144 tuiles du jardin zen pour remporter la victoire et jusqu'à 3 étoiles !",
@@ -653,7 +653,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "Nächstes Level ▶",
 
 		"NO_MOVES_TITLE": "Keine Züge Mehr",
-		"NO_MOVES_DESC": "Keine freien Paare mehr auf dem Spielfeld. Möchten Sie die verbleibenden Steine mischen oder Ihren letzten Zug rückgängig machen?",
+		"NO_MOVES_DESC": "Keine offenen Paare mehr auf dem Spielfeld. Machen Sie Ihre letzten Züge rückgängig oder starten Sie das Level neu, um den Gewinnweg zu finden!",
 		"BTN_SHUFFLE_BOARD": "🔀 Steine Mischen",
 		"BTN_UNDO_MOVE": "↶ Zug Rückgängig",
 		"BTN_CLOSE": "Schließen",
@@ -682,7 +682,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "Beispiel: [ Frühling ] = [ Sommer ]  ✓ Beliebige 2 Jahreszeiten passen zusammen!",
 
 		"RULES_TOOLS_TITLE": "3. Hilfsmittel",
-		"RULES_TOOLS_DESC": "• [b]Rückgängig[/b]: Macht den letzten Spielzug rückgängig.\n• [b]Hinweis[/b]: Lässt ein freies Paar smaragdgrün leuchten.\n• [b]Mischen[/b]: Mischt alle Steine neu und garantiert eine lösbare Anordnung.",
+		"RULES_TOOLS_DESC": "• [b]Rückgängig[/b]: Macht den letzten Spielzug rückgängig.\n• [b]Hinweis[/b]: Lässt ein freies Paar smaragdgrün leuchten.\n• [b]Neustart[/b]: Startet das Level von vorne, um einen anderen Lösungsweg zu versuchen.",
 
 		"RULES_GOAL_TITLE": "4. Spielziel",
 		"RULES_GOAL_DESC": "Räume alle 144 Steine vom Brett, um den Sieg zu erringen und bis zu 3 Sterne zu erhalten!",
@@ -770,7 +770,7 @@ const STRINGS: Dictionary = {
 		"BTN_NEXT_LEVEL": "अगला स्तर ▶",
 
 		"NO_MOVES_TITLE": "कोई चाल शेष नहीं",
-		"NO_MOVES_DESC": "बोर्ड पर कोई खुली जोड़ी नहीं बची है। क्या आप शेष टाइलों को मिलाना चाहते हैं या अंतिम चाल पूर्ववत करना चाहते हैं?",
+		"NO_MOVES_DESC": "बोर्ड पर कोई खुली जोड़ी नहीं बची है। जीतने का रास्ता खोजने के लिए अपनी हालिया चालों को पूर्ववत करें या स्तर को पुनः आरंभ करें!",
 		"BTN_SHUFFLE_BOARD": "🔀 बोर्ड फेरबदल",
 		"BTN_UNDO_MOVE": "↶ चाल पूर्ववत करें",
 		"BTN_CLOSE": "बंद करें",
@@ -799,7 +799,7 @@ const STRINGS: Dictionary = {
 		"RULES_SEASONS_EXAMPLE": "उदाहरण: [ वसंत ] = [ ग्रीष्म ]  ✓ कोई भी 2 मौसम आपस में मिलते हैं!",
 
 		"RULES_TOOLS_TITLE": "3. सहायता उपकरण",
-		"RULES_TOOLS_DESC": "• [b]पूर्ववत[/b]: अपनी पिछली चाल को उलटें।\n• [b]संकेत[/b]: पन्ना हरे रंग में उपलब्ध जोड़ी को दिखाता है।\n• [b]फेरबदल[/b]: बची हुई टाइलों को पुनर्व्यवस्थित करता है जिससे समाधान निश्चित हो।",
+		"RULES_TOOLS_DESC": "• [b]पूर्ववत[/b]: अपनी पिछली चाल को उलटें।\n• [b]संकेत[/b]: पन्ना हरे रंग में उपलब्ध जोड़ी को दिखाता है।\n• [b]पुनः आरंभ[/b]: बोर्ड को शुरू से फिर से शुरू करें ताकि आप दूसरा रास्ता खोज सकें।",
 
 		"RULES_GOAL_TITLE": "4. खेल का लक्ष्य",
 		"RULES_GOAL_DESC": "जीत हासिल करने और 3 सितारे प्राप्त करने के लिए सभी 144 टाइलों को साफ करें!",
