@@ -41,8 +41,12 @@ static func run_tests(tree: SceneTree) -> void:
 	ls_scene._ready()
 	
 	var grid = ls_scene.get_node("ScrollContainer/Center/VBox/GridContainer")
-	assert(grid.get_child_count() == 30, "Level grid must have exactly 30 level buttons (found %d)" % grid.get_child_count())
-	print("  -> Verified all 30 level buttons created!")
+	assert(grid.get_child_count() == 80, "Level grid must have all 80 level buttons (found %d)" % grid.get_child_count())
+	ls_scene._set_tier_filter("grandmaster")
+	assert(grid.get_child_count() == 20, "Grandmaster tier must have 20 high-IQ buttons (found %d)" % grid.get_child_count())
+	ls_scene._set_tier_filter("all")
+	assert(grid.get_child_count() == 80, "All filter must restore 80 level buttons")
+	print("  -> Verified all 80 level buttons and Grandmaster tier filtering created!")
 	tree.root.remove_child(ls_scene)
 	ls_scene.free()
 	

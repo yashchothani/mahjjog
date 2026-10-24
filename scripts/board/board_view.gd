@@ -25,6 +25,8 @@ var undo_stack: Array[Dictionary] = [] # Array of {pos1, data1, pos2, data2}
 var moves_count: int = 0
 var current_level_id: int = 1
 var is_interactive: bool = true
+var solution_pairs: Array[Array] = []
+var initial_solution_pairs: Array[Array] = []
 
 func _ready() -> void:
 	custom_minimum_size = Vector2.ZERO
@@ -53,6 +55,8 @@ func setup_level(level_id: int) -> void:
 	for pos in gen_result.tile_map.keys():
 		initial_tile_map[pos] = MahjongTileData.create_clone(gen_result.tile_map[pos])
 		
+	solution_pairs = gen_result.solution_pairs.duplicate()
+	initial_solution_pairs = gen_result.solution_pairs.duplicate()
 	_populate_from_map(gen_result.tile_map)
 
 func restart_level() -> void:
@@ -65,6 +69,7 @@ func restart_level() -> void:
 	for pos in initial_tile_map.keys():
 		clone_map[pos] = MahjongTileData.create_clone(initial_tile_map[pos])
 		
+	solution_pairs = initial_solution_pairs.duplicate()
 	_populate_from_map(clone_map)
 
 func _populate_from_map(tile_map: Dictionary) -> void:
@@ -232,6 +237,17 @@ func _check_moves_remaining() -> void:
 		no_moves_left.emit()
 
 func find_hint_pair() -> Array[TileView]:
+	# 1. Prefer pairs from the proven solution path to guarantee deadlock-free progression
+	for pair in solution_pairs:
+		var p1: Vector3i = pair[0]
+		var p2: Vector3i = pair[1]
+		if active_tiles.has(p1) and active_tiles.has(p2):
+			var t1: TileView = active_tiles[p1]
+			var t2: TileView = active_tiles[p2]
+			if t1.is_free and t2.is_free:
+				return [t1, t2]
+
+	# 2. General fallback: search any matching free tiles
 	var free_tiles: Array[TileView] = []
 	for tile in active_tiles.values():
 		if tile.is_free:
@@ -327,4 +343,5 @@ func clear_board() -> void:
 		tile.queue_free()
 	active_tiles.clear()
 	undo_stack.clear()
+	solution_pairs.clear()
 	selected_tile = null

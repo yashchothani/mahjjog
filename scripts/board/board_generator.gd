@@ -54,12 +54,19 @@ static func generate_from_layout(layout, seed_value: int) -> GenerationResult:
 				failed = true
 				break
 				
-			# Select two free positions at random
-			var idx1 = attempt_rng.randi_range(0, free_tiles.size() - 1)
+			# Sort free_tiles by layer z descending so upper layers are cleared first in reverse
+			free_tiles.sort_custom(func(a: Vector3i, b: Vector3i) -> bool:
+				if a.z != b.z:
+					return a.z > b.z
+				return a.x < b.x
+			)
+			var top_cand_count = min(free_tiles.size(), 6)
+			var idx1 = attempt_rng.randi_range(0, top_cand_count - 1)
 			var pos1 = free_tiles[idx1]
 			free_tiles.remove_at(idx1)
 			
-			var idx2 = attempt_rng.randi_range(0, free_tiles.size() - 1)
+			var top_cand_count2 = min(free_tiles.size(), 6)
+			var idx2 = attempt_rng.randi_range(0, top_cand_count2 - 1)
 			var pos2 = free_tiles[idx2]
 			
 			# Pick a matching pair from our pool

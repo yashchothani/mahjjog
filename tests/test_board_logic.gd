@@ -64,14 +64,14 @@ static func test_free_tile_detection() -> void:
 	print("  -> Passed free tile detection assertions!")
 
 static func test_solvable_level_generation() -> void:
-	print("[TEST] 3. Solvable Level Generation across all 30 layouts...")
-	for lvl in range(1, 31):
+	print("[TEST] 3. Solvable Level Generation across all 80 layouts...")
+	for lvl in range(1, 81):
 		var res = BoardGenerator.generate_level(lvl)
 		assert(res.success, "Generation must succeed for level %d (%s)" % [lvl, res.layout_name])
 		assert(res.tile_map.size() > 0, "Tile map must not be empty")
 		assert(res.tile_map.size() % 2 == 0, "Tile map must have an even number of tiles")
 		assert(res.solution_pairs.size() == res.tile_map.size() / 2, "Solution pairs count must equal half tile count")
 		assert(BoardGenerator.solver_can_solve(res.tile_map), "Level %d must be proven solvable by solver" % lvl)
-		print("  -> Level %02d: %-22s (%d tiles, %d solution pairs) - Proven Solvable" % [lvl, res.layout_name, res.tile_map.size(), res.solution_pairs.size()])
+		print("  -> Level %02d: %-25s (%d tiles, %d solution pairs) - Proven Solvable" % [lvl, res.layout_name, res.tile_map.size(), res.solution_pairs.size()])
 		
-	print("  -> Passed all 30 solvable level generation assertions!")
+	print("  -> Passed all 80 solvable level generation assertions!")

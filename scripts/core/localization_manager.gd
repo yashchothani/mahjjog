@@ -149,7 +149,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "Milestone Chest: Level %d (%d/%d)",
 		"VIC_CHEST_READY": "Milestone Chest Unlocked! +3 Hints",
 		"SETTINGS_EDIT_PROFILE": "Edit Profile",
-		"SETTINGS_AUDIO_HAPTICS": "Audio & Haptics"
+		"SETTINGS_AUDIO_HAPTICS": "Audio & Haptics",
+		"TIER_ALL": "All (1 - 80)",
+		"TIER_NOVICE": "🌿 Novice (1-20)",
+		"TIER_ADEPT": "🎋 Adept (21-40)",
+		"TIER_MASTER": "🥋 Master (41-60)",
+		"TIER_GRANDMASTER": "🧠 High IQ (61-80)"
 	},
 
 	"zh": {
@@ -283,7 +288,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "里程碑宝箱：第 %d 关 (%d/%d)",
 		"VIC_CHEST_READY": "里程碑宝箱已解锁！+3 提示",
 		"SETTINGS_EDIT_PROFILE": "编辑档案",
-		"SETTINGS_AUDIO_HAPTICS": "音频与触觉反馈"
+		"SETTINGS_AUDIO_HAPTICS": "音频与触觉反馈",
+		"TIER_ALL": "全部 (1 - 80)",
+		"TIER_NOVICE": "🌿 初学者 (1-20)",
+		"TIER_ADEPT": "🎋 熟练者 (21-40)",
+		"TIER_MASTER": "🥋 大师 (41-60)",
+		"TIER_GRANDMASTER": "🧠 高智商宗师 (61-80)"
 	},
 
 	"ja": {
@@ -417,7 +427,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "マイルストーン宝箱：レベル %d (%d/%d)",
 		"VIC_CHEST_READY": "マイルストーン宝箱解除！ヒント+3",
 		"SETTINGS_EDIT_PROFILE": "プロフィール編集",
-		"SETTINGS_AUDIO_HAPTICS": "オーディオ＆触覚"
+		"SETTINGS_AUDIO_HAPTICS": "オーディオ＆触覚",
+		"TIER_ALL": "すべて (1 - 80)",
+		"TIER_NOVICE": "🌿 初級 (1-20)",
+		"TIER_ADEPT": "🎋 中級 (21-40)",
+		"TIER_MASTER": "🥋 上級 (41-60)",
+		"TIER_GRANDMASTER": "🧠 超難関・達人 (61-80)"
 	},
 
 	"es": {
@@ -551,7 +566,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "Cofre de Meta: Nivel %d (%d/%d)",
 		"VIC_CHEST_READY": "¡Cofre Desbloqueado! +3 Pistas",
 		"SETTINGS_EDIT_PROFILE": "Editar Perfil",
-		"SETTINGS_AUDIO_HAPTICS": "Audio y Vibración"
+		"SETTINGS_AUDIO_HAPTICS": "Audio y Vibración",
+		"TIER_ALL": "Todos (1 - 80)",
+		"TIER_NOVICE": "🌿 Principiante (1-20)",
+		"TIER_ADEPT": "🎋 Hábil (21-40)",
+		"TIER_MASTER": "🥋 Maestro (41-60)",
+		"TIER_GRANDMASTER": "🧠 Gran Maestro (61-80)"
 	},
 
 	"fr": {
@@ -685,7 +705,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "Coffre d'Étape : Niveau %d (%d/%d)",
 		"VIC_CHEST_READY": "Coffre Débloqué ! +3 Indices",
 		"SETTINGS_EDIT_PROFILE": "Modifier le Profil",
-		"SETTINGS_AUDIO_HAPTICS": "Audio et Vibrations"
+		"SETTINGS_AUDIO_HAPTICS": "Audio et Vibrations",
+		"TIER_ALL": "Tous (1 - 80)",
+		"TIER_NOVICE": "🌿 Novice (1-20)",
+		"TIER_ADEPT": "🎋 Adepte (21-40)",
+		"TIER_MASTER": "🥋 Maître (41-60)",
+		"TIER_GRANDMASTER": "🧠 Grand Maître (61-80)"
 	},
 
 	"de": {
@@ -819,7 +844,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "Meilenstein-Truhe: Level %d (%d/%d)",
 		"VIC_CHEST_READY": "Meilenstein-Truhe Freigeschaltet! +3 Hinweise",
 		"SETTINGS_EDIT_PROFILE": "Profil Bearbeiten",
-		"SETTINGS_AUDIO_HAPTICS": "Audio & Haptik"
+		"SETTINGS_AUDIO_HAPTICS": "Audio & Haptik",
+		"TIER_ALL": "Alle (1 - 80)",
+		"TIER_NOVICE": "🌿 Anfänger (1-20)",
+		"TIER_ADEPT": "🎋 Fortgeschritten (21-40)",
+		"TIER_MASTER": "🥋 Meister (41-60)",
+		"TIER_GRANDMASTER": "🧠 Großmeister (61-80)"
 	},
 
 	"hi": {
@@ -953,7 +983,12 @@ const STRINGS: Dictionary = {
 		"VIC_CHEST_UNLOCK": "मील का पत्थर संदूक: स्तर %d (%d/%d)",
 		"VIC_CHEST_READY": "मील का पत्थर संदूक खुला! +3 संकेत",
 		"SETTINGS_EDIT_PROFILE": "प्रोफ़ाइल संपादित करें",
-		"SETTINGS_AUDIO_HAPTICS": "ऑडियो और कंपन"
+		"SETTINGS_AUDIO_HAPTICS": "ऑडियो और कंपन",
+		"TIER_ALL": "सभी (1 - 80)",
+		"TIER_NOVICE": "🌿 शुरुआती (1-20)",
+		"TIER_ADEPT": "🎋 कुशल (21-40)",
+		"TIER_MASTER": "🥋 उस्ताद (41-60)",
+		"TIER_GRANDMASTER": "🧠 उच्च बुद्धिमान (61-80)"
 	}
 }
 

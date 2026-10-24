@@ -72,7 +72,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
 theme_override_font_sizes/font_size = 22
-text = "Select Garden Level (1 - 30)"
+text = "Select Garden Level (1 - 80)"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -91,7 +91,37 @@ size_flags_vertical = 3
 [node name="VBox" type="VBoxContainer" parent="ScrollContainer/Center"]
 layout_mode = 2
 alignment = 1
-theme_override_constants/separation = 20
+theme_override_constants/separation = 16
+
+[node name="TierBar" type="HBoxContainer" parent="ScrollContainer/Center/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="TierBtnAll" type="Button" parent="ScrollContainer/Center/VBox/TierBar"]
+custom_minimum_size = Vector2(120, 36)
+layout_mode = 2
+text = "All (1 - 80)"
+
+[node name="TierBtnNovice" type="Button" parent="ScrollContainer/Center/VBox/TierBar"]
+custom_minimum_size = Vector2(130, 36)
+layout_mode = 2
+text = "🌿 Novice (1-20)"
+
+[node name="TierBtnAdept" type="Button" parent="ScrollContainer/Center/VBox/TierBar"]
+custom_minimum_size = Vector2(130, 36)
+layout_mode = 2
+text = "🎋 Adept (21-40)"
+
+[node name="TierBtnMaster" type="Button" parent="ScrollContainer/Center/VBox/TierBar"]
+custom_minimum_size = Vector2(130, 36)
+layout_mode = 2
+text = "🥋 Master (41-60)"
+
+[node name="TierBtnGrandmaster" type="Button" parent="ScrollContainer/Center/VBox/TierBar"]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
+text = "🧠 High IQ (61-80)"
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer/Center/VBox"]
 layout_mode = 2
