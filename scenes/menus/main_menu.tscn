@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://scripts/ui/main_menu_controller.gd" id="1_mm"]
 [ext_resource type="Texture2D" path="res://assets/backgrounds/menu_bg.jpg" id="2_bg"]
 [ext_resource type="PackedScene" path="res://scenes/dialogs/tutorial_modal.tscn" id="3_tm"]
+[ext_resource type="PackedScene" path="res://scenes/dialogs/profile_modal.tscn" id="4_pm"]
+[ext_resource type="PackedScene" path="res://scenes/dialogs/streak_modal.tscn" id="5_sm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_play"]
 bg_color = Color(0.14, 0.35, 0.24, 0.95)
@@ -55,23 +57,21 @@ content_margin_top = 30.0
 content_margin_right = 40.0
 content_margin_bottom = 30.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
-bg_color = Color(0.06, 0.16, 0.12, 0.98)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.83, 0.68, 0.28, 0.8)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-shadow_color = Color(0, 0, 0, 0.7)
-shadow_size = 14
-content_margin_left = 30.0
-content_margin_top = 26.0
-content_margin_right = 30.0
-content_margin_bottom = 26.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_top_widget"]
+bg_color = Color(0.06, 0.16, 0.11, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85, 0.72, 0.35, 0.6)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -102,6 +102,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.04, 0.1, 0.07, 0.35)
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="ProfileWidgetBtn" type="Button" parent="TopBar"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_top_widget")
+text = "🧘 Zen Explorer ✏️"
+
+[node name="Spacer" type="Control" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StreakWidgetBtn" type="Button" parent="TopBar"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_top_widget")
+text = "🔥 1 Day Streak 🎁"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -222,9 +254,18 @@ mouse_filter = 2
 visible = false
 layout_mode = 1
 
+[node name="ProfileModal" parent="Modals" instance=ExtResource("4_pm")]
+visible = false
+layout_mode = 1
+
+[node name="StreakModal" parent="Modals" instance=ExtResource("5_sm")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="TopBar/ProfileWidgetBtn" to="." method="_on_profile_pressed"]
+[connection signal="pressed" from="TopBar/StreakWidgetBtn" to="." method="_on_streak_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/ContinueBtn" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/LevelSelectBtn" to="." method="_on_level_select_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/DailyBtn" to="." method="_on_daily_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/TutorialBtn" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButtons/SettingsBtn" to="." method="_on_settings_pressed"]
-

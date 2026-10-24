@@ -32,7 +32,9 @@ func _init():
 		"res://scenes/menus/level_select.tscn",
 		"res://scenes/settings/settings.tscn",
 		"res://scenes/gameplay/gameplay.tscn",
-		"res://scenes/dialogs/tutorial_modal.tscn"
+		"res://scenes/dialogs/tutorial_modal.tscn",
+		"res://scenes/dialogs/profile_modal.tscn",
+		"res://scenes/dialogs/streak_modal.tscn"
 	]
 	
 	var total_nodes_audited = 0

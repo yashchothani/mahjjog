@@ -131,8 +131,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "Plum Blossom (梅)", "TILE_ORCHID": "Orchid (蘭)",
 		"TILE_BAMBOO_FLOWER": "Bamboo Blossom (竹)", "TILE_CHRYSANTHEMUM": "Chrysanthemum (菊)",
 
-		"TILE_SPRING": "Spring (春)", "TILE_SUMMER": "Summer (夏)",
-		"TILE_AUTUMN": "Autumn (秋)", "TILE_WINTER": "Winter (冬)"
+		"TILE_AUTUMN": "Autumn (秋)", "TILE_WINTER": "Winter (冬)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "Player Profile",
+		"PROFILE_AVATAR": "Avatar",
+		"PROFILE_FRAME": "Frame",
+		"PROFILE_NAME_LABEL": "Player Name",
+		"BTN_SAVE_PROFILE": "Save Profile",
+		"STREAK_TITLE": "Day Streak",
+		"STREAK_SUBTITLE": "Tranquil focus, great job!",
+		"STREAK_CLAIM_BTN": "Claim Reward",
+		"STREAK_CLAIMED_BTN": "Claimed Today ✓",
+		"STREAK_CHEST_REWARD": "Day 7 Grand Reward: +5 Hints & Golden Chest!",
+		"STREAK_DAILY_REWARD": "Daily Reward: +2 Bonus Hints!",
+		"VIC_TOPPED_PLAYERS": "You topped %s of players!",
+		"VIC_CHEST_UNLOCK": "Milestone Chest: Level %d (%d/%d)",
+		"VIC_CHEST_READY": "Milestone Chest Unlocked! +3 Hints",
+		"SETTINGS_EDIT_PROFILE": "Edit Profile",
+		"SETTINGS_AUDIO_HAPTICS": "Audio & Haptics"
 	},
 
 	"zh": {
@@ -248,8 +265,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "梅花 (梅)", "TILE_ORCHID": "兰花 (蘭)",
 		"TILE_BAMBOO_FLOWER": "竹子 (竹)", "TILE_CHRYSANTHEMUM": "菊花 (菊)",
 
-		"TILE_SPRING": "春季 (春)", "TILE_SUMMER": "夏季 (夏)",
-		"TILE_AUTUMN": "秋季 (秋)", "TILE_WINTER": "冬季 (冬)"
+		"TILE_AUTUMN": "秋季 (秋)", "TILE_WINTER": "冬季 (冬)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "玩家档案",
+		"PROFILE_AVATAR": "头像",
+		"PROFILE_FRAME": "相框",
+		"PROFILE_NAME_LABEL": "玩家昵称",
+		"BTN_SAVE_PROFILE": "保存档案",
+		"STREAK_TITLE": "每日连胜",
+		"STREAK_SUBTITLE": "心如止水，精彩发挥！",
+		"STREAK_CLAIM_BTN": "领取奖励",
+		"STREAK_CLAIMED_BTN": "今日已领 ✓",
+		"STREAK_CHEST_REWARD": "第7天终极大奖：+5 提示与黄金宝箱！",
+		"STREAK_DAILY_REWARD": "每日奖励：+2 提示！",
+		"VIC_TOPPED_PLAYERS": "你的表现超越了 %s 的玩家！",
+		"VIC_CHEST_UNLOCK": "里程碑宝箱：第 %d 关 (%d/%d)",
+		"VIC_CHEST_READY": "里程碑宝箱已解锁！+3 提示",
+		"SETTINGS_EDIT_PROFILE": "编辑档案",
+		"SETTINGS_AUDIO_HAPTICS": "音频与触觉反馈"
 	},
 
 	"ja": {
@@ -365,8 +399,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "梅 (ウメ)", "TILE_ORCHID": "蘭 (ラン)",
 		"TILE_BAMBOO_FLOWER": "竹 (タケ)", "TILE_CHRYSANTHEMUM": "菊 (キク)",
 
-		"TILE_SPRING": "春 (ハル)", "TILE_SUMMER": "夏 (ナツ)",
-		"TILE_AUTUMN": "秋 (アキ)", "TILE_WINTER": "冬 (フユ)"
+		"TILE_AUTUMN": "秋 (アキ)", "TILE_WINTER": "冬 (フユ)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "プレイヤープロフィール",
+		"PROFILE_AVATAR": "アバター",
+		"PROFILE_FRAME": "フレーム",
+		"PROFILE_NAME_LABEL": "プレイヤー名",
+		"BTN_SAVE_PROFILE": "プロフィールを保存",
+		"STREAK_TITLE": "デイリーストリーク",
+		"STREAK_SUBTITLE": "素晴らしい集中力です！",
+		"STREAK_CLAIM_BTN": "報酬を受け取る",
+		"STREAK_CLAIMED_BTN": "本日受取済み ✓",
+		"STREAK_CHEST_REWARD": "7日目特別報酬：ヒント+5＆黄金の宝箱！",
+		"STREAK_DAILY_REWARD": "デイリー報酬：ヒント+2！",
+		"VIC_TOPPED_PLAYERS": "プレイヤーの %s より優れたスコアです！",
+		"VIC_CHEST_UNLOCK": "マイルストーン宝箱：レベル %d (%d/%d)",
+		"VIC_CHEST_READY": "マイルストーン宝箱解除！ヒント+3",
+		"SETTINGS_EDIT_PROFILE": "プロフィール編集",
+		"SETTINGS_AUDIO_HAPTICS": "オーディオ＆触覚"
 	},
 
 	"es": {
@@ -482,8 +533,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "Flor de Ciruelo (梅)", "TILE_ORCHID": "Orquídea (蘭)",
 		"TILE_BAMBOO_FLOWER": "Bambú en Flor (竹)", "TILE_CHRYSANTHEMUM": "Crisantemo (菊)",
 
-		"TILE_SPRING": "Primavera (春)", "TILE_SUMMER": "Verano (夏)",
-		"TILE_AUTUMN": "Otoño (秋)", "TILE_WINTER": "Invierno (冬)"
+		"TILE_AUTUMN": "Otoño (秋)", "TILE_WINTER": "Invierno (冬)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "Perfil del Jugador",
+		"PROFILE_AVATAR": "Avatar",
+		"PROFILE_FRAME": "Marco",
+		"PROFILE_NAME_LABEL": "Nombre del Jugador",
+		"BTN_SAVE_PROFILE": "Guardar Perfil",
+		"STREAK_TITLE": "Racha Diaria",
+		"STREAK_SUBTITLE": "¡Gran enfoque y excelente juego!",
+		"STREAK_CLAIM_BTN": "Reclamar Recompensa",
+		"STREAK_CLAIMED_BTN": "Reclamado Hoy ✓",
+		"STREAK_CHEST_REWARD": "Gran Recompensa Día 7: ¡+5 Pistas y Cofre Dorado!",
+		"STREAK_DAILY_REWARD": "Recompensa Diaria: ¡+2 Pistas Adicionales!",
+		"VIC_TOPPED_PLAYERS": "¡Superaste al %s de los jugadores!",
+		"VIC_CHEST_UNLOCK": "Cofre de Meta: Nivel %d (%d/%d)",
+		"VIC_CHEST_READY": "¡Cofre Desbloqueado! +3 Pistas",
+		"SETTINGS_EDIT_PROFILE": "Editar Perfil",
+		"SETTINGS_AUDIO_HAPTICS": "Audio y Vibración"
 	},
 
 	"fr": {
@@ -599,8 +667,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "Fleur de Prunier (梅)", "TILE_ORCHID": "Orchidée (蘭)",
 		"TILE_BAMBOO_FLOWER": "Fleur de Bambou (竹)", "TILE_CHRYSANTHEMUM": "Chrysanthème (菊)",
 
-		"TILE_SPRING": "Printemps (春)", "TILE_SUMMER": "Été (夏)",
-		"TILE_AUTUMN": "Automne (秋)", "TILE_WINTER": "Hiver (冬)"
+		"TILE_AUTUMN": "Automne (秋)", "TILE_WINTER": "Hiver (冬)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "Profil du Joueur",
+		"PROFILE_AVATAR": "Avatar",
+		"PROFILE_FRAME": "Cadre",
+		"PROFILE_NAME_LABEL": "Nom du Joueur",
+		"BTN_SAVE_PROFILE": "Sauvegarder le Profil",
+		"STREAK_TITLE": "Série de Jours",
+		"STREAK_SUBTITLE": "Concentration zen, excellent jeu !",
+		"STREAK_CLAIM_BTN": "Récupérer la Récompense",
+		"STREAK_CLAIMED_BTN": "Récupéré Aujourd'hui ✓",
+		"STREAK_CHEST_REWARD": "Grande Récompense Jour 7 : +5 Indices et Coffre Doré !",
+		"STREAK_DAILY_REWARD": "Récompense Quotidienne : +2 Indices Bonus !",
+		"VIC_TOPPED_PLAYERS": "Vous avez surpassé %s des joueurs !",
+		"VIC_CHEST_UNLOCK": "Coffre d'Étape : Niveau %d (%d/%d)",
+		"VIC_CHEST_READY": "Coffre Débloqué ! +3 Indices",
+		"SETTINGS_EDIT_PROFILE": "Modifier le Profil",
+		"SETTINGS_AUDIO_HAPTICS": "Audio et Vibrations"
 	},
 
 	"de": {
@@ -716,8 +801,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "Pflaumenblüte (梅)", "TILE_ORCHID": "Orchidee (蘭)",
 		"TILE_BAMBOO_FLOWER": "Bambusblüte (竹)", "TILE_CHRYSANTHEMUM": "Chrysantheme (菊)",
 
-		"TILE_SPRING": "Frühling (春)", "TILE_SUMMER": "Sommer (夏)",
-		"TILE_AUTUMN": "Herbst (秋)", "TILE_WINTER": "Winter (冬)"
+		"TILE_AUTUMN": "Herbst (秋)", "TILE_WINTER": "Winter (冬)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "Spielerprofil",
+		"PROFILE_AVATAR": "Avatar",
+		"PROFILE_FRAME": "Rahmen",
+		"PROFILE_NAME_LABEL": "Spielername",
+		"BTN_SAVE_PROFILE": "Profil Speichern",
+		"STREAK_TITLE": "Tages-Serie",
+		"STREAK_SUBTITLE": "Tolle Konzentration, großartig gespielt!",
+		"STREAK_CLAIM_BTN": "Belohnung Abholen",
+		"STREAK_CLAIMED_BTN": "Heute Abgeholt ✓",
+		"STREAK_CHEST_REWARD": "Tag 7 Hauptbelohnung: +5 Hinweise & Goldene Truhe!",
+		"STREAK_DAILY_REWARD": "Tägliche Belohnung: +2 Bonus-Hinweise!",
+		"VIC_TOPPED_PLAYERS": "Besser als %s aller Spieler!",
+		"VIC_CHEST_UNLOCK": "Meilenstein-Truhe: Level %d (%d/%d)",
+		"VIC_CHEST_READY": "Meilenstein-Truhe Freigeschaltet! +3 Hinweise",
+		"SETTINGS_EDIT_PROFILE": "Profil Bearbeiten",
+		"SETTINGS_AUDIO_HAPTICS": "Audio & Haptik"
 	},
 
 	"hi": {
@@ -833,8 +935,25 @@ const STRINGS: Dictionary = {
 		"TILE_PLUM": "बेर का फूल (梅)", "TILE_ORCHID": "आर्किड (蘭)",
 		"TILE_BAMBOO_FLOWER": "बांस का फूल (竹)", "TILE_CHRYSANTHEMUM": "गुलदाउदी (菊)",
 
-		"TILE_SPRING": "वसंत (春)", "TILE_SUMMER": "ग्रीष्म (夏)",
-		"TILE_AUTUMN": "पतझड़ (秋)", "TILE_WINTER": "सर्दी (冬)"
+		"TILE_AUTUMN": "पतझड़ (秋)", "TILE_WINTER": "सर्दी (冬)",
+
+		# Profile & Streak & Percentile
+		"PROFILE_TITLE": "खिलाड़ी प्रोफ़ाइल",
+		"PROFILE_AVATAR": "अवतार",
+		"PROFILE_FRAME": "फ़्रेम",
+		"PROFILE_NAME_LABEL": "खिलाड़ी का नाम",
+		"BTN_SAVE_PROFILE": "प्रोफ़ाइल सहेजें",
+		"STREAK_TITLE": "दैनिक स्ट्रीक",
+		"STREAK_SUBTITLE": "शांत एकाग्रता, बहुत बढ़िया खेल!",
+		"STREAK_CLAIM_BTN": "पुरस्कार प्राप्त करें",
+		"STREAK_CLAIMED_BTN": "आज प्राप्त किया ✓",
+		"STREAK_CHEST_REWARD": "दिन 7 भव्य पुरस्कार: +5 संकेत और स्वर्ण संदूक!",
+		"STREAK_DAILY_REWARD": "दैनिक पुरस्कार: +2 बोनस संकेत!",
+		"VIC_TOPPED_PLAYERS": "आपने %s खिलाड़ियों को पीछे छोड़ दिया!",
+		"VIC_CHEST_UNLOCK": "मील का पत्थर संदूक: स्तर %d (%d/%d)",
+		"VIC_CHEST_READY": "मील का पत्थर संदूक खुला! +3 संकेत",
+		"SETTINGS_EDIT_PROFILE": "प्रोफ़ाइल संपादित करें",
+		"SETTINGS_AUDIO_HAPTICS": "ऑडियो और कंपन"
 	}
 }
 

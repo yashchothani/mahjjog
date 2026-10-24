@@ -61,6 +61,22 @@ content_margin_top = 8.0
 content_margin_right = 16.0
 content_margin_bottom = 8.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_percentile_card"]
+bg_color = Color(0.04, 0.12, 0.08, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85, 0.72, 0.35, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
 [node name="Gameplay" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -258,29 +274,29 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -170.0
-offset_right = 200.0
-offset_bottom = 170.0
+offset_left = -220.0
+offset_top = -240.0
+offset_right = 220.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
 
 [node name="VBox" type="VBoxContainer" parent="Modals/VictoryModal"]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="Modals/VictoryModal/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.88, 0.65, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 26
 text = "Tranquil Victory"
 horizontal_alignment = 1
 
 [node name="StarLabel" type="Label" parent="Modals/VictoryModal/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 30
 text = "★★★"
 horizontal_alignment = 1
 
@@ -306,6 +322,53 @@ text = "Moves:"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.88, 0.75, 1)
 text = "0"
+
+[node name="PercentileCard" type="PanelContainer" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_percentile_card")
+
+[node name="PVBox" type="VBoxContainer" parent="Modals/VictoryModal/VBox/PercentileCard"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="PercentileTitle" type="Label" parent="Modals/VictoryModal/VBox/PercentileCard/PVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.86, 0.52, 1)
+theme_override_font_sizes/font_size = 15
+text = "🏆 Breezy Master"
+horizontal_alignment = 1
+
+[node name="PercentileScore" type="Label" parent="Modals/VictoryModal/VBox/PercentileCard/PVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.95, 0.55, 1)
+theme_override_font_sizes/font_size = 18
+text = "You topped 94.6% of players!"
+horizontal_alignment = 1
+
+[node name="PercentileDesc" type="Label" parent="Modals/VictoryModal/VBox/PercentileCard/PVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.8, 0.9)
+theme_override_font_sizes/font_size = 11
+text = "Smooth on the surface, all skill underneath."
+horizontal_alignment = 1
+
+[node name="ChestBox" type="VBoxContainer" parent="Modals/VictoryModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ChestLabel" type="Label" parent="Modals/VictoryModal/VBox/ChestBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.88, 0.65, 1)
+theme_override_font_sizes/font_size = 13
+text = "🎁 Milestone Chest: Level 5 (1/5)"
+horizontal_alignment = 1
+
+[node name="ChestProgressBar" type="ProgressBar" parent="Modals/VictoryModal/VBox/ChestBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+max_value = 5.0
+value = 1.0
+show_percentage = false
 
 [node name="NextLevelBtn" type="Button" parent="Modals/VictoryModal/VBox"]
 layout_mode = 2

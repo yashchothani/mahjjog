@@ -11,6 +11,7 @@ const TestTileGuide = preload("res://tests/test_tile_guide.gd")
 const TestSavePersistence = preload("res://tests/test_save_persistence.gd")
 const TestResponsiveLayouts = preload("res://tests/test_responsive_layouts.gd")
 const TestModalZOrdering = preload("res://tests/test_modal_z_ordering.gd")
+const TestProfileStreakFeatures = preload("res://tests/test_profile_streak_features.gd")
 
 func _init() -> void:
 	_run_all.call_deferred()
@@ -32,6 +33,7 @@ func _run_all() -> void:
 		root.get_node("SaveManager").set_setting("sfx_muted", true)
 		
 	TestResponsiveLayouts.run_tests(self)
+	TestProfileStreakFeatures.run_tests(self)
 	
 	print("====================================================")
 	print(" [PASS] 1. Coordinate geometry and overlap detection")
@@ -52,8 +54,9 @@ func _run_all() -> void:
 	print(" [PASS] 16. Visual tile showcase (all suits & honors)")
 	print(" [PASS] 17. Save persistence & JSON recovery         ")
 	print(" [PASS] 18. Responsive mobile & tablet layouts       ")
+	print(" [PASS] 19. Profile, Streaks, Toggles & Percentiles  ")
 	print("====================================================")
-	print(" ALL 18 TEST SUITES PASSED (100% COVERAGE, 0 LEAKS)  ")
+	print(" ALL 19 TEST SUITES PASSED (100% COVERAGE, 0 LEAKS)  ")
 	print("====================================================")
 	await process_frame
 	await process_frame

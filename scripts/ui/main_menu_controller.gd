@@ -1,6 +1,10 @@
 extends Control
 
 ## Controller for the Zen Mahjong Main Menu.
+## Manages navigation, top bar player profile and daily streak widgets, and modal dialogs.
+
+@onready var profile_widget_btn: Button = get_node_or_null("TopBar/ProfileWidgetBtn") as Button
+@onready var streak_widget_btn: Button = get_node_or_null("TopBar/StreakWidgetBtn") as Button
 
 @onready var continue_btn: Button = $CenterContainer/VBox/MenuButtons/ContinueBtn
 @onready var level_select_btn: Button = $CenterContainer/VBox/MenuButtons/LevelSelectBtn
@@ -11,7 +15,10 @@ extends Control
 @onready var title_label: Label = $CenterContainer/VBox/LogoPanel/LogoVBox/Title
 @onready var subtitle_label: Label = $CenterContainer/VBox/LogoPanel/LogoVBox/Subtitle
 @onready var version_label: Label = $VersionLabel
+
 @onready var tutorial_modal: PanelContainer = $Modals/TutorialModal
+@onready var profile_modal: Control = get_node_or_null("Modals/ProfileModal") as Control
+@onready var streak_modal: Control = get_node_or_null("Modals/StreakModal") as Control
 
 func _get_autoload(autoload_name: String) -> Node:
 	var tree = Engine.get_main_loop() as SceneTree
@@ -50,12 +57,24 @@ func _get_tutorial_modal() -> PanelContainer:
 	return get_node_or_null("Modals/TutorialModal") as PanelContainer
 
 func _ready() -> void:
-	var modal = _get_tutorial_modal()
-	if modal:
-		modal.hide()
-		if modal.has_signal("closed"):
-			if not modal.closed.is_connected(_on_tutorial_close_pressed):
-				modal.closed.connect(_on_tutorial_close_pressed)
+	var tut_modal = _get_tutorial_modal()
+	if tut_modal:
+		tut_modal.hide()
+		if tut_modal.has_signal("closed"):
+			if not tut_modal.closed.is_connected(_on_tutorial_close_pressed):
+				tut_modal.closed.connect(_on_tutorial_close_pressed)
+				
+	if profile_modal:
+		profile_modal.hide()
+		if profile_modal.has_signal("profile_saved"):
+			if not profile_modal.profile_saved.is_connected(_update_ui_state):
+				profile_modal.profile_saved.connect(_update_ui_state)
+				
+	if streak_modal:
+		streak_modal.hide()
+		if streak_modal.has_signal("reward_claimed"):
+			if not streak_modal.reward_claimed.is_connected(func(_hints): _update_ui_state()):
+				streak_modal.reward_claimed.connect(func(_hints): _update_ui_state())
 				
 	_update_ui_state()
 	
@@ -78,8 +97,26 @@ func _update_ui_state() -> void:
 	var sub_lbl = subtitle_label if subtitle_label != null else get_node_or_null("CenterContainer/VBox/LogoPanel/LogoVBox/Subtitle") as Label
 	var v_lbl = version_label if version_label != null else get_node_or_null("VersionLabel") as Label
 	
+	var p_widget = profile_widget_btn if profile_widget_btn != null else get_node_or_null("TopBar/ProfileWidgetBtn") as Button
+	var s_widget = streak_widget_btn if streak_widget_btn != null else get_node_or_null("TopBar/StreakWidgetBtn") as Button
+	
 	var max_lvl = sm.progress.get("max_unlocked_level", 1) if sm else 1
-	var streak = sm.progress.get("daily_streak", 0) if sm else 0
+	var streak = sm.get_daily_streak() if sm else 0
+	
+	# Profile widget
+	if p_widget and sm:
+		var p_name = sm.get_player_name()
+		var av_id = sm.get_avatar_id()
+		var defs = sm.AVATAR_DEFS
+		var av_icon = defs[av_id]["icon"] if (av_id >= 0 and av_id < defs.size()) else "🧘"
+		p_widget.text = "%s %s ✏️" % [av_icon, p_name]
+		
+	# Streak widget
+	if s_widget:
+		if streak > 0:
+			s_widget.text = "🔥 %d Day Streak 🎁" % streak
+		else:
+			s_widget.text = "🔥 Day Streak 🎁"
 	
 	if lm:
 		if t_lbl: t_lbl.text = lm.get_text("APP_TITLE", "ZEN MAHJONG")
@@ -110,6 +147,26 @@ func _update_ui_state() -> void:
 func _on_language_changed_signal(_new_code: String) -> void:
 	_update_ui_state()
 
+func _on_profile_pressed() -> void:
+	var am = _am()
+	if am: am.play_sfx("button_click")
+	if profile_modal:
+		profile_modal.load_current_profile()
+		profile_modal.show()
+		profile_modal.modulate.a = 0.0
+		var tw = create_tween()
+		tw.tween_property(profile_modal, "modulate:a", 1.0, 0.25)
+
+func _on_streak_pressed() -> void:
+	var am = _am()
+	if am: am.play_sfx("button_click")
+	if streak_modal:
+		streak_modal.refresh_streak_ui()
+		streak_modal.show()
+		streak_modal.modulate.a = 0.0
+		var tw = create_tween()
+		tw.tween_property(streak_modal, "modulate:a", 1.0, 0.25)
+
 func _on_continue_pressed() -> void:
 	var am = _am()
 	if am:
@@ -133,14 +190,8 @@ func _on_level_select_pressed() -> void:
 		get_tree().change_scene_to_file("res://scenes/menus/level_select.tscn")
 
 func _on_daily_pressed() -> void:
-	var am = _am()
-	if am:
-		am.play_sfx("button_click")
-	var gm = _gm()
-	if gm:
-		gm.start_daily_challenge()
-	else:
-		get_tree().change_scene_to_file("res://scenes/gameplay/gameplay.tscn")
+	# Opening Daily Challenge also lets players view and claim their streak journey!
+	_on_streak_pressed()
 
 func _on_settings_pressed() -> void:
 	var am = _am()

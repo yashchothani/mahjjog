@@ -2,24 +2,25 @@
 
 [ext_resource type="Script" path="res://scripts/ui/settings_controller.gd" id="1_sc"]
 [ext_resource type="Texture2D" path="res://assets/backgrounds/gameplay_bg.jpg" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/dialogs/profile_modal.tscn" id="3_pm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.06, 0.16, 0.12, 0.95)
+bg_color = Color(0.06, 0.16, 0.12, 0.96)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.83, 0.68, 0.28, 0.8)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 shadow_color = Color(0, 0, 0, 0.6)
-shadow_size = 10
-content_margin_left = 36.0
-content_margin_top = 30.0
-content_margin_right = 36.0
-content_margin_bottom = 30.0
+shadow_size = 14
+content_margin_left = 32.0
+content_margin_top = 24.0
+content_margin_right = 32.0
+content_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
 bg_color = Color(0.12, 0.28, 0.2, 0.9)
@@ -28,14 +29,68 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.83, 0.68, 0.28, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 20.0
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_profile_card"]
+bg_color = Color(0.04, 0.1, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85, 0.72, 0.35, 0.5)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 14.0
 content_margin_top = 10.0
-content_margin_right = 20.0
+content_margin_right = 14.0
 content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avatar_circle"]
+bg_color = Color(0.12, 0.28, 0.2, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.86, 0.52, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toggle_btn"]
+bg_color = Color(0.14, 0.35, 0.24, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.86, 0.52, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close_btn"]
+bg_color = Color(0.75, 0.18, 0.18, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.96, 0.86, 0.52, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -72,18 +127,106 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 14
 
-[node name="Title" type="Label" parent="CenterContainer/Panel/VBox"]
+[node name="Header" type="HBoxContainer" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 24
 text = "Settings & Accessibility"
+
+[node name="CloseTopBtn" type="Button" parent="CenterContainer/Panel/VBox/Header"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_close_btn")
+text = "✖"
+
+[node name="ProfileCard" type="PanelContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_profile_card")
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox/ProfileCard"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="AvatarCircle" type="Panel" parent="CenterContainer/Panel/VBox/ProfileCard/HBox"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_avatar_circle")
+
+[node name="AvatarIcon" type="Label" parent="CenterContainer/Panel/VBox/ProfileCard/HBox/AvatarCircle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "🧘"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameVBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox/ProfileCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="PlayerNameLabel" type="Label" parent="CenterContainer/Panel/VBox/ProfileCard/HBox/NameVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.95, 0.88, 1)
+theme_override_font_sizes/font_size = 16
+text = "Zen Explorer"
+
+[node name="EditProfileBtn" type="Button" parent="CenterContainer/Panel/VBox/ProfileCard/HBox"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "✏️ Edit Profile"
+
+[node name="QuickTogglesBox" type="HBoxContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 28
+
+[node name="MusicToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/QuickTogglesBox"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_toggle_btn")
+text = "🎵"
+
+[node name="SFXToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/QuickTogglesBox"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_toggle_btn")
+text = "🔊"
+
+[node name="HapticToggleBtn" type="Button" parent="CenterContainer/Panel/VBox/QuickTogglesBox"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_toggle_btn")
+text = "📳"
 
 [node name="AudioBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="MusicLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioBox"]
 layout_mode = 2
@@ -105,12 +248,9 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-
 [node name="LanguageBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 4
 
 [node name="LanguageLabel" type="Label" parent="CenterContainer/Panel/VBox/LanguageBox"]
 layout_mode = 2
@@ -120,12 +260,9 @@ text = "Language"
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 
-[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-
 [node name="AccessBox" type="VBoxContainer" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 
 [node name="DimCheck" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessBox"]
 layout_mode = 2
@@ -141,9 +278,31 @@ text = "Reduced motion (softer transitions)"
 
 [node name="BackBtn" type="Button" parent="CenterContainer/Panel/VBox"]
 layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "◀ Return to Main Menu"
 
+[node name="Modals" type="Control" parent="."]
+z_index = 100
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ProfileModal" parent="Modals" instance=ExtResource("3_pm")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="CenterContainer/Panel/VBox/Header/CloseTopBtn" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBox/ProfileCard/HBox/EditProfileBtn" to="." method="_on_edit_profile_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBox/QuickTogglesBox/MusicToggleBtn" to="." method="_on_music_toggle_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBox/QuickTogglesBox/SFXToggleBtn" to="." method="_on_sfx_toggle_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBox/QuickTogglesBox/HapticToggleBtn" to="." method="_on_haptic_toggle_pressed"]
 [connection signal="value_changed" from="CenterContainer/Panel/VBox/AudioBox/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="drag_ended" from="CenterContainer/Panel/VBox/AudioBox/SFXSlider" to="." method="_on_sfx_drag_ended"]
 [connection signal="value_changed" from="CenterContainer/Panel/VBox/AudioBox/SFXSlider" to="." method="_on_sfx_slider_value_changed"]

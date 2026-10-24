@@ -254,9 +254,52 @@ func _on_board_cleared() -> void:
 	if s_lbl: s_lbl.text = "★".repeat(stars) + "☆".repeat(3 - stars)
 	
 	var sm = _sm()
+	var lm = _lm()
 	var bv = _get_board_view()
+	var lvl_id = bv.current_level_id if bv else 1
 	if sm and bv:
-		sm.record_level_completion(bv.current_level_id, elapsed_time, moves_count, stars)
+		sm.record_level_completion(lvl_id, elapsed_time, moves_count, stars)
+		
+	# Populate Percentile Ranking & Social Comparison
+	var p_title_lbl = get_node_or_null("Modals/VictoryModal/VBox/PercentileCard/PVBox/PercentileTitle") as Label
+	var p_score_lbl = get_node_or_null("Modals/VictoryModal/VBox/PercentileCard/PVBox/PercentileScore") as Label
+	var p_desc_lbl = get_node_or_null("Modals/VictoryModal/VBox/PercentileCard/PVBox/PercentileDesc") as Label
+	
+	var p_data = sm.calculate_percentile(elapsed_time, moves_count, stars) if sm else {
+		"percentile": 94.6,
+		"percentile_str": "94.6%",
+		"title": "Breezy Master",
+		"desc": "Smooth on the surface, all skill underneath!"
+	}
+	if p_title_lbl:
+		p_title_lbl.text = "🏆 %s" % p_data["title"]
+	if p_score_lbl:
+		var raw_str = lm.get_text("VIC_TOPPED_PLAYERS") if lm else "You topped %s of players!"
+		p_score_lbl.text = raw_str % p_data["percentile_str"]
+	if p_desc_lbl:
+		p_desc_lbl.text = p_data["desc"]
+		
+	# Populate Milestone Level Chest
+	var chest_lbl = get_node_or_null("Modals/VictoryModal/VBox/ChestBox/ChestLabel") as Label
+	var chest_bar = get_node_or_null("Modals/VictoryModal/VBox/ChestBox/ChestProgressBar") as ProgressBar
+	var c_data = sm.get_chest_milestone_info(lvl_id) if sm else {
+		"current": 1,
+		"goal": 5,
+		"is_milestone": false,
+		"milestone_level": 5
+	}
+	if chest_bar:
+		chest_bar.max_value = c_data["goal"]
+		chest_bar.value = c_data["current"]
+	if chest_lbl:
+		if c_data["is_milestone"]:
+			chest_lbl.text = lm.get_text("VIC_CHEST_READY", "Milestone Chest Unlocked! +3 Hints") if lm else "Milestone Chest Unlocked! +3 Hints"
+			if sm:
+				sm.progress["hints_remaining"] = int(sm.progress.get("hints_remaining", 5)) + 3
+				sm.save_data()
+		else:
+			var chest_fmt = lm.get_text("VIC_CHEST_UNLOCK") if lm else "Milestone Chest: Level %d (%d/%d)"
+			chest_lbl.text = "🎁 " + (chest_fmt % [c_data["milestone_level"], c_data["current"], c_data["goal"]])
 		
 	var v_modal = _get_modal("Modals/VictoryModal")
 	if v_modal:

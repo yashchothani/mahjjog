@@ -21,6 +21,8 @@ func _init() -> void:
 		"res://scripts/ui/settings_controller.gd",
 		"res://scripts/ui/splash_controller.gd",
 		"res://scripts/ui/tutorial_modal_controller.gd",
+		"res://scripts/ui/profile_modal_controller.gd",
+		"res://scripts/ui/streak_modal_controller.gd",
 		"res://tests/test_board_logic.gd",
 		"res://tests/test_gameplay_flow.gd",
 		"res://tests/test_full_game_loop.gd",
