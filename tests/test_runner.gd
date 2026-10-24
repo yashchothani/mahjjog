@@ -33,11 +33,6 @@ func _run_all() -> void:
 		
 	TestResponsiveLayouts.run_tests(self)
 	
-	if root.has_node("AudioManager"):
-		var am = root.get_node("AudioManager")
-		root.remove_child(am)
-		am.free()
-	
 	print("====================================================")
 	print(" [PASS] 1. Coordinate geometry and overlap detection")
 	print(" [PASS] 2. Canonical free-tile detection rules       ")

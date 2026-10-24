@@ -20,6 +20,9 @@ static func run_tests(tree: SceneTree) -> void:
 		var sm = load("res://scripts/save/save_manager.gd").new()
 		sm.name = "SaveManager"
 		tree.root.add_child(sm)
+	if tree.root.has_node("SaveManager"):
+		tree.root.get_node("SaveManager").set_setting("sfx_muted", true)
+		
 	if not tree.root.has_node("GameManager"):
 		var gm = load("res://scripts/core/game_manager.gd").new()
 		gm.name = "GameManager"
