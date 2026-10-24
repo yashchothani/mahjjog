@@ -216,27 +216,27 @@ func _build_all_tile_cards() -> void:
 			
 	# 4. Winds: East, South, West, North
 	var winds = [
-		["east", "東", "EAST", "TILE_EAST", "E • 東"],
-		["south", "南", "SOUTH", "TILE_SOUTH", "S • 南"],
-		["west", "西", "WEST", "TILE_WEST", "W • 西"],
-		["north", "北", "NORTH", "TILE_NORTH", "N • 北"]
+		["east", "東", "TILE_EAST", "E • 東"],
+		["south", "南", "TILE_SOUTH", "S • 南"],
+		["west", "西", "TILE_WEST", "W • 西"],
+		["north", "北", "TILE_NORTH", "N • 北"]
 	]
 	if winds_grid:
 		for w in winds:
-			var tile_data = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), w[2])
-			var card = _create_tile_card(w[3], tile_data, w[4])
+			var tile_data = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), "")
+			var card = _create_tile_card(w[2], tile_data, w[3])
 			winds_grid.add_child(card)
 			
 	# 5. Dragons: Red, Green, White
 	var dragons = [
-		["red", "中", "Red Dragon", "RED", "TILE_RED", "R • 中 (Red)"],
-		["green", "發", "Green Dragon", "GREEN", "TILE_GREEN", "G • 發 (Green)"],
-		["white", "白", "White Dragon", "WHITE", "TILE_WHITE", "W • 白 (White)"]
+		["red", "中", "Red Dragon", "TILE_RED", "R • 中 (Red)"],
+		["green", "發", "Green Dragon", "TILE_GREEN", "G • 發 (Green)"],
+		["white", "白", "White Dragon", "TILE_WHITE", "W • 白 (White)"]
 	]
 	if dragons_grid:
 		for d in dragons:
-			var tile_data = MahjongTileData.new("dragons", d[0], d[1], d[2], d[3])
-			var card = _create_tile_card(d[4], tile_data, d[5])
+			var tile_data = MahjongTileData.new("dragons", d[0], d[1], d[2], "")
+			var card = _create_tile_card(d[3], tile_data, d[4])
 			dragons_grid.add_child(card)
 			
 	# 6. Flowers: Plum, Orchid, Bamboo, Chrysanthemum
@@ -248,7 +248,7 @@ func _build_all_tile_cards() -> void:
 	]
 	if flowers_grid:
 		for f in flowers:
-			var tile_data = MahjongTileData.new("flowers", f[0], f[1], f[2], "FLOWER")
+			var tile_data = MahjongTileData.new("flowers", f[0], f[1], f[2], "")
 			var card = _create_tile_card(f[3], tile_data, f[4])
 			flowers_grid.add_child(card)
 			
@@ -261,7 +261,7 @@ func _build_all_tile_cards() -> void:
 	]
 	if seasons_grid:
 		for s in seasons:
-			var tile_data = MahjongTileData.new("seasons", s[0], s[1], s[2], "SEASON")
+			var tile_data = MahjongTileData.new("seasons", s[0], s[1], s[2], "")
 			var card = _create_tile_card(s[3], tile_data, s[4])
 			seasons_grid.add_child(card)
 
@@ -275,8 +275,8 @@ func _build_rules_matching_cards() -> void:
 			["characters", "8", "八", "8 of Characters", "萬", "TILE_8C", "8C • 萬"],
 			["bamboo", "5", "5", "5 of Bamboo", "竹", "TILE_5B", "5B • 竹"],
 			["dots", "3", "③", "3 of Dots", "●", "TILE_3D", "3D • ●"],
-			["winds", "east", "東", "East Wind", "EAST", "TILE_EAST", "E • 東"],
-			["dragons", "red", "中", "Red Dragon", "RED", "TILE_RED", "R • 中"]
+			["winds", "east", "東", "East Wind", "", "TILE_EAST", "E • 東"],
+			["dragons", "red", "中", "Red Dragon", "", "TILE_RED", "R • 中"]
 		]
 		for s in suit_samples:
 			var tile_data = MahjongTileData.new(s[0], s[1], s[2], s[3], s[4])

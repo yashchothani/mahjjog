@@ -114,9 +114,16 @@ func _build_visuals() -> void:
 	face_panel.add_child(corner_label)
 	
 	# 5. Main Glyph / Symbol
+	var has_sub = tile_data != null and tile_data.secondary_text != ""
 	symbol_label = Label.new()
-	symbol_label.position = Vector2(2, 10)
-	symbol_label.size = Vector2(TILE_WIDTH - 4, 36)
+	if has_sub:
+		symbol_label.position = Vector2(2, 9)
+		symbol_label.size = Vector2(TILE_WIDTH - 4, 35)
+	else:
+		# Centered on the tile face
+		symbol_label.position = Vector2(2, 10)
+		symbol_label.size = Vector2(TILE_WIDTH - 4, TILE_HEIGHT - 20)
+		
 	symbol_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	symbol_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	symbol_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -125,28 +132,33 @@ func _build_visuals() -> void:
 	# Adjust font size according to symbol length for optimal legibility
 	var sym_len = symbol_label.text.length()
 	var font_sz = 26
-	if sym_len > 1:
+	if not has_sub:
+		font_sz = 34 if sym_len <= 1 else 24
+	elif sym_len > 1:
 		font_sz = 20
 	symbol_label.add_theme_font_size_override("font_size", font_sz)
 	if tile_data:
 		symbol_label.add_theme_color_override("font_color", tile_data.primary_color)
 	face_panel.add_child(symbol_label)
 	
-	# 6. Secondary text (e.g. "萬", "竹", "●", "EAST")
-	sub_label = Label.new()
-	sub_label.position = Vector2(2, 46)
-	sub_label.size = Vector2(TILE_WIDTH - 4, 22)
-	sub_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sub_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	sub_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	sub_label.text = tile_data.secondary_text if tile_data else ""
-	var sub_font_sz = 14
-	if sub_label.text.length() > 3:
-		sub_font_sz = 10
-	sub_label.add_theme_font_size_override("font_size", sub_font_sz)
-	if tile_data:
-		sub_label.add_theme_color_override("font_color", tile_data.secondary_color)
-	face_panel.add_child(sub_label)
+	# 6. Secondary text (e.g. "萬", "竹", "●" for suits with secondary glyphs)
+	if has_sub:
+		sub_label = Label.new()
+		sub_label.position = Vector2(2, 44)
+		sub_label.size = Vector2(TILE_WIDTH - 4, 24)
+		sub_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		sub_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		sub_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		sub_label.text = tile_data.secondary_text
+		var sub_font_sz = 14
+		if sub_label.text.length() > 3:
+			sub_font_sz = 10
+		sub_label.add_theme_font_size_override("font_size", sub_font_sz)
+		if tile_data:
+			sub_label.add_theme_color_override("font_color", tile_data.secondary_color)
+		face_panel.add_child(sub_label)
+	else:
+		sub_label = null
 	
 	# 7. Highlight / Selection Border
 	highlight_border = ReferenceRect.new()

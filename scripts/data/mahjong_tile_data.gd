@@ -49,32 +49,24 @@ func _setup_styling() -> void:
 		"winds":
 			primary_color = Color(0.14, 0.18, 0.22) # Calligraphy ink
 			secondary_color = Color(0.75, 0.60, 0.22) # Gold touch
-			if secondary_text == "":
-				secondary_text = value.to_upper()
+			# Winds display centered calligraphy symbol without bottom name text
 		"dragons":
 			match value:
 				"red":
 					primary_color = Color(0.82, 0.14, 0.14) # Vermilion
 					secondary_color = Color(0.75, 0.60, 0.22)
-					secondary_text = "RED"
 				"green":
 					primary_color = Color(0.07, 0.54, 0.26) # Deep Jade
 					secondary_color = Color(0.75, 0.60, 0.22)
-					secondary_text = "GREEN"
 				"white":
 					primary_color = Color(0.16, 0.44, 0.72) # Cobalt Frame
 					secondary_color = Color(0.75, 0.60, 0.22)
-					secondary_text = "WHITE"
 		"flowers":
 			primary_color = Color(0.70, 0.25, 0.58) # Plum blossom purple
 			secondary_color = Color(0.85, 0.68, 0.25)
-			if secondary_text == "":
-				secondary_text = "FLOWER"
 		"seasons":
 			primary_color = Color(0.82, 0.48, 0.14) # Amber gold
 			secondary_color = Color(0.12, 0.45, 0.28)
-			if secondary_text == "":
-				secondary_text = "SEASON"
 
 static func tiles_match(a, b) -> bool:
 	if a == null or b == null:
@@ -112,20 +104,20 @@ static func get_full_144_set() -> Array:
 			tiles.append(MahjongTileData.new("dots", str(i), dot_symbols[i - 1], "%s of Dots" % str(i), "●"))
 			
 	# 4. Winds: East, South, West, North x 4 copies = 16 tiles
-	var winds = [["east", "東", "EAST"], ["south", "南", "SOUTH"], ["west", "西", "WEST"], ["north", "北", "NORTH"]]
+	var winds = [["east", "東"], ["south", "南"], ["west", "西"], ["north", "北"]]
 	for w in winds:
 		for _copy in range(4):
-			tiles.append(MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), w[2]))
+			tiles.append(MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), ""))
 			
 	# 5. Dragons: Red (中), Green (發), White (白) x 4 copies = 12 tiles
 	var dragons = [
-		["red", "中", "Red Dragon", "RED"],
-		["green", "發", "Green Dragon", "GREEN"],
-		["white", "白", "White Dragon", "WHITE"]
+		["red", "中", "Red Dragon"],
+		["green", "發", "Green Dragon"],
+		["white", "白", "White Dragon"]
 	]
 	for d in dragons:
 		for _copy in range(4):
-			tiles.append(MahjongTileData.new("dragons", d[0], d[1], d[2], d[3]))
+			tiles.append(MahjongTileData.new("dragons", d[0], d[1], d[2], ""))
 			
 	# 6. Flowers: Plum (梅), Orchid (蘭), Bamboo (竹), Chrysanthemum (菊) = 4 tiles
 	var flowers = [
@@ -135,7 +127,7 @@ static func get_full_144_set() -> Array:
 		["chrysanthemum", "菊", "Chrysanthemum"]
 	]
 	for f in flowers:
-		tiles.append(MahjongTileData.new("flowers", f[0], f[1], f[2], "FLOWER"))
+		tiles.append(MahjongTileData.new("flowers", f[0], f[1], f[2], ""))
 		
 	# 7. Seasons: Spring (春), Summer (夏), Autumn (秋), Winter (冬) = 4 tiles
 	var seasons = [
@@ -145,7 +137,7 @@ static func get_full_144_set() -> Array:
 		["winter", "冬", "Winter Season"]
 	]
 	for s in seasons:
-		tiles.append(MahjongTileData.new("seasons", s[0], s[1], s[2], "SEASON"))
+		tiles.append(MahjongTileData.new("seasons", s[0], s[1], s[2], ""))
 		
 	return tiles
 

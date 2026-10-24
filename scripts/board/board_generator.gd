@@ -114,26 +114,26 @@ static func _create_pair_pool(num_pairs: int, rng: RandomNumberGenerator) -> Arr
 		distinct_pairs.append([t1, t2])
 		
 	# 4. Winds (East, South, West, North)
-	var winds = [["east", "東", "EAST"], ["south", "南", "SOUTH"], ["west", "西", "WEST"], ["north", "北", "NORTH"]]
+	var winds = [["east", "東"], ["south", "南"], ["west", "西"], ["north", "北"]]
 	for w in winds:
-		var t1 = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), w[2])
-		var t2 = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), w[2])
+		var t1 = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), "")
+		var t2 = MahjongTileData.new("winds", w[0], w[1], "%s Wind" % w[0].capitalize(), "")
 		distinct_pairs.append([t1, t2])
 		
 	# 5. Dragons (Red, Green, White)
-	var dragons = [["red", "中", "Red Dragon", "RED"], ["green", "發", "Green Dragon", "GREEN"], ["white", "白", "White Dragon", "WHITE"]]
+	var dragons = [["red", "中", "Red Dragon"], ["green", "發", "Green Dragon"], ["white", "白", "White Dragon"]]
 	for d in dragons:
-		var t1 = MahjongTileData.new("dragons", d[0], d[1], d[2], d[3])
-		var t2 = MahjongTileData.new("dragons", d[0], d[1], d[2], d[3])
+		var t1 = MahjongTileData.new("dragons", d[0], d[1], d[2], "")
+		var t2 = MahjongTileData.new("dragons", d[0], d[1], d[2], "")
 		distinct_pairs.append([t1, t2])
 		
 	# 6. Flowers & Seasons (1 pair each)
-	var f1 = MahjongTileData.new("flowers", "plum", "梅", "Plum Blossom", "FLOWER")
-	var f2 = MahjongTileData.new("flowers", "orchid", "蘭", "Orchid", "FLOWER")
+	var f1 = MahjongTileData.new("flowers", "plum", "梅", "Plum Blossom", "")
+	var f2 = MahjongTileData.new("flowers", "orchid", "蘭", "Orchid", "")
 	distinct_pairs.append([f1, f2])
 	
-	var s1 = MahjongTileData.new("seasons", "spring", "春", "Spring Season", "SEASON")
-	var s2 = MahjongTileData.new("seasons", "summer", "夏", "Summer Season", "SEASON")
+	var s1 = MahjongTileData.new("seasons", "spring", "春", "Spring Season", "")
+	var s2 = MahjongTileData.new("seasons", "summer", "夏", "Summer Season", "")
 	distinct_pairs.append([s1, s2])
 	
 	# Shuffle distinct pairs randomly
