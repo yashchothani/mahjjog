@@ -53,6 +53,22 @@ content_margin_top = 6.0
 content_margin_right = 14.0
 content_margin_bottom = 6.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_callout"]
+bg_color = Color(0.04, 0.12, 0.08, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.83, 0.68, 0.28, 0.3)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
 [node name="TutorialModal" type="PanelContainer"]
 custom_minimum_size = Vector2(860, 560)
 anchors_preset = 8
@@ -214,6 +230,87 @@ text = "Tap two free matching tiles to clear them:
 • Characters, Bamboo, Dots, Winds, and Dragons must match an [b]EXACT IDENTICAL[/b] tile.
 • [color=#e8b070]Flowers[/color] match with [b]ANY Flower[/b]!
 • [color=#e8b070]Seasons[/color] match with [b]ANY Season[/b]!"
+
+[node name="HSeparator1" type="HSeparator" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+layout_mode = 2
+
+[node name="RulesSuitsHeader" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "🎯 Regular Suits & Honors (Must match EXACT SAME tile):"
+
+[node name="RulesSuitsGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
+
+[node name="RulesSuitsExamplePanel" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_callout")
+
+[node name="RulesSuitsExample" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox/RulesSuitsExamplePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 0.85, 1)
+theme_override_font_sizes/font_size = 13
+text = "Example: [ 8 of Characters ] = [ 8 of Characters ]  ✓ Exact Identical Match"
+
+[node name="HSeparator2" type="HSeparator" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+layout_mode = 2
+
+[node name="RulesFlowersHeader" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "🌸 Flowers (Any Flower matches ANY other Flower!):"
+
+[node name="RulesFlowersGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
+
+[node name="RulesFlowersExamplePanel" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_callout")
+
+[node name="RulesFlowersExample" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox/RulesFlowersExamplePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.84, 0.60, 1)
+theme_override_font_sizes/font_size = 13
+text = "Example: [ Plum Blossom (梅) ] = [ Orchid (蘭) ]  ✓ Any 2 Flowers Match Each Other!"
+
+[node name="HSeparator3" type="HSeparator" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+layout_mode = 2
+
+[node name="RulesSeasonsHeader" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.89, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "🍂 Seasons (Any Season matches ANY other Season!):"
+
+[node name="RulesSeasonsGrid" type="HFlowContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
+
+[node name="RulesSeasonsExamplePanel" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_callout")
+
+[node name="RulesSeasonsExample" type="Label" parent="VBox/ContentScroll/PanelsVBox/PanelRules/CardMatch/VBox/RulesSeasonsExamplePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.84, 0.60, 1)
+theme_override_font_sizes/font_size = 13
+text = "Example: [ Spring (春) ] = [ Summer (夏) ]  ✓ Any 2 Seasons Match Each Other!"
 
 [node name="CardTools" type="PanelContainer" parent="VBox/ContentScroll/PanelsVBox/PanelRules"]
 layout_mode = 2

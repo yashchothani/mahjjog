@@ -47,6 +47,15 @@ static func run_tests(tree: SceneTree) -> void:
 	print("Seasons cards: %d" % modal.seasons_grid.get_child_count())
 	assert(modal.seasons_grid.get_child_count() == 4, "Seasons should have 4 cards")
 	
+	# Verify Section 2 matching rules visual cards
+	assert(modal.rules_suits_grid != null, "rules_suits_grid must be initialized")
+	assert(modal.rules_flowers_grid != null, "rules_flowers_grid must be initialized")
+	assert(modal.rules_seasons_grid != null, "rules_seasons_grid must be initialized")
+	assert(modal.rules_suits_grid.get_child_count() == 5, "rules_suits_grid should have 5 sample cards")
+	assert(modal.rules_flowers_grid.get_child_count() == 4, "rules_flowers_grid should have 4 flower cards")
+	assert(modal.rules_seasons_grid.get_child_count() == 4, "rules_seasons_grid should have 4 season cards")
+	print("Rules matching visual showcase cards: Suits 5, Flowers 4, Seasons 4 verified!")
+	
 	# Test Tab switching
 	for tab_idx in range(7):
 		modal.select_tab(tab_idx)

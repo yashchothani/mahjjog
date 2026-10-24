@@ -10,6 +10,7 @@ const TestLocalization = preload("res://tests/test_localization.gd")
 const TestTileGuide = preload("res://tests/test_tile_guide.gd")
 const TestSavePersistence = preload("res://tests/test_save_persistence.gd")
 const TestResponsiveLayouts = preload("res://tests/test_responsive_layouts.gd")
+const TestModalZOrdering = preload("res://tests/test_modal_z_ordering.gd")
 
 func _init() -> void:
 	_run_all.call_deferred()
@@ -24,6 +25,7 @@ func _run_all() -> void:
 	TestFullGameLoop.run_tests(self)
 	TestLocalization.run_tests(self)
 	TestTileGuide.run_tests(self)
+	TestModalZOrdering.run_tests(self)
 	TestSavePersistence.run_tests(self)
 	
 	if root.has_node("SaveManager"):

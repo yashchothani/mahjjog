@@ -83,6 +83,8 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="BoardContainer" type="Control" parent="."]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -187,6 +189,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "🔄 Restart"
 
 [node name="Modals" type="Control" parent="."]
+z_index = 100
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -194,6 +198,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ModalBackdrop" type="ColorRect" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.06, 0.04, 0.75)
 
 [node name="PauseModal" type="PanelContainer" parent="Modals"]
 visible = false

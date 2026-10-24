@@ -89,6 +89,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. Matching Rules",
 		"RULES_MATCH_DESC": "Tap two free matching tiles to remove them from the board:\n• [color=#75c080]Regular Suits & Honors[/color] (Characters, Bamboo, Dots, Winds, Dragons) must match an [b]EXACT IDENTICAL[/b] tile.\n• [color=#e8b070]Flowers[/color] (Plum, Orchid, Bamboo, Chrysanthemum) match with [b]ANY Flower[/b]!\n• [color=#e8b070]Seasons[/color] (Spring, Summer, Autumn, Winter) match with [b]ANY Season[/b]!",
+		"RULES_SUITS_HEADER": "🎯 Regular Suits & Honors (Must match EXACT SAME tile):",
+		"RULES_SUITS_EXAMPLE": "Example: [ 8 of Characters ] = [ 8 of Characters ]  ✓ Exact Identical Match",
+		"RULES_FLOWERS_HEADER": "🌸 Flowers (Any Flower matches ANY other Flower!):",
+		"RULES_FLOWERS_EXAMPLE": "Example: [ Plum Blossom (梅) ] = [ Orchid (蘭) ]  ✓ Any 2 Flowers Match!",
+		"RULES_SEASONS_HEADER": "🍂 Seasons (Any Season matches ANY other Season!):",
+		"RULES_SEASONS_EXAMPLE": "Example: [ Spring (春) ] = [ Summer (夏) ]  ✓ Any 2 Seasons Match!",
 
 		"RULES_TOOLS_TITLE": "3. Assistance Tools",
 		"RULES_TOOLS_DESC": "• [b]Undo[/b]: Reverses your most recent tile match.\n• [b]Hint[/b]: Highlights an active free matching pair in emerald.\n• [b]Shuffle[/b]: Rearranges remaining tiles into a guaranteed solvable state.",
@@ -200,6 +206,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. 配对消除规则",
 		"RULES_MATCH_DESC": "点击两张相同的自由牌即可将它们从盘面移除：\n• [color=#75c080]普通数牌与字牌[/color] (万、条、筒、风、箭) 必须完全【相同】才能配对。\n• [color=#e8b070]花牌[/color] (梅、兰、竹、菊) 拥有特殊规则：【任意花牌与任意花牌】均可配对！\n• [color=#e8b070]四季牌[/color] (春、夏、秋、冬) 拥有特殊规则：【任意四季牌与任意四季牌】均可配对！",
+		"RULES_SUITS_HEADER": "🎯 普通数牌与字牌（必须完全相同方可配对消除）：",
+		"RULES_SUITS_EXAMPLE": "配对范例：[ 八萬 ] = [ 八萬 ]  ✓ 必须完全相同方可消除",
+		"RULES_FLOWERS_HEADER": "🌸 花牌（任意两张花牌均可直接配对消除！）：",
+		"RULES_FLOWERS_EXAMPLE": "配对范例：[ 梅花 (梅) ] = [ 兰花 (蘭) ]  ✓ 任意花牌互为配对！",
+		"RULES_SEASONS_HEADER": "🍂 四季牌（任意两张四季牌均可直接配对消除！）：",
+		"RULES_SEASONS_EXAMPLE": "配对范例：[ 春季 (春) ] = [ 夏季 (夏) ]  ✓ 任意四季牌互为配对！",
 
 		"RULES_TOOLS_TITLE": "3. 禅意辅助道具",
 		"RULES_TOOLS_DESC": "• [b]撤销[/b]: 倒退一步，恢复刚刚消除的配对。\n• [b]提示[/b]: 以翠玉翡翠光效高亮一组可消除的有效牌。\n• [b]洗牌[/b]: 将剩余牌重新排列，确保必然存在可解路径。",
@@ -311,6 +323,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. ペア消去ルール",
 		"RULES_MATCH_DESC": "自由に取れる同じ牌を2枚タップして取り除きます：\n• [color=#75c080]通常の数牌・字牌[/color] (萬子、索子、筒子、風牌、三元牌) は【全く同じ牌】同士のみ消せます。\n• [color=#e8b070]花牌[/color] (梅、蘭、竹、菊) は特別ルール：【どの花牌同士でもペア】になります！\n• [color=#e8b070]季節牌[/color] (春、夏、秋、冬) は特別ルール：【どの季節牌同士でもペア】になります！",
+		"RULES_SUITS_HEADER": "🎯 数牌と字牌（全く同じ牌同士のみマッチ）：",
+		"RULES_SUITS_EXAMPLE": "一致の例：[ 八萬 ] = [ 八萬 ]  ✓ 全く同じ牌でマッチ！",
+		"RULES_FLOWERS_HEADER": "🌸 花牌（どの花牌同士でも自由にマッチ！）：",
+		"RULES_FLOWERS_EXAMPLE": "一致の例：[ 梅 ] = [ 蘭 ]  ✓ 異なる花牌同士でもペア成立！",
+		"RULES_SEASONS_HEADER": "🍂 季節牌（どの季節牌同士でも自由にマッチ！）：",
+		"RULES_SEASONS_EXAMPLE": "一致の例：[ 春 ] = [ 夏 ]  ✓ 異なる季節牌同士でもペア成立！",
 
 		"RULES_TOOLS_TITLE": "3. サポート機能",
 		"RULES_TOOLS_DESC": "• [b]元に戻す[/b]: 直前の消去を取り消して戻します。\n• [b]ヒント[/b]: 現在取れるペアをエメラルド色で光らせます。\n• [b]シャッフル[/b]: 残りの牌を必ずクリア可能な状態に並べ替えます。",
@@ -422,6 +440,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. Reglas de Emparejamiento",
 		"RULES_MATCH_DESC": "Toca dos fichas libres iguales para retirarlas:\n• [color=#75c080]Palos y Honores[/color] (Caracteres, Bambú, Círculos, Vientos, Dragones) deben coincidir de forma [b]EXACTA E IDÉNTICA[/b].\n• [color=#e8b070]Flores[/color] (Ciruelo, Orquídea, Bambú, Crisantemo) ¡coinciden con [b]CUALQUIER otra Flor[/b]!\n• [color=#e8b070]Estaciones[/color] (Primavera, Verano, Otoño, Invierno) ¡coinciden con [b]CUALQUIER otra Estación[/b]!",
+		"RULES_SUITS_HEADER": "🎯 Palos Regulares y Honores (Deben coincidir exactamente):",
+		"RULES_SUITS_EXAMPLE": "Ejemplo: [ 8 de Caracteres ] = [ 8 de Caracteres ]  ✓ Coincidencia exacta",
+		"RULES_FLOWERS_HEADER": "🌸 Flores (¡Cualquier flor coincide con cualquier otra flor!):",
+		"RULES_FLOWERS_EXAMPLE": "Ejemplo: [ Flor de Ciruelo ] = [ Orquídea ]  ✓ ¡Cualquier 2 flores coinciden!",
+		"RULES_SEASONS_HEADER": "🍂 Estaciones (¡Cualquier estación coincide con cualquier otra estación!):",
+		"RULES_SEASONS_EXAMPLE": "Ejemplo: [ Primavera ] = [ Verano ]  ✓ ¡Cualquier 2 estaciones coinciden!",
 
 		"RULES_TOOLS_TITLE": "3. Herramientas de Asistencia",
 		"RULES_TOOLS_DESC": "• [b]Deshacer[/b]: Revierte tu último movimiento emparejado.\n• [b]Pista[/b]: Resalta en verde esmeralda una pareja disponible.\n• [b]Barajar[/b]: Reordena las fichas restantes garantizando solución.",
@@ -533,6 +557,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. Règle des Paires",
 		"RULES_MATCH_DESC": "Touchez deux tuiles libres identiques pour les retirer :\n• [color=#75c080]Familles & Honneurs[/color] (Caractères, Bambous, Cercles, Vents, Dragons) doivent être [b]EXACTEMENT IDENTIQUES[/b].\n• [color=#e8b070]Fleurs[/color] (Prunier, Orchidée, Bambou, Chrysanthème) s'associent avec [b]N'IMPORTE QUELLE autre Fleur[/b] !\n• [color=#e8b070]Saisons[/color] (Printemps, Été, Automne, Hiver) s'associent avec [b]N'IMPORTE QUELLE autre Saison[/b] !",
+		"RULES_SUITS_HEADER": "🎯 Familles régulières & Honneurs (Doivent être identiques) :",
+		"RULES_SUITS_EXAMPLE": "Exemple : [ 8 de Caractères ] = [ 8 de Caractères ]  ✓ Correspondance exacte",
+		"RULES_FLOWERS_HEADER": "🌸 Fleurs (Toute fleur correspond à n'importe quelle autre fleur !) :",
+		"RULES_FLOWERS_EXAMPLE": "Exemple : [ Prunier ] = [ Orchidée ]  ✓ N'importe quelles 2 fleurs s'associent !",
+		"RULES_SEASONS_HEADER": "🍂 Saisons (Toute saison correspond à n'importe quelle autre saison !) :",
+		"RULES_SEASONS_EXAMPLE": "Exemple : [ Printemps ] = [ Été ]  ✓ N'importe quelles 2 saisons s'associent !",
 
 		"RULES_TOOLS_TITLE": "3. Outils d'Aide",
 		"RULES_TOOLS_DESC": "• [b]Annuler[/b] : Déjoue votre dernier coup.\n• [b]Indice[/b] : Fait briller une paire libre en vert émeraude.\n• [b]Mélanger[/b] : Réorganise les tuiles restantes en garantissant une issue gagnante.",
@@ -644,6 +674,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. Paarbildungsregeln",
 		"RULES_MATCH_DESC": "Tippe auf zwei freie identische Steine, um sie abzuräumen:\n• [color=#75c080]Zahlen & Ehren[/color] (Schriftzeichen, Bambus, Kreise, Winde, Drachen) müssen [b]EXAKT IDENTISCH[/b] sein.\n• [color=#e8b070]Blumen[/color] (Pflaume, Orchidee, Bambus, Chrysantheme) passen zu [b]JEDER anderen Blume[/b]!\n• [color=#e8b070]Jahreszeiten[/color] (Frühling, Sommer, Herbst, Winter) passen zu [b]JEDER anderen Jahreszeit[/b]!",
+		"RULES_SUITS_HEADER": "🎯 Reguläre Farben & Ziegel (Müssen exakt übereinstimmen):",
+		"RULES_SUITS_EXAMPLE": "Beispiel: [ 8 der Zeichen ] = [ 8 der Zeichen ]  ✓ Exakte Übereinstimmung",
+		"RULES_FLOWERS_HEADER": "🌸 Blumen (Jede Blume passt zu jeder anderen Blume!):",
+		"RULES_FLOWERS_EXAMPLE": "Beispiel: [ Pflaume ] = [ Orchidee ]  ✓ Beliebige 2 Blumen passen zusammen!",
+		"RULES_SEASONS_HEADER": "🍂 Jahreszeiten (Jede Jahreszeit passt zu jeder anderen Jahreszeit!):",
+		"RULES_SEASONS_EXAMPLE": "Beispiel: [ Frühling ] = [ Sommer ]  ✓ Beliebige 2 Jahreszeiten passen zusammen!",
 
 		"RULES_TOOLS_TITLE": "3. Hilfsmittel",
 		"RULES_TOOLS_DESC": "• [b]Rückgängig[/b]: Macht den letzten Spielzug rückgängig.\n• [b]Hinweis[/b]: Lässt ein freies Paar smaragdgrün leuchten.\n• [b]Mischen[/b]: Mischt alle Steine neu und garantiert eine lösbare Anordnung.",
@@ -755,6 +791,12 @@ const STRINGS: Dictionary = {
 
 		"RULES_MATCH_TITLE": "2. जोड़ी मिलान के नियम",
 		"RULES_MATCH_DESC": "बोर्ड से हटाने के लिए दो समान खुली टाइलों पर टैप करें:\n• [color=#75c080]नियमित सूट और सम्मान[/color] (अक्षर, बांस, बिंदु, दिशाएं, ड्रैगन) केवल [b]बिल्कुल समान टाइल[/b] से मेल खाती हैं।\n• [color=#e8b070]फूल[/color] (बेर, आर्किड, बांस, गुलदाउदी) [b]किसी भी अन्य फूल[/b] से मेल खाते हैं!\n• [color=#e8b070]ऋतुएं[/color] (वसंत, ग्रीष्म, पतझड़, सर्दी) [b]किसी भी अन्य ऋतु[/b] से मेल खाती हैं!",
+		"RULES_SUITS_HEADER": "🎯 नियमित सूट और सम्मान (सटीक समान टाइल से मिलना चाहिए):",
+		"RULES_SUITS_EXAMPLE": "उदाहरण: [ 8 कैरेक्टर ] = [ 8 कैरेक्टर ]  ✓ सटीक समान मिलान",
+		"RULES_FLOWERS_HEADER": "🌸 फूल (कोई भी फूल किसी भी अन्य फूल से मेल खाता है!):",
+		"RULES_FLOWERS_EXAMPLE": "उदाहरण: [ बेर का फूल ] = [ ऑर्किड ]  ✓ कोई भी 2 फूल आपस में मिलते हैं!",
+		"RULES_SEASONS_HEADER": "🍂 मौसम (कोई भी मौसम किसी भी अन्य मौसम से मेल खाता है!):",
+		"RULES_SEASONS_EXAMPLE": "उदाहरण: [ वसंत ] = [ ग्रीष्म ]  ✓ कोई भी 2 मौसम आपस में मिलते हैं!",
 
 		"RULES_TOOLS_TITLE": "3. सहायता उपकरण",
 		"RULES_TOOLS_DESC": "• [b]पूर्ववत[/b]: अपनी पिछली चाल को उलटें।\n• [b]संकेत[/b]: पन्ना हरे रंग में उपलब्ध जोड़ी को दिखाता है।\n• [b]फेरबदल[/b]: बची हुई टाइलों को पुनर्व्यवस्थित करता है जिससे समाधान निश्चित हो।",

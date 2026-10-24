@@ -43,6 +43,17 @@ const TileView = preload("res://scripts/board/tile_view.gd")
 @onready var flowers_grid: Container = %FlowersGrid
 @onready var seasons_grid: Container = %SeasonsGrid
 
+# Section 2 Matching Rules Visual Showcase
+@onready var rules_suits_grid: Container = %RulesSuitsGrid
+@onready var rules_flowers_grid: Container = %RulesFlowersGrid
+@onready var rules_seasons_grid: Container = %RulesSeasonsGrid
+@onready var rules_suits_header: Label = %RulesSuitsHeader
+@onready var rules_flowers_header: Label = %RulesFlowersHeader
+@onready var rules_seasons_header: Label = %RulesSeasonsHeader
+@onready var rules_suits_example: Label = %RulesSuitsExample
+@onready var rules_flowers_example: Label = %RulesFlowersExample
+@onready var rules_seasons_example: Label = %RulesSeasonsExample
+
 # Info text labels for dynamic localization
 @onready var rules_free_title: Label = %RulesFreeTitle
 @onready var rules_free_desc: RichTextLabel = %RulesFreeDesc
@@ -62,7 +73,7 @@ const TileView = preload("res://scripts/board/tile_view.gd")
 
 var current_tab_index: int = 0
 var _tiles_initialized: bool = false
-var _tile_label_refs: Dictionary = {} # tile_key -> Label
+var _tile_label_entries: Array = [] # { "key": String, "label": Label }
 
 func _get_autoload(autoload_name: String) -> Node:
 	var tree = Engine.get_main_loop() as SceneTree
@@ -175,7 +186,7 @@ func _build_all_tile_cards() -> void:
 	if _tiles_initialized:
 		return
 	_tiles_initialized = true
-	_tile_label_refs.clear()
+	_tile_label_entries.clear()
 	
 	# 1. Characters: 1C to 9C
 	var char_kanji = ["一", "二", "三", "四", "五", "六", "七", "八", "九"]
@@ -254,6 +265,50 @@ func _build_all_tile_cards() -> void:
 			var card = _create_tile_card(s[3], tile_data, s[4])
 			seasons_grid.add_child(card)
 
+	# 8. Section 2 Matching Rules Visual Showcase
+	_build_rules_matching_cards()
+
+func _build_rules_matching_cards() -> void:
+	# Regular Suits & Honors showcase (5 tiles: Character, Bamboo, Dot, Wind, Dragon)
+	if rules_suits_grid:
+		var suit_samples = [
+			["characters", "8", "八", "8 of Characters", "萬", "TILE_8C", "8C • 萬"],
+			["bamboo", "5", "5", "5 of Bamboo", "竹", "TILE_5B", "5B • 竹"],
+			["dots", "3", "③", "3 of Dots", "●", "TILE_3D", "3D • ●"],
+			["winds", "east", "東", "East Wind", "EAST", "TILE_EAST", "E • 東"],
+			["dragons", "red", "中", "Red Dragon", "RED", "TILE_RED", "R • 中"]
+		]
+		for s in suit_samples:
+			var tile_data = MahjongTileData.new(s[0], s[1], s[2], s[3], s[4])
+			var card = _create_tile_card(s[5], tile_data, s[6])
+			rules_suits_grid.add_child(card)
+
+	# Flowers showcase (All 4 Flowers)
+	if rules_flowers_grid:
+		var flowers = [
+			["plum", "梅", "Plum Blossom", "TILE_PLUM", "FL • 梅"],
+			["orchid", "蘭", "Orchid", "TILE_ORCHID", "FL • 蘭"],
+			["bamboo", "竹", "Bamboo Blossom", "TILE_BAMBOO_FLOWER", "FL • 竹"],
+			["chrysanthemum", "菊", "Chrysanthemum", "TILE_CHRYSANTHEMUM", "FL • 菊"]
+		]
+		for f in flowers:
+			var tile_data = MahjongTileData.new("flowers", f[0], f[1], f[2], "FLOWER")
+			var card = _create_tile_card(f[3], tile_data, f[4])
+			rules_flowers_grid.add_child(card)
+
+	# Seasons showcase (All 4 Seasons)
+	if rules_seasons_grid:
+		var seasons = [
+			["spring", "春", "Spring Season", "TILE_SPRING", "SN • 春"],
+			["summer", "夏", "Summer Season", "TILE_SUMMER", "SN • 夏"],
+			["autumn", "秋", "Autumn Season", "TILE_AUTUMN", "SN • 秋"],
+			["winter", "冬", "Winter Season", "TILE_WINTER", "SN • 冬"]
+		]
+		for s in seasons:
+			var tile_data = MahjongTileData.new("seasons", s[0], s[1], s[2], "SEASON")
+			var card = _create_tile_card(s[3], tile_data, s[4])
+			rules_seasons_grid.add_child(card)
+
 func _create_tile_card(translation_key: String, tile_data: MahjongTileData, badge_text: String) -> PanelContainer:
 	var card = PanelContainer.new()
 	card.custom_minimum_size = Vector2(86, 126)
@@ -306,7 +361,7 @@ func _create_tile_card(translation_key: String, tile_data: MahjongTileData, badg
 	name_label.add_theme_color_override("font_color", Color(0.96, 0.92, 0.82, 1))
 	name_label.text = _get_tr(translation_key, tile_data.display_name)
 	vbox.add_child(name_label)
-	_tile_label_refs[translation_key] = name_label
+	_tile_label_entries.append({ "key": translation_key, "label": name_label })
 	
 	# Badge / Notation subtext
 	var badge_label = Label.new()
@@ -347,6 +402,14 @@ func _update_localized_content() -> void:
 	if rules_goal_title: rules_goal_title.text = _get_tr("RULES_GOAL_TITLE")
 	if rules_goal_desc: rules_goal_desc.text = _get_tr("RULES_GOAL_DESC")
 	
+	# Rules Matching Visual Showcase
+	if rules_suits_header: rules_suits_header.text = _get_tr("RULES_SUITS_HEADER")
+	if rules_suits_example: rules_suits_example.text = _get_tr("RULES_SUITS_EXAMPLE")
+	if rules_flowers_header: rules_flowers_header.text = _get_tr("RULES_FLOWERS_HEADER")
+	if rules_flowers_example: rules_flowers_example.text = _get_tr("RULES_FLOWERS_EXAMPLE")
+	if rules_seasons_header: rules_seasons_header.text = _get_tr("RULES_SEASONS_HEADER")
+	if rules_seasons_example: rules_seasons_example.text = _get_tr("RULES_SEASONS_EXAMPLE")
+
 	# Suit Descriptions
 	if char_desc: char_desc.text = _get_tr("SUIT_CHARACTERS_DESC")
 	if bamboo_desc: bamboo_desc.text = _get_tr("SUIT_BAMBOO_DESC")
@@ -356,10 +419,10 @@ func _update_localized_content() -> void:
 	if special_desc: special_desc.text = _get_tr("SPECIAL_FLOWERS_SEASONS_DESC")
 	
 	# Tile names in cards
-	for key in _tile_label_refs.keys():
-		var lbl = _tile_label_refs[key] as Label
-		if lbl:
-			lbl.text = _get_tr(key, lbl.text)
+	for entry in _tile_label_entries:
+		var lbl = entry.label as Label
+		if lbl and is_instance_valid(lbl):
+			lbl.text = _get_tr(entry.key, lbl.text)
 
 func _on_language_changed(_new_code: String) -> void:
 	_update_localized_content()

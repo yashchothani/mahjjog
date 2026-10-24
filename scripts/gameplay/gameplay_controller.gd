@@ -79,7 +79,12 @@ func _ready() -> void:
 	var n_modal = _get_modal("Modals/NoMovesModal")
 	if n_modal: n_modal.hide()
 	var t_modal = _get_modal("Modals/TutorialModal")
-	if t_modal: t_modal.hide()
+	if t_modal:
+		t_modal.hide()
+		if t_modal.has_signal("closed") and not t_modal.closed.is_connected(_on_tutorial_closed):
+			t_modal.closed.connect(_on_tutorial_closed)
+	var backdrop = get_node_or_null("Modals/ModalBackdrop") as Control
+	if backdrop: backdrop.hide()
 	
 	var bv = _get_board_view()
 	if bv:
@@ -126,6 +131,8 @@ func start_level(level_id: int) -> void:
 	if n_modal: n_modal.hide()
 	var t_modal = _get_modal("Modals/TutorialModal")
 	if t_modal: t_modal.hide()
+	var backdrop = get_node_or_null("Modals/ModalBackdrop") as Control
+	if backdrop: backdrop.hide()
 	
 	var bv = _get_board_view()
 	if bv:
@@ -255,7 +262,7 @@ func _on_board_cleared() -> void:
 		
 	var v_modal = _get_modal("Modals/VictoryModal")
 	if v_modal:
-		v_modal.show()
+		_show_modal(v_modal)
 		v_modal.modulate.a = 0.0
 		var tw = create_tween()
 		tw.tween_property(v_modal, "modulate:a", 1.0, 0.3)
@@ -266,10 +273,42 @@ func _on_no_moves_left() -> void:
 		am.play_sfx("tile_invalid")
 	var n_modal = _get_modal("Modals/NoMovesModal")
 	if n_modal:
-		n_modal.show()
+		_show_modal(n_modal)
 		n_modal.modulate.a = 0.0
 		var tw = create_tween()
 		tw.tween_property(n_modal, "modulate:a", 1.0, 0.25)
+
+# --- Modal Management ---
+
+func _show_modal(modal: Control) -> void:
+	var backdrop = get_node_or_null("Modals/ModalBackdrop") as Control
+	if backdrop:
+		backdrop.show()
+	if modal:
+		modal.show()
+	var bv = _get_board_view()
+	if bv:
+		bv.is_interactive = false
+
+func _hide_modal(modal: Control) -> void:
+	if modal:
+		modal.hide()
+	var p_modal = _get_modal("Modals/PauseModal")
+	var v_modal = _get_modal("Modals/VictoryModal")
+	var n_modal = _get_modal("Modals/NoMovesModal")
+	var t_modal = _get_modal("Modals/TutorialModal")
+	var any_open = (p_modal and p_modal.visible) or (v_modal and v_modal.visible) or (n_modal and n_modal.visible) or (t_modal and t_modal.visible)
+	if not any_open:
+		var backdrop = get_node_or_null("Modals/ModalBackdrop") as Control
+		if backdrop:
+			backdrop.hide()
+		var bv = _get_board_view()
+		if bv and is_game_active:
+			bv.is_interactive = true
+
+func _on_tutorial_closed() -> void:
+	var t_modal = _get_modal("Modals/TutorialModal")
+	_hide_modal(t_modal)
 
 # --- Button Handlers ---
 
@@ -280,6 +319,9 @@ func _on_undo_pressed() -> void:
 	var bv = _get_board_view()
 	if bv:
 		bv.undo_move()
+	var n_modal = _get_modal("Modals/NoMovesModal")
+	if n_modal and n_modal.visible:
+		_hide_modal(n_modal)
 
 func _on_hint_pressed() -> void:
 	var am = _am()
@@ -289,7 +331,7 @@ func _on_hint_pressed() -> void:
 	if bv and not bv.request_hint():
 		var n_modal = _get_modal("Modals/NoMovesModal")
 		if n_modal:
-			n_modal.show()
+			_show_modal(n_modal)
 
 func _on_shuffle_pressed() -> void:
 	var am = _am()
@@ -300,7 +342,7 @@ func _on_shuffle_pressed() -> void:
 		bv.shuffle_remaining_tiles()
 	var n_modal = _get_modal("Modals/NoMovesModal")
 	if n_modal:
-		n_modal.hide()
+		_hide_modal(n_modal)
 
 func _on_restart_pressed() -> void:
 	var am = _am()
@@ -310,19 +352,22 @@ func _on_restart_pressed() -> void:
 	moves_count = 0
 	is_game_active = true
 	var p_modal = _get_modal("Modals/PauseModal")
-	if p_modal: p_modal.hide()
+	if p_modal: _hide_modal(p_modal)
 	var v_modal = _get_modal("Modals/VictoryModal")
-	if v_modal: v_modal.hide()
+	if v_modal: _hide_modal(v_modal)
 	var n_modal = _get_modal("Modals/NoMovesModal")
-	if n_modal: n_modal.hide()
+	if n_modal: _hide_modal(n_modal)
 	var t_modal = _get_modal("Modals/TutorialModal")
-	if t_modal: t_modal.hide()
+	if t_modal: _hide_modal(t_modal)
+	var backdrop = get_node_or_null("Modals/ModalBackdrop") as Control
+	if backdrop: backdrop.hide()
 	var t_lbl = timer_label if timer_label != null else get_node_or_null("TopBar/HBox/TimerLabel") as Label
 	if t_lbl:
 		t_lbl.text = "00:00"
 	var bv = _get_board_view()
 	if bv:
 		bv.restart_level()
+		bv.is_interactive = true
 
 func _on_pause_pressed() -> void:
 	var am = _am()
@@ -331,16 +376,16 @@ func _on_pause_pressed() -> void:
 	is_game_active = false
 	var p_modal = _get_modal("Modals/PauseModal")
 	if p_modal:
-		p_modal.show()
+		_show_modal(p_modal)
 
 func _on_resume_pressed() -> void:
 	var am = _am()
 	if am:
 		am.play_sfx("button_click")
+	is_game_active = true
 	var p_modal = _get_modal("Modals/PauseModal")
 	if p_modal:
-		p_modal.hide()
-	is_game_active = true
+		_hide_modal(p_modal)
 
 func _on_guide_pressed() -> void:
 	var am = _am()
@@ -348,7 +393,7 @@ func _on_guide_pressed() -> void:
 		am.play_sfx("button_click")
 	var t_modal = _get_modal("Modals/TutorialModal")
 	if t_modal:
-		t_modal.show()
+		_show_modal(t_modal)
 		t_modal.modulate.a = 0.0
 		var tw = create_tween()
 		tw.tween_property(t_modal, "modulate:a", 1.0, 0.2)
