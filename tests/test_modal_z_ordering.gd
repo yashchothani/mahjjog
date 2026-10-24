@@ -1,12 +1,12 @@
-class_name TestModalZOrdering
-extends RefCounted
+extends SceneTree
 
 func _init() -> void:
-	var main_loop = Engine.get_main_loop()
-	if main_loop and main_loop.get_script() == null:
-		if main_loop is SceneTree:
-			run_tests(main_loop as SceneTree)
-			(main_loop as SceneTree).quit(0)
+	_run_standalone.call_deferred()
+
+func _run_standalone() -> void:
+	run_tests(self)
+	await process_frame
+	quit(0)
 
 static func run_tests(tree: SceneTree) -> void:
 	print("--- TESTING MODAL Z-ORDERING & PAUSE OVERLAY FIX ---")

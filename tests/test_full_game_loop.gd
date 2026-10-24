@@ -1,8 +1,15 @@
-class_name TestFullGameLoop
-extends RefCounted
+extends SceneTree
 
 ## Full End-to-End Game Loop Integration Debugger.
 ## Simulates a complete player session across Splash, Menu, Gameplay, Level Select, and Settings.
+
+func _init() -> void:
+	_run_standalone.call_deferred()
+
+func _run_standalone() -> void:
+	run_tests(self)
+	await process_frame
+	quit(0)
 
 static func run_tests(tree: SceneTree) -> void:
 	print("--- STARTING FULL E2E SESSION INTEGRATION TEST ---")

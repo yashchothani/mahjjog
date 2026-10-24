@@ -1,17 +1,16 @@
-class_name TestBoardLogic
-extends RefCounted
+extends SceneTree
 
 const MahjongTileData = preload("res://scripts/data/mahjong_tile_data.gd")
 const BoardLayout = preload("res://scripts/board/board_layout.gd")
 const BoardGenerator = preload("res://scripts/board/board_generator.gd")
 
 func _init() -> void:
-	# If launched standalone via godot --script
-	var main_loop = Engine.get_main_loop()
-	if main_loop and main_loop.get_script() == null:
-		run_tests()
-		if main_loop is SceneTree:
-			(main_loop as SceneTree).quit(0)
+	_run_standalone.call_deferred()
+
+func _run_standalone() -> void:
+	run_tests()
+	await process_frame
+	quit(0)
 
 static func run_tests() -> void:
 	print("--- BEGINNING MAHJONG SOLITAIRE CORE LOGIC TESTS ---")
