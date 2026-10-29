@@ -27,10 +27,19 @@ func start_daily_challenge() -> void:
 	level_started.emit(active_level_id)
 
 func return_to_main_menu() -> void:
+	var am = get_node_or_null("/root/AudioManager")
+	if am and am.has_method("play_menu_music"):
+		am.play_menu_music()
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 
 func open_level_select() -> void:
+	var am = get_node_or_null("/root/AudioManager")
+	if am and am.has_method("play_menu_music"):
+		am.play_menu_music()
 	get_tree().change_scene_to_file("res://scenes/menus/level_select.tscn")
 
 func open_settings() -> void:
+	var am = get_node_or_null("/root/AudioManager")
+	if am and am.has_method("play_menu_music"):
+		am.play_menu_music()
 	get_tree().change_scene_to_file("res://scenes/settings/settings.tscn")

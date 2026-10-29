@@ -253,15 +253,25 @@ func _gui_input(event: InputEvent) -> void:
 		tile_clicked.emit(self)
 		accept_event()
 
+var _shake_tween: Tween = null
+var _original_position_x: float = NAN
+
 func play_match_animation() -> void:
+	if _shake_tween and _shake_tween.is_valid():
+		_shake_tween.kill()
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "scale", Vector2(base_scale * 1.2, base_scale * 1.2), 0.22).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "modulate:a", 0.0, 0.22).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.chain().tween_callback(queue_free)
 
 func play_invalid_shake() -> void:
-	var orig_x = position.x
-	var tween = create_tween()
-	tween.tween_property(self, "position:x", orig_x - 5, 0.04)
-	tween.tween_property(self, "position:x", orig_x + 5, 0.04)
-	tween.tween_property(self, "position:x", orig_x, 0.04)
+	if _shake_tween and _shake_tween.is_valid():
+		_shake_tween.kill()
+		if not is_nan(_original_position_x):
+			position.x = _original_position_x
+	_original_position_x = position.x
+	_shake_tween = create_tween()
+	_shake_tween.tween_property(self, "position:x", _original_position_x - 5.0, 0.04)
+	_shake_tween.tween_property(self, "position:x", _original_position_x + 5.0, 0.04)
+	_shake_tween.tween_property(self, "position:x", _original_position_x, 0.04)
+	_shake_tween.tween_callback(func(): _original_position_x = NAN)

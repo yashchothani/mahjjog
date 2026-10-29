@@ -38,11 +38,16 @@ func _init() -> void:
 		"res://tests/test_play_level1.gd",
 		"res://tests/debug_layouts_initial_free.gd",
 		"res://tests/debug_all_scenes.gd",
+		"res://tests/debug_all_scripts.gd",
 		"res://tests/test_modal_z_ordering.gd",
 		"res://tests/test_profile_streak_features.gd",
 		"res://tests/test_all_80_levels.gd",
 		"res://tests/test_solution_paths.gd",
-		"res://tests/test_play_grandmaster.gd"
+		"res://tests/test_play_grandmaster.gd",
+		"res://tests/test_audio_assets.gd",
+		"res://tests/test_music_assets.gd",
+		"res://tests/test_music_system.gd",
+		"res://tests/test_runner.gd"
 	]
 	
 	var failed: int = 0

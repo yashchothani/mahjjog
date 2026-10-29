@@ -8,7 +8,16 @@ func _init() -> void:
 	_run_standalone.call_deferred()
 
 func _run_standalone() -> void:
+	if root.has_node("SaveManager"):
+		root.get_node("SaveManager").set_setting("sfx_muted", true)
+		root.get_node("SaveManager").set_setting("music_muted", true)
+	if root.has_node("AudioManager"):
+		root.get_node("AudioManager").stop_all()
 	run_tests(self)
+	await create_tween().tween_interval(0.3).finished
+	if root.has_node("AudioManager"):
+		root.get_node("AudioManager").stop_all()
+	await process_frame
 	await process_frame
 	quit(0)
 

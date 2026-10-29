@@ -137,6 +137,12 @@ func start_level(level_id: int) -> void:
 	if bv:
 		bv.setup_level(level_id)
 	
+	var am = _am()
+	var gm_node = _gm()
+	if am and am.has_method("play_music_for_level"):
+		var is_daily = gm_node.is_daily_challenge if gm_node else false
+		am.play_music_for_level(level_id, is_daily)
+	
 	var lm = _lm()
 	var layout_name = BoardLayout.get_layout_by_id(level_id).name
 	var l_lbl = level_label if level_label != null else get_node_or_null("TopBar/HBox/LevelTitle") as Label
@@ -301,12 +307,22 @@ func _on_board_cleared() -> void:
 			var chest_fmt = lm.get_text("VIC_CHEST_UNLOCK") if lm else "Milestone Chest: Level %d (%d/%d)"
 			chest_lbl.text = "🎁 " + (chest_fmt % [c_data["milestone_level"], c_data["current"], c_data["goal"]])
 		
+	var nxt_btn = get_node_or_null("Modals/VictoryModal/VBox/NextLevelBtn") as Button
+	if nxt_btn:
+		if lvl_id >= 80:
+			nxt_btn.text = lm.get_text("BTN_LEVEL_SELECT", "🏯 Level Selection") if lm else "🏯 Level Selection"
+		else:
+			nxt_btn.text = lm.get_text("BTN_NEXT_LEVEL", "Next Level ▶") if lm else "Next Level ▶"
+
 	var v_modal = _get_modal("Modals/VictoryModal")
 	if v_modal:
 		_show_modal(v_modal)
 		v_modal.modulate.a = 0.0
 		var tw = create_tween()
 		tw.tween_property(v_modal, "modulate:a", 1.0, 0.3)
+		var am = _am()
+		if am and am.has_method("play_victory_music"):
+			am.play_victory_music(c_data.get("is_milestone", false))
 
 func _on_no_moves_left() -> void:
 	var am = _am()
@@ -402,6 +418,11 @@ func _on_restart_pressed() -> void:
 	if bv:
 		bv.restart_level()
 		bv.is_interactive = true
+		
+	var gm_node = _gm()
+	if am and am.has_method("play_music_for_level"):
+		var is_daily = gm_node.is_daily_challenge if gm_node else false
+		am.play_music_for_level(current_level_id, is_daily)
 
 func _on_pause_pressed() -> void:
 	var am = _am()
@@ -437,7 +458,15 @@ func _on_next_level_pressed() -> void:
 	if am:
 		am.play_sfx("button_click")
 	var bv = _get_board_view()
-	var next_id = (bv.current_level_id + 1) if bv else 2
+	var current_id = bv.current_level_id if bv else 1
+	if current_id >= 80:
+		var gm = _gm()
+		if gm:
+			gm.open_level_select()
+		else:
+			get_tree().change_scene_to_file("res://scenes/menus/level_select.tscn")
+		return
+	var next_id = current_id + 1
 	var gm = _gm()
 	if gm:
 		gm.active_level_id = next_id
@@ -447,6 +476,8 @@ func _on_menu_pressed() -> void:
 	var am = _am()
 	if am:
 		am.play_sfx("button_click")
+		if am.has_method("play_menu_music"):
+			am.play_menu_music()
 	var gm = _gm()
 	if gm:
 		gm.return_to_main_menu()

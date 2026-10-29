@@ -19,6 +19,25 @@ var selected_frame_id: String = "gold"
 @onready var preview_icon: Label = %PreviewIcon
 @onready var preview_frame: Panel = %PreviewFrame
 @onready var name_input: LineEdit = %NameInput
+var name_edit: LineEdit:
+	get:
+		return name_input if is_instance_valid(name_input) else get_node_or_null("%NameInput")
+
+func _on_avatar_selected(id: int) -> void:
+	selected_avatar_id = id
+	_update_preview()
+	_refresh_avatar_grid_selection()
+
+func _on_frame_selected(id) -> void:
+	if id is int:
+		var sm = _sm()
+		var frames = sm.FRAME_DEFS if sm else []
+		if id >= 0 and id < frames.size():
+			selected_frame_id = frames[id]["id"]
+	else:
+		selected_frame_id = str(id)
+	_update_preview()
+	_refresh_frame_grid_selection()
 
 @onready var avatar_panel: Control = %AvatarPanel
 @onready var avatar_grid: GridContainer = %AvatarGrid
@@ -122,6 +141,7 @@ func _style_tab_btn(btn: Button, is_active: bool) -> void:
 func _build_avatar_grid() -> void:
 	if not avatar_grid: return
 	for child in avatar_grid.get_children():
+		avatar_grid.remove_child(child)
 		child.queue_free()
 		
 	var sm = _sm()
@@ -214,6 +234,7 @@ func _refresh_avatar_grid_selection() -> void:
 func _build_frame_grid() -> void:
 	if not frame_grid: return
 	for child in frame_grid.get_children():
+		frame_grid.remove_child(child)
 		child.queue_free()
 		
 	var sm = _sm()

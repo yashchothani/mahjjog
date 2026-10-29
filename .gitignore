@@ -8,3 +8,18 @@
 *.translation
 *.apk
 *.aab
+
+# Android build outputs & local environment
+android/build/build/
+android/build/.gradle/
+android/build/local.properties
+android/build/assetPackInstallTime/build/
+android/build/assetPackInstallTime/src/main/assets/
+
+# Keystores / Private Signing Keys
+*.keystore
+*.jks
+
+# Android binary libraries & templates
+*.aar
+android/build/libs/

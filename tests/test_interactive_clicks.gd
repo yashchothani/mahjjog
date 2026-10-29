@@ -5,6 +5,9 @@ const BoardView = preload("res://scripts/board/board_view.gd")
 const TileView = preload("res://scripts/board/tile_view.gd")
 
 func _init():
+	_run_test.call_deferred()
+
+func _run_test() -> void:
 	print("--- TESTING INTERACTIVE TILE PICKUP AND MATCH IN REAL SCENE ---")
 	if not root.has_node("SaveManager"):
 		var sm = load("res://scripts/save/save_manager.gd").new()
@@ -22,6 +25,10 @@ func _init():
 		var am = load("res://scripts/audio/audio_manager.gd").new()
 		am.name = "AudioManager"
 		root.add_child(am)
+		
+	root.get_node("SaveManager").set_setting("sfx_muted", true)
+	root.get_node("SaveManager").set_setting("music_muted", true)
+	root.get_node("AudioManager").stop_all()
 		
 	var gameplay_scene = load("res://scenes/gameplay/gameplay.tscn").instantiate()
 	root.add_child(gameplay_scene)
@@ -62,6 +69,11 @@ func _init():
 	assert(bv.moves_count == 1, "Moves count must be 1")
 	print("SUCCESS: Matching pair successfully removed! Moves: %d, Remaining tiles: %d" % [bv.moves_count, bv.active_tiles.size()])
 	
+	bv.clear_board()
+	root.remove_child(gameplay_scene)
 	gameplay_scene.queue_free()
+	root.get_node("AudioManager").stop_all()
 	print("--- INTERACTIVE PICKUP TEST PASSED 100% ---")
+	await process_frame
+	await process_frame
 	quit(0)

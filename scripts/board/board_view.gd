@@ -340,7 +340,11 @@ func shuffle_remaining_tiles() -> bool:
 
 func clear_board() -> void:
 	for tile in active_tiles.values():
-		tile.queue_free()
+		if is_instance_valid(tile):
+			tile.queue_free()
+	for child in get_children():
+		if child is TileView and is_instance_valid(child):
+			child.queue_free()
 	active_tiles.clear()
 	undo_stack.clear()
 	solution_pairs.clear()

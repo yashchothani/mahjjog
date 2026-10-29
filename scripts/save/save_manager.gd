@@ -212,6 +212,17 @@ func set_avatar_frame(val: String) -> void:
 	save_data()
 	progress_updated.emit()
 
+func get_frame_id() -> int:
+	var cur_frame = get_avatar_frame()
+	for i in range(FRAME_DEFS.size()):
+		if FRAME_DEFS[i]["id"] == cur_frame:
+			return i
+	return 0
+
+func set_frame_id(val: int) -> void:
+	var idx = clampi(val, 0, FRAME_DEFS.size() - 1)
+	set_avatar_frame(FRAME_DEFS[idx]["id"])
+
 # --- DAILY STREAK ---
 
 func get_daily_streak() -> int:
@@ -220,6 +231,13 @@ func get_daily_streak() -> int:
 func is_streak_claimed_today() -> bool:
 	var today_str = Time.get_date_string_from_system()
 	return progress.get("last_streak_claimed_date", "") == today_str
+
+func is_daily_claimed_today() -> bool:
+	return is_streak_claimed_today()
+
+func claim_daily_reward() -> bool:
+	var res = claim_daily_streak()
+	return res.get("success", false)
 
 func claim_daily_streak() -> Dictionary:
 	var today_str = Time.get_date_string_from_system()

@@ -67,6 +67,10 @@ static func run_tests(tree: SceneTree) -> void:
 	settings_scene._on_music_slider_value_changed(0.5)
 	settings_scene._on_sfx_slider_value_changed(0.7)
 	settings_scene._on_dim_check_toggled(false)
+	var sm_test = settings_scene._sm()
+	if sm_test:
+		sm_test.set_setting("sfx_muted", true)
+		sm_test.set_setting("music_muted", true)
 	print("  -> Settings slider, language option, and checkbox events tested!")
 	tree.root.remove_child(settings_scene)
 	settings_scene.free()

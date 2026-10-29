@@ -24,6 +24,10 @@ func _run_tests() -> void:
 		var am = load("res://scripts/audio/audio_manager.gd").new()
 		am.name = "AudioManager"
 		root.add_child(am)
+	if root.has_node("SaveManager"):
+		root.get_node("SaveManager").set_setting("sfx_muted", true)
+	if root.has_node("AudioManager"):
+		root.get_node("AudioManager").stop_all()
 		
 	var gameplay_scene = load("res://scenes/gameplay/gameplay.tscn").instantiate()
 	root.add_child(gameplay_scene)
@@ -65,6 +69,9 @@ func _run_tests() -> void:
 	print("SUCCESS: Tile 1 picked up via input event! Selected tile: %s" % t1.tile_data.display_name)
 	
 	gameplay_scene.queue_free()
+	if root.has_node("AudioManager"):
+		root.get_node("AudioManager").stop_all()
 	print("--- MOUSE CLICK ROUTING TEST PASSED ---")
+	await process_frame
 	await process_frame
 	quit(0)

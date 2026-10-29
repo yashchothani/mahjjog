@@ -78,6 +78,10 @@ func _ready() -> void:
 				
 	_update_ui_state()
 	
+	var am = _am()
+	if am and am.has_method("play_menu_music"):
+		am.play_menu_music()
+	
 	var lm = _lm()
 	if lm and lm.has_signal("language_changed"):
 		if not lm.language_changed.is_connected(_on_language_changed_signal):

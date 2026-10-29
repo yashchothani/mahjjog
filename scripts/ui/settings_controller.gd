@@ -30,6 +30,7 @@ extends Control
 @onready var profile_modal: Control = $Modals/ProfileModal
 
 var _languages_data: Array[Dictionary] = []
+var _is_initializing: bool = true
 
 func _get_autoload(autoload_name: String) -> Node:
 	var tree = Engine.get_main_loop() as SceneTree
@@ -63,6 +64,7 @@ func _lm() -> Node:
 	return null
 
 func _ready() -> void:
+	_is_initializing = true
 	var sm = _sm()
 	var m_sl = music_slider if music_slider != null else get_node_or_null("CenterContainer/Panel/VBox/AudioBox/MusicSlider") as HSlider
 	var s_sl = sfx_slider if sfx_slider != null else get_node_or_null("CenterContainer/Panel/VBox/AudioBox/SFXSlider") as HSlider
@@ -90,6 +92,12 @@ func _ready() -> void:
 	if profile_modal and profile_modal.has_signal("profile_saved"):
 		if not profile_modal.profile_saved.is_connected(_on_profile_saved):
 			profile_modal.profile_saved.connect(_on_profile_saved)
+			
+	var am = _am()
+	if am and am.has_method("play_menu_music") and am.get_current_music_track().is_empty():
+		am.play_menu_music()
+		
+	_is_initializing = false
 
 func _update_profile_preview() -> void:
 	var sm = _sm()
@@ -223,25 +231,43 @@ func _on_language_selected(index: int) -> void:
 		if lm: lm.set_language(target_code)
 
 func _on_music_slider_value_changed(value: float) -> void:
+	if _is_initializing:
+		return
 	var sm = _sm()
-	if sm: sm.set_setting("music_volume", value)
+	if sm:
+		sm.set_setting("music_volume", value)
+		if value > 0.01 and sm.get_setting("music_muted", false):
+			sm.set_setting("music_muted", false)
+			_update_toggle_states()
 
 func _on_sfx_slider_value_changed(value: float) -> void:
+	if _is_initializing:
+		return
 	var sm = _sm()
-	if sm: sm.set_setting("sfx_volume", value)
+	if sm:
+		sm.set_setting("sfx_volume", value)
+		if value > 0.01 and sm.get_setting("sfx_muted", false):
+			sm.set_setting("sfx_muted", false)
+			_update_toggle_states()
 
 func _on_sfx_drag_ended(value_changed: bool) -> void:
+	if _is_initializing:
+		return
 	if value_changed:
 		var am = _am()
 		if am: am.play_sfx("tile_click")
 
 func _on_dim_check_toggled(toggled_on: bool) -> void:
+	if _is_initializing:
+		return
 	var am = _am()
 	if am: am.play_sfx("button_click")
 	var sm = _sm()
 	if sm: sm.set_setting("dim_blocked_tiles", toggled_on)
 
 func _on_haptic_check_toggled(toggled_on: bool) -> void:
+	if _is_initializing:
+		return
 	var am = _am()
 	if am: am.play_sfx("button_click")
 	var sm = _sm()
@@ -250,6 +276,8 @@ func _on_haptic_check_toggled(toggled_on: bool) -> void:
 		_update_toggle_states()
 
 func _on_motion_check_toggled(toggled_on: bool) -> void:
+	if _is_initializing:
+		return
 	var am = _am()
 	if am: am.play_sfx("button_click")
 	var sm = _sm()

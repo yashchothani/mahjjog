@@ -12,6 +12,9 @@ signal reward_claimed(hints_awarded: int)
 @onready var title_label: Label = %TitleLabel
 @onready var subtitle_label: Label = %SubtitleLabel
 @onready var track_container: HBoxContainer = %TrackContainer
+var days_grid: Control:
+	get:
+		return track_container if is_instance_valid(track_container) else get_node_or_null("%TrackContainer")
 @onready var reward_desc_label: Label = %RewardDescLabel
 @onready var claim_btn: Button = %ClaimBtn
 
@@ -54,6 +57,7 @@ func refresh_streak_ui() -> void:
 	# Populate 7-day nodes
 	if track_container:
 		for child in track_container.get_children():
+			track_container.remove_child(child)
 			child.queue_free()
 			
 		for d in range(1, 8):

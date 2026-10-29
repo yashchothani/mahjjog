@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://jvie2ip8gm62"
+path="res://.godot/imported/Board Cleared Flourish.mp3-f7b2972435bf66bc929498d3663e26d9.mp3str"
+
+[deps]
+
+source_file="res://music/Board Cleared Flourish.mp3"
+dest_files=["res://.godot/imported/Board Cleared Flourish.mp3-f7b2972435bf66bc929498d3663e26d9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
