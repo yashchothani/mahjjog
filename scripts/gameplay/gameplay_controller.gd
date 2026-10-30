@@ -266,6 +266,10 @@ func _on_board_cleared() -> void:
 	if sm and bv:
 		sm.record_level_completion(lvl_id, elapsed_time, moves_count, stars)
 		
+	var ads = get_node_or_null("/root/AdsManager")
+	if ads and ads.has_method("record_level_cleared_for_ads"):
+		ads.record_level_cleared_for_ads()
+		
 	# Populate Percentile Ranking & Social Comparison
 	var p_title_lbl = get_node_or_null("Modals/VictoryModal/VBox/PercentileCard/PVBox/PercentileTitle") as Label
 	var p_score_lbl = get_node_or_null("Modals/VictoryModal/VBox/PercentileCard/PVBox/PercentileScore") as Label
@@ -384,6 +388,25 @@ func _on_hint_pressed() -> void:
 	var am = _am()
 	if am:
 		am.play_sfx("button_click")
+	var sm = _sm()
+	var hints_left = sm.progress.get("hints_remaining", 5) if sm else 5
+	if hints_left <= 0:
+		var ads = get_node_or_null("/root/AdsManager")
+		if ads:
+			ads.show_rewarded_for_hints(func(type: String, amount: int):
+				if sm:
+					sm.progress["hints_remaining"] = int(sm.progress.get("hints_remaining", 0)) + amount
+					sm.save_data()
+				_apply_hint_on_board()
+			)
+			return
+			
+	if sm:
+		sm.progress["hints_remaining"] = hints_left - 1
+		sm.save_data()
+	_apply_hint_on_board()
+
+func _apply_hint_on_board() -> void:
 	var bv = _get_board_view()
 	if bv and not bv.request_hint():
 		var n_modal = _get_modal("Modals/NoMovesModal")

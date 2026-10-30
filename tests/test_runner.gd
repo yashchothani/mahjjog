@@ -13,6 +13,7 @@ const TestResponsiveLayouts = preload("res://tests/test_responsive_layouts.gd")
 const TestModalZOrdering = preload("res://tests/test_modal_z_ordering.gd")
 const TestProfileStreakFeatures = preload("res://tests/test_profile_streak_features.gd")
 const TestMusicSystem = preload("res://tests/test_music_system.gd")
+const TestAdsManager = preload("res://tests/test_ads_manager.gd")
 
 func _init() -> void:
 	_run_all.call_deferred()
@@ -39,6 +40,10 @@ func _run_all() -> void:
 		var am = load("res://scripts/audio/audio_manager.gd").new()
 		am.name = "AudioManager"
 		root.add_child(am)
+	if not root.has_node("AdsManager"):
+		var adm = load("res://scripts/ads/ads_manager.gd").new()
+		adm.name = "AdsManager"
+		root.add_child(adm)
 
 	root.get_node("SaveManager").set_setting("sfx_muted", true)
 	root.get_node("SaveManager").set_setting("music_muted", true)
@@ -70,6 +75,7 @@ func _run_all() -> void:
 	TestResponsiveLayouts.run_tests(self)
 	await TestProfileStreakFeatures.run_tests(self)
 	await TestMusicSystem.run_tests(self)
+	TestAdsManager.run_tests(self)
 	
 	print("====================================================")
 	print(" [PASS] 1. Coordinate geometry and overlap detection")
@@ -92,8 +98,9 @@ func _run_all() -> void:
 	print(" [PASS] 18. Responsive mobile & tablet layouts       ")
 	print(" [PASS] 19. Profile, Streaks, Toggles & Percentiles  ")
 	print(" [PASS] 20. BGM Playback, Tier Mapping & Crossfading ")
+	print(" [PASS] 21. Google AdMob (Banner, Interstitial, Reward)")
 	print("====================================================")
-	print(" ALL 20 TEST SUITES PASSED (100% COVERAGE, 0 LEAKS)  ")
+	print(" ALL 21 TEST SUITES PASSED (100% COVERAGE, 0 LEAKS)  ")
 	print("====================================================")
 	if root.has_node("AudioManager"):
 		root.get_node("AudioManager").stop_all()

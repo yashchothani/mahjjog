@@ -32,9 +32,13 @@ package com.godot.game;
 
 import org.godotengine.godot.Godot;
 import org.godotengine.godot.GodotActivity;
+import org.godotengine.godot.plugin.GodotPlugin;
 
 import android.os.Bundle;
 import android.util.Log;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.splashscreen.SplashScreen;
@@ -96,6 +100,17 @@ public class GodotApp extends GodotActivity {
 			// successfully, otherwise they fail when the process crashes.
 			super.onGodotForceQuit(instance);
 		}
+	}
+
+	@Override
+	public Set<GodotPlugin> getHostPlugins(Godot godot) {
+		Set<GodotPlugin> hostPlugins = super.getHostPlugins(godot);
+		Set<GodotPlugin> result = new HashSet<>();
+		if (hostPlugins != null) {
+			result.addAll(hostPlugins);
+		}
+		result.add(new AdMobPlugin(godot));
+		return result;
 	}
 
 	@Override
