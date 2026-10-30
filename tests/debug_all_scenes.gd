@@ -25,6 +25,10 @@ func _init():
 		var am = load("res://scripts/audio/audio_manager.gd").new()
 		am.name = "AudioManager"
 		root.add_child(am)
+	if not root.has_node("AdsManager"):
+		var adm = load("res://scripts/ads/ads_manager.gd").new()
+		adm.name = "AdsManager"
+		root.add_child(adm)
 	
 	var scenes_to_test = [
 		"res://scenes/boot/splash.tscn",
