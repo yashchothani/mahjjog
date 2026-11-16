@@ -1,6 +1,6 @@
 # Privacy Policy for Zen Mahjong Solitaire
 
-**Last Updated:** October 29, 2026
+**Last Updated:** November 16, 2026
 
 This Privacy Policy describes how **Zen Mahjong Solitaire** ("the App", "we", "our", or "us"), package name `com.zenmahjong.game`, handles user information.
 
@@ -8,80 +8,95 @@ This Privacy Policy describes how **Zen Mahjong Solitaire** ("the App", "we", "o
 
 ## 1. Summary
 
-**Zen Mahjong Solitaire** is built as an offline, single-player puzzle game. 
+**Zen Mahjong Solitaire** is a single-player puzzle game. We respect your privacy and believe in total transparency:
 
-* **We do not collect, transmit, sell, or share any personal information.**
-* **We do not use advertising networks or user tracking SDKs.**
-* **We do not require account registration or social logins.**
-* **All game saves, preferences, and progress remain 100% on your device.**
-
----
-
-## 2. Information We Collect
-
-### A. Personal Data
-We do **not** collect any personally identifiable information (such as your name, email address, physical address, phone number, location, or IP address).
-
-### B. Device & Hardware Data
-The App does **not** collect hardware identifiers, IMEI numbers, advertising IDs (GAID), or biometric data.
-
-### C. Game Progress & Local Data Storage
-The App saves your gameplay data strictly on your local device's internal application storage:
-* Level progression (levels unlocked, stars earned, best times, move counts)
-* Local player customization (nickname, chosen avatar icon, and frame border)
-* Audio preferences (music volume, sound effects volume, mute toggles)
-* Accessibility options (reduced motion, dimmed blocked tiles)
-* Daily login streak counters
-
-This data is stored solely in a local configuration file on your device and is never uploaded to any remote server or third party. You can delete this data at any time by clearing the App's storage in your device settings or by uninstalling the App.
+* **No Account Required:** You do not need to register, create an account, or log in with social media.
+* **Local Game Data:** All game progress, level scores, stars, player customization (nickname, avatar, frame), and settings remain 100% on your device.
+* **Third-Party Advertising:** The App integrates Google AdMob (Google Mobile Ads SDK) to serve banner, interstitial, and rewarded video ads to support ongoing development.
+* **No Direct Personal Data Collection:** We do not collect or store your name, email address, physical address, contacts, or GPS location.
 
 ---
 
-## 3. Third-Party Services & SDKs
+## 2. Information We Process
 
-* **No Analytics:** We do not embed Google Analytics, Firebase Analytics, or any third-party behavioral trackers.
-* **No Advertisements:** The App contains no banner ads, interstitial ads, rewarded video ads, or ad tracking SDKs.
-* **No In-App Purchases:** There are no in-app billing libraries or payment processors integrated into the game.
+### A. Local Gameplay Data (Stored on Your Device Only)
+All gameplay information is saved exclusively on your device's private sandboxed internal storage (`user://zen_mahjong_save.json`):
+* Level completion records, stars earned, best times, and move counts
+* Player profile customization (chosen nickname, avatar icon, frame border)
+* Audio preferences and accessibility settings
+* Daily login streak and reward progress
+
+This data is never transmitted to our servers or sold to any third party. You can delete this data at any time by clearing the App's storage in your Android settings or by uninstalling the App.
+
+### B. Advertising & Technical Identifiers (Processed by Google AdMob)
+To deliver advertisements (banner ads, occasional interstitial ads between levels, and optional rewarded hints), the App incorporates the **Google Mobile Ads (AdMob) SDK**.
+
+When interacting with ads, Google AdMob may automatically collect and process certain pseudonymous technical data:
+* **Device Identifiers:** Android Advertising ID (`com.google.android.gms.permission.AD_ID`), IP address (used to infer coarse country/city level location), and standard network/device properties (device model, operating system version).
+* **Ad Interaction Data:** Ad viewability, clicks, impressions, and diagnostic/load performance metrics.
+
+For details on how Google collects, uses, and protects your information, please review:
+* [Google Privacy Policy](https://policies.google.com/privacy)
+* [How Google uses information from sites or apps that use our services](https://policies.google.com/technologies/partner-sites)
+* [Google Advertising Technologies](https://policies.google.com/technologies/ads)
+
+---
+
+## 3. Managing Your Advertising Preferences & Opting Out
+
+You have full control over personalized advertising on your Android device:
+1. Open your Android device **Settings**.
+2. Tap **Google** (or **Privacy** ➔ **Ads**).
+3. Tap **Ads**.
+4. Select **Reset advertising ID** or **Delete advertising ID**.
+
+When deleted or reset, Google AdMob will no longer be able to serve personalized ads based on your advertising identifier.
 
 ---
 
 ## 4. Permissions
 
-The App requests **no sensitive device permissions**. Specifically, the App does NOT request:
-* Camera or microphone access
-* Precise or approximate geographic location
-* Contacts, call logs, or SMS
-* External storage or photo library access
+The App requests only the technical permissions necessary to deliver ads and core gameplay:
+* `android.permission.INTERNET` — Required to communicate with Google AdMob servers to request and load ads.
+* `android.permission.ACCESS_NETWORK_STATE` — Enables the app to check whether an active internet connection is available before requesting an ad.
+* `com.google.android.gms.permission.AD_ID` — Allows the Google Mobile Ads SDK to use the standard Android Advertising ID for frequency capping, ad measurement, and anti-fraud verification.
+
+The App requests **NO sensitive permissions**, including:
+* No Camera or Microphone access
+* No Precise GPS Location
+* No Contacts, Phone, or SMS access
+* No External Storage or Photos access
 
 ---
 
 ## 5. Children's Privacy (COPPA & GDPR-K Compliance)
 
-Because the App does not collect any personal data from any user, it is fully compliant with the Children's Online Privacy Protection Act (COPPA) and the General Data Protection Regulation (GDPR). We do not knowingly collect personal information from children under the age of 13 (or under 16 in the European Union).
+Zen Mahjong Solitaire is designed for general audiences and casual puzzle players. We do not knowingly collect personally identifiable information from children under the age of 13 (or under 16 in the European Union). Google AdMob requests are configured to respect applicable child privacy standards and regulations.
 
 ---
 
 ## 6. Data Retention and Deletion
 
-All game data is stored exclusively on your device. To delete all saved data:
-1. Open your Android device **Settings**.
-2. Go to **Apps & notifications** ➔ **Zen Mahjong**.
+Because all game progression and user preferences reside exclusively on your local device:
+1. Go to your device **Settings**.
+2. Select **Apps & notifications** ➔ **Zen Mahjong**.
 3. Select **Storage & cache** ➔ **Clear Storage**.
-Alternatively, uninstalling the App will automatically remove all local data.
+
+Alternatively, uninstalling the App immediately and permanently erases all locally saved game files.
 
 ---
 
 ## 7. Changes to This Privacy Policy
 
-We may update our Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date.
+We may update this Privacy Policy periodically to reflect app updates or regulatory changes. Any modifications will be posted here with an updated "Last Updated" date.
 
 ---
 
 ## 8. Contact Us
 
-If you have any questions or suggestions regarding this Privacy Policy, please contact us at:
+If you have any questions, feedback, or concerns regarding this Privacy Policy, please contact us:
 
 * **Developer:** Yash Chothani
 * **Application:** Zen Mahjong Solitaire (`com.zenmahjong.game`)
-* **Email:** support@zenmahjong.com *(or your developer email address)*
+* **Email:** support@zenmahjong.com
 * **Repository:** [https://github.com/yashchothani/mahjjog](https://github.com/yashchothani/mahjjog)
