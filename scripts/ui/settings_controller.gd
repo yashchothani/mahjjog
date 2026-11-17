@@ -25,6 +25,7 @@ extends Control
 @onready var dim_check: CheckBox = $CenterContainer/Panel/VBox/AccessBox/DimCheck
 @onready var haptic_check: CheckBox = $CenterContainer/Panel/VBox/AccessBox/HapticCheck
 @onready var motion_check: CheckBox = $CenterContainer/Panel/VBox/AccessBox/MotionCheck
+@onready var privacy_btn: Button = $CenterContainer/Panel/VBox/PrivacyBtn
 @onready var back_btn: Button = $CenterContainer/Panel/VBox/BackBtn
 
 @onready var profile_modal: Control = $Modals/ProfileModal
@@ -127,6 +128,13 @@ func _update_toggle_states() -> void:
 		haptic_toggle_btn.text = "📴" if not haptic_on else "📳"
 		haptic_toggle_btn.modulate = Color(0.8, 0.4, 0.4) if not haptic_on else Color(1, 1, 1)
 
+func _exit_tree() -> void:
+	var lm = _lm()
+	if lm and lm.has_signal("language_changed") and lm.language_changed.is_connected(_on_language_changed_signal):
+		lm.language_changed.disconnect(_on_language_changed_signal)
+	if profile_modal and profile_modal.has_signal("profile_saved") and profile_modal.profile_saved.is_connected(_on_profile_saved):
+		profile_modal.profile_saved.disconnect(_on_profile_saved)
+
 func _setup_language_options() -> void:
 	var lang_opt = language_option if language_option != null else get_node_or_null("CenterContainer/Panel/VBox/LanguageBox/LanguageOption") as OptionButton
 	if not lang_opt:
@@ -172,6 +180,9 @@ func _update_localized_texts() -> void:
 	
 	var mo_ck = motion_check if motion_check != null else get_node_or_null("CenterContainer/Panel/VBox/AccessBox/MotionCheck") as CheckBox
 	if mo_ck: mo_ck.text = lm.get_text("REDUCED_MOTION", "Reduced motion (softer transitions)")
+	
+	var p_btn = privacy_btn if privacy_btn != null else get_node_or_null("CenterContainer/Panel/VBox/PrivacyBtn") as Button
+	if p_btn: p_btn.text = lm.get_text("BTN_PRIVACY_POLICY", "📜  Privacy Policy")
 	
 	var b_btn = back_btn if back_btn != null else get_node_or_null("CenterContainer/Panel/VBox/BackBtn") as Button
 	if b_btn: b_btn.text = lm.get_text("BTN_BACK_MENU", "◀ Return to Main Menu")
@@ -282,6 +293,11 @@ func _on_motion_check_toggled(toggled_on: bool) -> void:
 	if am: am.play_sfx("button_click")
 	var sm = _sm()
 	if sm: sm.set_setting("reduced_motion", toggled_on)
+
+func _on_privacy_pressed() -> void:
+	var am = _am()
+	if am: am.play_sfx("button_click")
+	OS.shell_open("https://yashchothani.github.io/mahjjog/privacy_policy.html")
 
 func _on_back_pressed() -> void:
 	var am = _am()

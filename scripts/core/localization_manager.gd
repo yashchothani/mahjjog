@@ -41,6 +41,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "Enable haptic feedback on touch",
 		"REDUCED_MOTION": "Reduced motion (softer transitions)",
 		"BTN_BACK_MENU": "◀ Return to Main Menu",
+		"BTN_PRIVACY_POLICY": "📜  Privacy Policy",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "Select Garden Level",
@@ -180,6 +181,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "开启轻触振动反馈",
 		"REDUCED_MOTION": "减少动画过渡 (柔和模式)",
 		"BTN_BACK_MENU": "◀ 返回主菜单",
+		"BTN_PRIVACY_POLICY": "📜  隐私政策",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "选择禅意庭院关卡",
@@ -319,6 +321,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "タップ時の振動フィードバック",
 		"REDUCED_MOTION": "アニメーション軽減 (ソフトモード)",
 		"BTN_BACK_MENU": "◀ メインメニューに戻る",
+		"BTN_PRIVACY_POLICY": "📜  プライバシーポリシー",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "庭園レベル選択",
@@ -458,6 +461,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "Vibración háptica al pulsar",
 		"REDUCED_MOTION": "Movimiento reducido (transiciones suaves)",
 		"BTN_BACK_MENU": "◀ Volver al Menú Principal",
+		"BTN_PRIVACY_POLICY": "📜  Política de privacidad",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "Selecciona un Nivel del Jardín",
@@ -597,6 +601,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "Retour haptique tactile",
 		"REDUCED_MOTION": "Mouvements réduits (transitions douces)",
 		"BTN_BACK_MENU": "◀ Retour au Menu Principal",
+		"BTN_PRIVACY_POLICY": "📜  Politique de confidentialité",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "Sélectionnez un Jardin",
@@ -736,6 +741,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "Haptisches Feedback bei Berührung",
 		"REDUCED_MOTION": "Reduzierte Bewegung (sanfte Übergänge)",
 		"BTN_BACK_MENU": "◀ Zurück zum Hauptmenü",
+		"BTN_PRIVACY_POLICY": "📜  Datenschutzrichtlinie",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "Garten-Level auswählen",
@@ -875,6 +881,7 @@ const STRINGS: Dictionary = {
 		"HAPTIC_FEEDBACK": "स्पर्श पर कंपन (हैप्टिक)",
 		"REDUCED_MOTION": "धीमी गति (कोमल बदलाव)",
 		"BTN_BACK_MENU": "◀ मुख्य मेनू पर लौटें",
+		"BTN_PRIVACY_POLICY": "📜  गोपनीयता नीति",
 
 		# Level Selection
 		"LEVEL_SELECT_TITLE": "उद्यान स्तर चुनें",

@@ -86,17 +86,23 @@ Alternatively, uninstalling the App immediately and permanently erases all local
 
 ---
 
-## 7. Changes to This Privacy Policy
+## 7. In-App Access & Transparency
+
+This Privacy Policy is accessible at any time from within the game via the **Settings ➔ Privacy Policy** button, as well as on our public store listing on Google Play.
+
+---
+
+## 8. Changes to This Privacy Policy
 
 We may update this Privacy Policy periodically to reflect app updates or regulatory changes. Any modifications will be posted here with an updated "Last Updated" date.
 
 ---
 
-## 8. Contact Us
+## 9. Contact Us
 
 If you have any questions, feedback, or concerns regarding this Privacy Policy, please contact us:
 
-* **Developer:** Yash Chothani
+* **Developer:** Yashkumar Dayabhai Chothani (Yash Chothani)
 * **Application:** Zen Mahjong Solitaire (`com.zenmahjong.game`)
-* **Email:** support@zenmahjong.com
+* **Email:** chothaniyashkumar@gmail.com / support@zenmahjong.com
 * **Repository:** [https://github.com/yashchothani/mahjjog](https://github.com/yashchothani/mahjjog)
